@@ -1,98 +1,125 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import { useRouter } from "expo-router";
+import { Image } from "expo-image";
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const router = useRouter();
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Deritiva</Text>
+        <Text style={styles.subtitle}>
+          Aprender pode ser mais leve.
+        </Text>
+      </View>
+
+      {/* Logo / Ilustração */}
+      <Image
+        source={require("../../assets/images/icon.png")}
+        style={styles.logo}
+        contentFit="contain"
+      />
+
+      {/* Cards de ações */}
+      <View style={styles.cards}>
+
+        <Pressable
+          style={styles.card}
+          onPress={() => router.push("/(tabs)/explore")}
+        >
+          <Text style={styles.cardTitle}>🧠 Exercícios</Text>
+          <Text style={styles.cardText}>
+            Treine leitura e atenção com atividades guiadas.
+          </Text>
+        </Pressable>
+
+        <Pressable style={styles.card}>
+          <Text style={styles.cardTitle}>📖 Leitura Assistida</Text>
+          <Text style={styles.cardText}>
+            Textos com apoio visual e leitura simplificada.
+          </Text>
+        </Pressable>
+
+        <Pressable style={styles.card}>
+          <Text style={styles.cardTitle}>📊 Progresso</Text>
+          <Text style={styles.cardText}>
+            Veja sua evolução ao longo do tempo.
+          </Text>
+        </Pressable>
+
+      </View>
+
+      {/* Footer */}
+      <Text style={styles.footer}>
+        Feito com 💙 para inclusão e aprendizado
+      </Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#F7FAFF",
+    padding: 20,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+
+  header: {
+    marginTop: 40,
+    marginBottom: 20,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+
+  title: {
+    fontSize: 34,
+    fontWeight: "bold",
+    color: "#1E3A8A",
+  },
+
+  subtitle: {
+    fontSize: 16,
+    color: "#4B5563",
+    marginTop: 6,
+  },
+
+  logo: {
+    width: 140,
+    height: 140,
+    alignSelf: "center",
+    marginVertical: 20,
+  },
+
+  cards: {
+    gap: 14,
+    marginTop: 10,
+  },
+
+  card: {
+    backgroundColor: "#FFFFFF",
+    padding: 18,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+  },
+
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#111827",
+    marginBottom: 6,
+  },
+
+  cardText: {
+    fontSize: 14,
+    color: "#6B7280",
+    lineHeight: 20,
+  },
+
+  footer: {
+    marginTop: 30,
+    textAlign: "center",
+    color: "#9CA3AF",
+    fontSize: 12,
   },
 });
