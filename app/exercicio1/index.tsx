@@ -10,24 +10,9 @@ const levels = [
     unlocked: true,
     progress: 1,
     exercises: [
-      { 
-        id: "silaba-faltante", 
-        title: "Sílaba faltante", 
-        subtitle: "Encontre a sílaba que falta", 
-        route: "silaba-faltante" 
-      },
-      { 
-        id: "formando-a-palavra", 
-        title: "Formando a palavra", 
-        subtitle: "Monte a palavra certa", 
-        route: "formando-a-palavra" 
-      },
-      { 
-        id: "em-breve-1", 
-        title: "Em breve", 
-        subtitle: "Novo desafio logo abaixo", 
-        route: "em-breve" 
-      },
+      { id: "silaba-faltante", title: "Sílaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
+      { id: "formando-a-palavra", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
+      { id: "em-breve-1", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
     ],
   },
   {
@@ -37,24 +22,9 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { 
-        id: "silaba-faltante-2", 
-        title: "Sílaba faltante", 
-        subtitle: "Encontre a sílaba que falta", 
-        route: "silaba-faltante" 
-      },
-      { 
-        id: "formando-a-palavra-2", 
-        title: "Formando a palavra", 
-        subtitle: "Monte a palavra certa", 
-        route: "formando-a-palavra" 
-      },
-      { 
-        id: "em-breve-2", 
-        title: "Em breve", 
-        subtitle: "Novo desafio logo abaixo", 
-        route: "em-breve" 
-      },
+      { id: "silaba-faltante-2", title: "Sílaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
+      { id: "formando-a-palavra-2", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
+      { id: "em-breve-2", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
     ],
   },
   {
@@ -64,24 +34,9 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { 
-        id: "silaba-faltante-3", 
-        title: "Sílaba faltante", 
-        subtitle: "Encontre a sílaba que falta", 
-        route: "silaba-faltante" 
-      },
-      { 
-        id: "formando-a-palavra-3", 
-        title: "Formando a palavra", 
-        subtitle: "Monte a palavra certa", 
-        route: "formando-a-palavra" 
-      },
-      { 
-        id: "em-breve-3", 
-        title: "Em breve", 
-        subtitle: "Novo desafio logo abaixo", 
-        route: "em-breve" 
-      },
+      { id: "silaba-faltante-3", title: "Sílaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
+      { id: "formando-a-palavra-3", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
+      { id: "em-breve-3", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
     ],
   },
   {
@@ -91,24 +46,9 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { 
-        id: "silaba-faltante-4", 
-        title: "Sílaba faltante", 
-        subtitle: "Encontre a sílaba que falta", 
-        route: "silaba-faltante" 
-      },
-      { 
-        id: "formando-a-palavra-4", 
-        title: "Formando a palavra", 
-        subtitle: "Monte a palavra certa", 
-        route: "formando-a-palavra" 
-      },
-      { 
-        id: "em-breve-4", 
-        title: "Em breve", 
-        subtitle: "Novo desafio logo abaixo", 
-        route: "em-breve" 
-      },
+      { id: "silaba-faltante-4", title: "Sílaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
+      { id: "formando-a-palavra-4", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
+      { id: "em-breve-4", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
     ],
   },
   {
@@ -118,24 +58,9 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { 
-        id: "silaba-faltante-5", 
-        title: "Sílaba faltante", 
-        subtitle: "Encontre a sílaba que falta", 
-        route: "silaba-faltante" 
-      },
-      { 
-        id: "formando-a-palavra-5", 
-        title: "Formando a palavra", 
-        subtitle: "Monte a palavra certa", 
-        route: "formando-a-palavra" 
-      },
-      { 
-        id: "em-breve-5", 
-        title: "Em breve", 
-        subtitle: "Novo desafio logo abaixo", 
-        route: "em-breve" 
-      },
+      { id: "silaba-faltante-5", title: "Sílaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
+      { id: "formando-a-palavra-5", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
+      { id: "em-breve-5", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
     ],
   },
 ];
@@ -144,15 +69,11 @@ export default function ExerciseLevelsScreen() {
   const router = useRouter();
 
   const handleExercisePress = (exercise: any, levelId: number) => {
-    // Verifica se é o exercício "em breve"
     if (exercise.route === "em-breve") {
-      router.push({
-        pathname: "/exercicios/em-breve",
-      });
+      router.push("/exercicios/em-breve");
       return;
     }
 
-    // Redireciona para o exercício específico com o nível
     router.push({
       pathname: `/exercicios/${exercise.route}/[level]`,
       params: { 
@@ -171,6 +92,23 @@ export default function ExerciseLevelsScreen() {
         </Pressable>
         <Text style={styles.title}>Trilha de desafios</Text>
         <Text style={styles.subtitle}>Cada etapa da trilha revela um novo desafio e um pouco mais de caminho.</Text>
+      </View>
+
+
+      <View style={styles.navButtons}>
+        <Pressable 
+          style={styles.navButton} 
+          onPress={() => router.push("/tutorial" as never)}
+        >
+          <Text style={styles.navButtonText}>Tutorial</Text>
+        </Pressable>
+
+        <Pressable 
+          style={styles.navButton} 
+          onPress={() => router.push("/explore" as never)}
+        >
+          <Text style={styles.navButtonText}> Minhas Conquistas</Text>
+        </Pressable>
       </View>
 
       <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
@@ -253,7 +191,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   header: {
-    marginBottom: 16,
+    marginBottom: 12,
   },
   backButton: {
     alignSelf: "flex-start",
@@ -271,12 +209,33 @@ const styles = StyleSheet.create({
     color: "#ffd54f",
     fontSize: 26,
     fontWeight: "900",
-    marginBottom: 6,
+    marginBottom: 4,
   },
   subtitle: {
     color: "#f6ebff",
     fontSize: 14,
     lineHeight: 20,
+  },
+  // NOVOS ESTILOS PARA OS BOTÕES DE NAVEGAÇÃO
+  navButtons: {
+    flexDirection: "row",
+    gap: 10,
+    marginBottom: 16,
+  },
+  navButton: {
+    flex: 1,
+    backgroundColor: "rgba(255,255,255,0.12)",
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.2)",
+    alignItems: "center",
+  },
+  navButtonText: {
+    color: "#ffffff",
+    fontSize: 14,
+    fontWeight: "600",
   },
   list: {
     gap: 14,

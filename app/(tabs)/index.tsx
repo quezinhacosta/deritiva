@@ -55,10 +55,6 @@ export default function HomeScreen() {
           onPress={() => router.push("/exercicio1" as never)}
         />
 
-        <AnimatedButton
-          title="Minhas Conquistas"
-          onPress={() => router.push("/explore")}
-        />
       </View>
     </View>
   );
