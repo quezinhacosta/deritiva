@@ -10,38 +10,46 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
   },
 
-  bubble1: {
-    position: "absolute",
-    width: 220,
-    height: 220,
-    borderRadius: 110,
-    backgroundColor: "#ffcf4d",
-    opacity: 0.16,
-    top: -40,
-    right: -60,
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    zIndex: 1,
   },
 
-  bubble2: {
+  /* ===== LETRAS ANIMADAS ===== */
+
+  floatingLetter: {
     position: "absolute",
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    backgroundColor: "#ffffff",
-    opacity: 0.1,
-    bottom: 90,
-    left: -40,
+    fontSize: 38,
+    fontWeight: "900",
+    color: "#ffd54f",
+    opacity: 0.6,
+    textShadowColor: "rgba(255, 213, 79, 0.25)",
+    textShadowOffset: { width: 0, height: 3 },
+    textShadowRadius: 6,
   },
 
-  bubble3: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: "#ff8a3d",
-    opacity: 0.2,
-    top: 260,
-    right: 20,
+  letterD: {
+    top: "12%",
+    left: "8%",
   },
+
+  letterE: {
+    top: "28%",
+    right: "10%",
+  },
+
+  letterR: {
+    bottom: "18%",
+    left: "12%",
+  },
+
+  letterI: {
+    bottom: "8%",
+    right: "18%",
+  },
+
+  /* ===== TÍTULOS ===== */
 
   title: {
     fontSize: 40,
@@ -53,31 +61,12 @@ export const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: "#f8f2ff",
+    color: "#f6ebff",
     fontSize: 18,
     fontWeight: "600",
     textAlign: "center",
     lineHeight: 26,
-    letterSpacing: 0.3,
     marginBottom: 24,
-  },
-
-  mascotCard: {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: 24,
-    padding: 18,
-    marginBottom: 24,
-    borderWidth: 1.5,
-    borderColor: "#ffd54f",
-  },
-
-  mascotText: {
-    fontSize: 18,
-    color: "#ffffff",
-    textAlign: "center",
-    lineHeight: 28,
-    fontWeight: "600",
-    letterSpacing: 0.2,
   },
 
   button: {
@@ -87,27 +76,32 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
     backgroundColor: "#ffffff",
-    paddingHorizontal: 20,
-    shadowColor: "#000000",
-    shadowOpacity: 0.18,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: "rgba(52, 30, 66, 0.16)",
+    boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.12)",
+    elevation: 4,
+    transform: [{ scale: 1 }],
   },
 
   buttonText: {
-    color: "#1f1a24",
+    color: "#341e42",
     fontSize: 18,
     fontWeight: "800",
-    letterSpacing: 0.5,
+    letterSpacing: 0.4,
   },
+
+
+  buttonPressed: {
+    transform: [{ scale: 0.96 }],
+    opacity: 0.9,
+  },
+
 
   footer: {
     marginTop: 20,
     textAlign: "center",
-    color: "#e9dff5",
+    color: "#666666",
     fontSize: 14,
-    fontWeight: "600",
-    letterSpacing: 0.3,
+    fontWeight: "500",
   },
 });

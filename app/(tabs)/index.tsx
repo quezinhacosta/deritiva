@@ -1,37 +1,66 @@
 import { View, Text, Pressable } from "react-native";
 import { useRouter } from "expo-router";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
+import AnimatedBackground from "../../components/AnimatedBackground";
 import { styles } from "../../styles/homestyles";
+
+function AnimatedButton({
+  title,
+  onPress,
+}: {
+  title: string;
+  onPress: () => void;
+}) {
+  const scale = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <Pressable
+      onPress={onPress}
+      onPressIn={() => (scale.value = withSpring(0.95))}
+      onPressOut={() => (scale.value = withSpring(1))}
+    >
+      <Animated.View style={[styles.button, animatedStyle]}>
+        <Text style={styles.buttonText}>{title}</Text>
+      </Animated.View>
+    </Pressable>
+  );
+}
 
 export default function HomeScreen() {
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-      <View style={styles.bubble1} />
-      <View style={styles.bubble2} />
-      <View style={styles.bubble3} />
+      <AnimatedBackground />
 
-      <Text style={styles.title}>DERITIVA</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>DERITIVA</Text>
 
-      <Text style={styles.subtitle}>
-        Aprender pode ser divertido, colorido e acessível.
-      </Text>
+        <Text style={styles.subtitle}>Complete desafios e evolua no seu ritmo.</Text>
 
-      <View style={styles.mascotCard}>
-        <Text style={styles.mascotText}>
-          {"Bem-vindo ao Deritiva!\n\nExplore exercícios, escolha seu nível e acompanhe seu progresso."}
-        </Text>
+        <AnimatedButton
+          title="Começar a Jogar"
+          onPress={() => router.push("/exercicio1" as never)}
+        />
+
+        <AnimatedButton
+          title="Sobre"
+          onPress={() => router.push("/sobre" as never)}
+        />
+
+        <AnimatedButton
+          title="Minhas Conquistas"
+          onPress={() => router.push("/explore")}
+        />
       </View>
-
-      <Pressable style={styles.button} onPress={() => router.push("/exercicio1" as never)}>
-        <Text style={styles.buttonText}>Exercícios</Text>
-      </Pressable>
-
-      <Pressable style={styles.button} onPress={() => router.push("/(tabs)/explore")}>
-        <Text style={styles.buttonText}>Meu Progresso</Text>
-      </Pressable>
-
-    
     </View>
   );
 }
