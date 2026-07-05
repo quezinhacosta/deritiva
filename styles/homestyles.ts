@@ -13,20 +13,23 @@ export const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
     zIndex: 1,
   },
 
-  /* ===== LETRAS ANIMADAS ===== */
+  logoImage: {
+    width: 250,
+    height: 120,
+    marginBottom: 16,
+  },
 
+  /* ===== LETRAS ANIMADAS ===== */
   floatingLetter: {
     position: "absolute",
     fontSize: 38,
     fontWeight: "900",
     color: "#ffd54f",
     opacity: 0.6,
-    textShadowColor: "rgba(255, 213, 79, 0.25)",
-    textShadowOffset: { width: 0, height: 3 },
-    textShadowRadius: 6,
   },
 
   letterD: {
@@ -50,7 +53,6 @@ export const styles = StyleSheet.create({
   },
 
   /* ===== TÍTULOS ===== */
-
   title: {
     fontSize: 40,
     fontWeight: "900",
@@ -69,8 +71,11 @@ export const styles = StyleSheet.create({
     marginBottom: 24,
   },
 
+  /* ===== BOTÕES ===== */
   button: {
     height: 64,
+    width: "100%",
+    maxWidth: 320,
     borderRadius: 999,
     justifyContent: "center",
     alignItems: "center",
@@ -78,9 +83,12 @@ export const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderWidth: 1,
     borderColor: "rgba(52, 30, 66, 0.16)",
-    boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.12)",
+    // Sombra funcionando sem boxShadow
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
     elevation: 4,
-    transform: [{ scale: 1 }],
   },
 
   buttonText: {
@@ -90,17 +98,16 @@ export const styles = StyleSheet.create({
     letterSpacing: 0.4,
   },
 
-
   buttonPressed: {
     transform: [{ scale: 0.96 }],
     opacity: 0.9,
   },
 
-
+  /* ===== RODAPÉ ===== */
   footer: {
     marginTop: 20,
     textAlign: "center",
-    color: "#666666",
+    color: "rgba(255, 255, 255, 0.4)",
     fontSize: 14,
     fontWeight: "500",
   },

@@ -10,9 +10,24 @@ const levels = [
     unlocked: true,
     progress: 1,
     exercises: [
-      { id: "silaba-faltante", title: "Silaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
-      { id: "formando-a-palavra", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
-      { id: "em-breve-1", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
+      { 
+        id: "silaba-faltante", 
+        title: "Sílaba faltante", 
+        subtitle: "Encontre a sílaba que falta", 
+        route: "silaba-faltante" 
+      },
+      { 
+        id: "formando-a-palavra", 
+        title: "Formando a palavra", 
+        subtitle: "Monte a palavra certa", 
+        route: "formando-a-palavra" 
+      },
+      { 
+        id: "em-breve-1", 
+        title: "Em breve", 
+        subtitle: "Novo desafio logo abaixo", 
+        route: "em-breve" 
+      },
     ],
   },
   {
@@ -22,9 +37,24 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { id: "silaba-faltante-2", title: "Silaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
-      { id: "formando-a-palavra-2", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
-      { id: "em-breve-2", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
+      { 
+        id: "silaba-faltante-2", 
+        title: "Sílaba faltante", 
+        subtitle: "Encontre a sílaba que falta", 
+        route: "silaba-faltante" 
+      },
+      { 
+        id: "formando-a-palavra-2", 
+        title: "Formando a palavra", 
+        subtitle: "Monte a palavra certa", 
+        route: "formando-a-palavra" 
+      },
+      { 
+        id: "em-breve-2", 
+        title: "Em breve", 
+        subtitle: "Novo desafio logo abaixo", 
+        route: "em-breve" 
+      },
     ],
   },
   {
@@ -34,9 +64,24 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { id: "silaba-faltante-3", title: "Silaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
-      { id: "formando-a-palavra-3", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
-      { id: "em-breve-3", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
+      { 
+        id: "silaba-faltante-3", 
+        title: "Sílaba faltante", 
+        subtitle: "Encontre a sílaba que falta", 
+        route: "silaba-faltante" 
+      },
+      { 
+        id: "formando-a-palavra-3", 
+        title: "Formando a palavra", 
+        subtitle: "Monte a palavra certa", 
+        route: "formando-a-palavra" 
+      },
+      { 
+        id: "em-breve-3", 
+        title: "Em breve", 
+        subtitle: "Novo desafio logo abaixo", 
+        route: "em-breve" 
+      },
     ],
   },
   {
@@ -46,9 +91,24 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { id: "silaba-faltante-4", title: "Silaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
-      { id: "formando-a-palavra-4", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
-      { id: "em-breve-4", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
+      { 
+        id: "silaba-faltante-4", 
+        title: "Sílaba faltante", 
+        subtitle: "Encontre a sílaba que falta", 
+        route: "silaba-faltante" 
+      },
+      { 
+        id: "formando-a-palavra-4", 
+        title: "Formando a palavra", 
+        subtitle: "Monte a palavra certa", 
+        route: "formando-a-palavra" 
+      },
+      { 
+        id: "em-breve-4", 
+        title: "Em breve", 
+        subtitle: "Novo desafio logo abaixo", 
+        route: "em-breve" 
+      },
     ],
   },
   {
@@ -58,15 +118,50 @@ const levels = [
     unlocked: false,
     progress: 0,
     exercises: [
-      { id: "silaba-faltante-5", title: "Silaba faltante", subtitle: "Encontre a sílaba que falta", route: "silaba-faltante" },
-      { id: "formando-a-palavra-5", title: "Formando a palavra", subtitle: "Monte a palavra certa", route: "formando-a-palavra" },
-      { id: "em-breve-5", title: "Em breve", subtitle: "Novo desafio logo abaixo", route: "em-breve" },
+      { 
+        id: "silaba-faltante-5", 
+        title: "Sílaba faltante", 
+        subtitle: "Encontre a sílaba que falta", 
+        route: "silaba-faltante" 
+      },
+      { 
+        id: "formando-a-palavra-5", 
+        title: "Formando a palavra", 
+        subtitle: "Monte a palavra certa", 
+        route: "formando-a-palavra" 
+      },
+      { 
+        id: "em-breve-5", 
+        title: "Em breve", 
+        subtitle: "Novo desafio logo abaixo", 
+        route: "em-breve" 
+      },
     ],
   },
 ];
 
 export default function ExerciseLevelsScreen() {
   const router = useRouter();
+
+  const handleExercisePress = (exercise: any, levelId: number) => {
+    // Verifica se é o exercício "em breve"
+    if (exercise.route === "em-breve") {
+      router.push({
+        pathname: "/exercicios/em-breve",
+      });
+      return;
+    }
+
+    // Redireciona para o exercício específico com o nível
+    router.push({
+      pathname: `/exercicios/${exercise.route}/[level]`,
+      params: { 
+        level: String(levelId),
+        exerciseId: exercise.id,
+        title: exercise.title,
+      },
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -108,25 +203,38 @@ export default function ExerciseLevelsScreen() {
               </View>
 
               <View style={styles.exerciseList}>
-                {level.exercises.map((exercise) => (
-                  <Pressable
-                    key={exercise.id}
-                    disabled={isLocked}
-                    style={[styles.exerciseButton, isLocked && styles.exerciseButtonLocked]}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/exercicio1/[slug]",
-                        params: { slug: exercise.route, level: String(level.id), title: exercise.title },
-                      })
-                    }
-                  >
-                    <View style={styles.exerciseInfo}>
-                      <Text style={styles.exerciseTitle}>{exercise.title}</Text>
-                      <Text style={styles.exerciseSubtitle}>{exercise.subtitle}</Text>
-                    </View>
-                    <Text style={styles.exerciseArrow}>➜</Text>
-                  </Pressable>
-                ))}
+                {level.exercises.map((exercise) => {
+                  const isEmBreve = exercise.route === "em-breve";
+                  
+                  return (
+                    <Pressable
+                      key={exercise.id}
+                      disabled={isLocked}
+                      style={[
+                        styles.exerciseButton, 
+                        isLocked && styles.exerciseButtonLocked,
+                        isEmBreve && styles.exerciseButtonEmBreve
+                      ]}
+                      onPress={() => handleExercisePress(exercise, level.id)}
+                    >
+                      <View style={styles.exerciseInfo}>
+                        <Text style={[
+                          styles.exerciseTitle,
+                          isEmBreve && styles.exerciseTitleEmBreve
+                        ]}>
+                          {exercise.title}
+                        </Text>
+                        <Text style={[
+                          styles.exerciseSubtitle,
+                          isEmBreve && styles.exerciseSubtitleEmBreve
+                        ]}>
+                          {exercise.subtitle}
+                        </Text>
+                      </View>
+                      <Text style={styles.exerciseArrow}>➜</Text>
+                    </Pressable>
+                  );
+                })}
               </View>
             </View>
           );
@@ -272,6 +380,11 @@ const styles = StyleSheet.create({
   exerciseButtonLocked: {
     opacity: 0.6,
   },
+  exerciseButtonEmBreve: {
+    backgroundColor: "rgba(255,255,255,0.1)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.2)",
+  },
   exerciseInfo: {
     flex: 1,
   },
@@ -280,10 +393,16 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: 16,
   },
+  exerciseTitleEmBreve: {
+    color: "#888",
+  },
   exerciseSubtitle: {
     color: "#6e5d7e",
     fontSize: 12,
     marginTop: 2,
+  },
+  exerciseSubtitleEmBreve: {
+    color: "#555",
   },
   exerciseArrow: {
     color: "#341e42",

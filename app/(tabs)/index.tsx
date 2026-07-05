@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Image } from "react-native";
 import { useRouter } from "expo-router";
 import Animated, {
   useSharedValue,
@@ -42,18 +42,17 @@ export default function HomeScreen() {
       <AnimatedBackground />
 
       <View style={styles.content}>
-        <Text style={styles.title}>DERITIVA</Text>
+        <Image 
+          source={require("../../assets/images/deritiva.png")}
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
 
         <Text style={styles.subtitle}>Complete desafios e evolua no seu ritmo.</Text>
 
         <AnimatedButton
           title="Começar a Jogar"
           onPress={() => router.push("/exercicio1" as never)}
-        />
-
-        <AnimatedButton
-          title="Sobre"
-          onPress={() => router.push("/sobre" as never)}
         />
 
         <AnimatedButton
