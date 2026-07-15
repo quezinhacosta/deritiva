@@ -91,22 +91,52 @@ export const styles = StyleSheet.create({
     borderColor: "#F5B55A",
   },
 
-  // ===== RADICAL =====
-  radicalContainer: {
-    alignItems: "center",
+  // ===== INSTRUCAO =====
+  instruction: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+
+  // ===== PALAVRA =====
+  wordContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.04)",
+    borderRadius: 12,
+    padding: 20,
     marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "rgba(245, 181, 90, 0.15)",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: 80,
   },
-  radicalLabel: {
-    color: "#E480BB",
-    fontSize: 14,
-    fontWeight: "600",
+  wordDisplay: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap",
   },
-  radicalWord: {
+  wordPart: {
     color: "#F5B55A",
     fontSize: 32,
     fontWeight: "900",
-    letterSpacing: 3,
-    marginTop: 2,
+    letterSpacing: 2,
+  },
+  wordMissing: {
+    color: "#E480BB",
+    fontSize: 32,
+    fontWeight: "900",
+    letterSpacing: 2,
+    backgroundColor: "rgba(228, 128, 187, 0.15)",
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 8,
+    marginHorizontal: 4,
+    borderWidth: 2,
+    borderColor: "#E480BB",
+    borderStyle: "dashed",
   },
 
   // ===== DICA =====
@@ -139,100 +169,68 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     lineHeight: 20,
   },
-  hintExample: {
-    color: "#F5B55A",
-    fontSize: 13,
-    textAlign: "center",
-    marginTop: 4,
-    fontWeight: "600",
-  },
 
-  // ===== CONSTRUTOR =====
-  builderContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.04)",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: "rgba(245, 181, 90, 0.15)",
-  },
-  builderLabel: {
-    color: "#E480BB",
-    fontSize: 13,
-    fontWeight: "600",
-    marginBottom: 8,
-    textAlign: "center",
-  },
-  builderWord: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    gap: 4,
-    minHeight: 50,
-  },
-  builderRadical: {
-    color: "#F5B55A",
-    fontSize: 26,
-    fontWeight: "900",
-    letterSpacing: 1,
-  },
-  builderPart: {
-    backgroundColor: "#E480BB",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: "#F5B55A",
-  },
-  builderPartText: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "800",
-    letterSpacing: 0.5,
-  },
-  builderPlaceholder: {
-    color: "rgba(255, 255, 255, 0.2)",
-    fontSize: 20,
-    fontWeight: "700",
-    letterSpacing: 2,
-  },
-  builderTip: {
-    color: "rgba(255, 255, 255, 0.3)",
-    fontSize: 12,
-    textAlign: "center",
-    marginTop: 8,
-  },
-
-  // ===== PARTES DISPONÍVEIS =====
-  partsContainer: {
+  // ===== OPCOES =====
+  optionsContainer: {
     marginBottom: 16,
   },
-  partsLabel: {
+  optionsLabel: {
     color: "#E480BB",
     fontSize: 14,
     fontWeight: "600",
-    marginBottom: 8,
+    marginBottom: 10,
+    textAlign: "center",
   },
-  partsGrid: {
+  optionsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 10,
+    gap: 12,
   },
-  partButton: {
+  optionButton: {
     backgroundColor: "#F5B55A",
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: "#E97E0C",
-    minWidth: 50,
+    minWidth: 80,
     alignItems: "center",
   },
-  partText: {
+  optionButtonCorrect: {
+    backgroundColor: "#4CAF50",
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#2E7D32",
+    minWidth: 80,
+    alignItems: "center",
+  },
+  optionButtonWrong: {
+    backgroundColor: "#f44336",
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#c62828",
+    minWidth: 80,
+    alignItems: "center",
+  },
+  optionButtonDisabled: {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "rgba(255, 255, 255, 0.1)",
+    minWidth: 80,
+    alignItems: "center",
+    opacity: 0.5,
+  },
+  optionText: {
     color: "#601938",
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "800",
     letterSpacing: 0.5,
   },
@@ -242,11 +240,19 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   feedbackCorrect: {
-    backgroundColor: "rgba(228, 128, 187, 0.12)",
+    backgroundColor: "rgba(76, 175, 80, 0.12)",
     borderRadius: 12,
     padding: 16,
     borderWidth: 2,
-    borderColor: "#E480BB",
+    borderColor: "#4CAF50",
+    alignItems: "center",
+  },
+  feedbackWrong: {
+    backgroundColor: "rgba(244, 67, 54, 0.12)",
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 2,
+    borderColor: "#f44336",
     alignItems: "center",
   },
   feedbackEmoji: {
@@ -272,7 +278,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  // ===== BOTÃO PRÓXIMO =====
+  // ===== BOTAO PROXIMO =====
   nextButton: {
     backgroundColor: "#F5B55A",
     paddingVertical: 14,
@@ -288,7 +294,7 @@ export const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
 
-  // ===== TELA DE CONCLUSÃO =====
+  // ===== TELA DE CONCLUSAO =====
   completionCard: {
     backgroundColor: "rgba(255, 255, 255, 0.06)",
     borderRadius: 16,

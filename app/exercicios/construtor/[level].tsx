@@ -10,104 +10,112 @@ import Animated, {
 import { useState, useEffect } from "react";
 import { styles } from "../../../styles/construtor";
 
-// ===== DADOS POR NÍVEL =====
+// ===== DADOS POR NIVEL =====
 const getConstrutorData = (level: number) => {
   const levelData: Record<number, Array<{
-    radical: string;
-    prefixes: string[];
-    suffixes: string[];
-    correctWords: string[];
+    word: string;
+    missingPart: string;
+    options: string[];
     hint: string;
-    emoji: string;
   }>> = {
     1: [
       { 
-        radical: 'FLOR', 
-        prefixes: [], 
-        suffixes: ['AL', 'IDO', 'EIRA'],
-        correctWords: ['FLORAL', 'FLORIDO', 'FLOREIRA'],
-        hint: 'Adicione sufixos a FLOR',
-        emoji: '🌸'
+        word: 'FLORAL',
+        missingPart: 'AL',
+        options: ['AL', 'ES', 'OS'],
+        hint: 'Qual sufixo completa FLOR?'
       },
       { 
-        radical: 'TERRA', 
-        prefixes: [], 
-        suffixes: ['ENO', 'ESTRE', 'R'],
-        correctWords: ['TERRENO', 'TERRESTRE', 'ENTERRAR'],
-        hint: 'Adicione sufixos a TERRA',
-        emoji: '🌍'
+        word: 'TERRENO',
+        missingPart: 'ENO',
+        options: ['ENO', 'ESTE', 'ADO'],
+        hint: 'Qual sufixo completa TERRA?'
+      },
+      { 
+        word: 'SOLAR',
+        missingPart: 'AR',
+        options: ['AR', 'OR', 'IR'],
+        hint: 'Qual sufixo completa SOL?'
       },
     ],
     2: [
       { 
-        radical: 'SOL', 
-        prefixes: [], 
-        suffixes: ['AR', 'EIRA', 'ADO'],
-        correctWords: ['SOLAR', 'SOLEIRA', 'ENSOLADO'],
-        hint: 'Adicione sufixos a SOL',
-        emoji: '☀️'
+        word: 'MARINHO',
+        missingPart: 'INHO',
+        options: ['INHO', 'ENHO', 'ONHO'],
+        hint: 'Qual sufixo completa MAR?'
       },
       { 
-        radical: 'MAR', 
-        prefixes: [], 
-        suffixes: ['INHO', 'É', 'ÍTIMO'],
-        correctWords: ['MARINHO', 'MARÉ', 'MARÍTIMO'],
-        hint: 'Adicione sufixos a MAR',
-        emoji: '🌊'
+        word: 'MARE',
+        missingPart: 'E',
+        options: ['E', 'A', 'O'],
+        hint: 'Qual sufixo completa MAR?'
+      },
+      { 
+        word: 'FELIZARDO',
+        missingPart: 'ARDO',
+        options: ['ARDO', 'ERDO', 'ORDO'],
+        hint: 'Qual sufixo completa FELIZ?'
       },
     ],
     3: [
       { 
-        radical: 'FELIZ', 
-        prefixes: ['IN'], 
-        suffixes: ['ARDO', 'MENTE', 'IDADE'],
-        correctWords: ['FELIZARDO', 'FELIZMENTE', 'INFELIZ', 'FELICIDADE'],
-        hint: 'Combine FELIZ com prefixos e sufixos',
-        emoji: '😊'
+        word: 'MENININHA',
+        missingPart: 'INHA',
+        options: ['INHA', 'INHO', 'ONHA'],
+        hint: 'Qual sufixo completa MENINA?'
       },
       { 
-        radical: 'MENINA', 
-        prefixes: [], 
-        suffixes: ['NO', 'NICE', 'INHA', 'O'],
-        correctWords: ['MENINO', 'MENINICE', 'MENININHA', 'MENINÃO'],
-        hint: 'Adicione sufixos a MENINA',
-        emoji: '👧'
+        word: 'CASA',
+        missingPart: 'SA',
+        options: ['SA', 'ZA', 'SSA'],
+        hint: 'Qual silaba completa CASA?'
+      },
+      { 
+        word: 'GATINHO',
+        missingPart: 'INHO',
+        options: ['INHO', 'ENHO', 'ONHO'],
+        hint: 'Qual sufixo completa GATO?'
       },
     ],
     4: [
       { 
-        radical: 'LUZ', 
-        prefixes: ['A', 'I'], 
-        suffixes: ['OSO', 'AR', 'MINOSA'],
-        correctWords: ['LUMINOSO', 'ILUMINAR', 'LUMINOSA'],
-        hint: 'Transforme LUZ em palavras diferentes',
-        emoji: '💡'
+        word: 'LUMINOSO',
+        missingPart: 'OSO',
+        options: ['OSO', 'ASA', 'ISO'],
+        hint: 'Qual sufixo completa LUZ?'
       },
       { 
-        radical: 'PEDRA', 
-        prefixes: ['EM'], 
-        suffixes: ['EIRA', 'INHA', 'R'],
-        correctWords: ['PEDREIRA', 'PEDRINHA', 'EMPEDRAR'],
-        hint: 'Adicione sufixos a PEDRA',
-        emoji: '🪨'
+        word: 'PEDREIRA',
+        missingPart: 'EIRA',
+        options: ['EIRA', 'AIRA', 'OIRA'],
+        hint: 'Qual sufixo completa PEDRA?'
+      },
+      { 
+        word: 'FOGUEIRA',
+        missingPart: 'EIRA',
+        options: ['EIRA', 'AIRA', 'OIRA'],
+        hint: 'Qual sufixo completa FOGO?'
       },
     ],
     5: [
       { 
-        radical: 'AMOR', 
-        prefixes: ['DE'], 
-        suffixes: ['OSO', 'ADO', 'ANTE'],
-        correctWords: ['AMOROSO', 'AMADO', 'AMANTE', 'DESAMOR'],
-        hint: 'Crie palavras a partir de AMOR',
-        emoji: '❤️'
+        word: 'AMOROSO',
+        missingPart: 'OSO',
+        options: ['OSO', 'ISA', 'ASA'],
+        hint: 'Qual sufixo completa AMOR?'
       },
       { 
-        radical: 'PAZ', 
-        prefixes: ['A'], 
-        suffixes: ['ÍFICO', 'EAR', 'IGUAR'],
-        correctWords: ['PACÍFICO', 'PASSEAR', 'APAZIGUAR'],
-        hint: 'Transforme PAZ em palavras diferentes',
-        emoji: '🕊️'
+        word: 'PACIFICO',
+        missingPart: 'IFICO',
+        options: ['IFICO', 'EFICO', 'AFICO'],
+        hint: 'Qual sufixo completa PAZ?'
+      },
+      { 
+        word: 'BELEZA',
+        missingPart: 'EZA',
+        options: ['EZA', 'IZA', 'OZA'],
+        hint: 'Qual sufixo completa BELO?'
       },
     ],
   };
@@ -121,19 +129,18 @@ export default function ConstrutorScreen() {
   const level = parseInt(params.level || "1");
   
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedParts, setSelectedParts] = useState<string[]>([]);
-  const [availableParts, setAvailableParts] = useState<string[]>([]);
-  const [builtWords, setBuiltWords] = useState<string[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
 
   const wordsData = getConstrutorData(level);
   const currentWord = wordsData[currentIndex];
   const isLastWord = currentIndex === wordsData.length - 1;
 
-  // Animações
+  // Animacoes
   const scale = useSharedValue(0.9);
   const opacity = useSharedValue(0);
   const feedbackScale = useSharedValue(0);
@@ -142,15 +149,14 @@ export default function ConstrutorScreen() {
     scale.value = withSpring(1, { damping: 12 });
     opacity.value = withTiming(1, { duration: 500 });
     
-    // Inicializa as partes disponíveis
-    const parts = [...currentWord.prefixes, ...currentWord.suffixes];
-    for (let i = parts.length - 1; i > 0; i--) {
+    // Embaralha as opcoes
+    const options = [...currentWord.options];
+    for (let i = options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [parts[i], parts[j]] = [parts[j], parts[i]];
+      [options[i], options[j]] = [options[j], options[i]];
     }
-    setAvailableParts(parts);
-    setSelectedParts([]);
-    setBuiltWords([]);
+    setShuffledOptions(options);
+    setSelectedOption(null);
     setShowFeedback(false);
     setShowHint(false);
   }, [currentIndex]);
@@ -164,46 +170,24 @@ export default function ConstrutorScreen() {
     transform: [{ scale: feedbackScale.value }],
   }));
 
-  const handlePartPress = (part: string) => {
+  const handleOptionPress = (option: string) => {
     if (showFeedback) return;
     
-    const newSelected = [...selectedParts, part];
-    setSelectedParts(newSelected);
-    
-    const newAvailable = availableParts.filter(p => p !== part);
-    setAvailableParts(newAvailable);
+    setSelectedOption(option);
+    setShowFeedback(true);
+    feedbackScale.value = withSequence(
+      withSpring(0.8),
+      withSpring(1)
+    );
 
-    // Verifica se combinou todas as partes
-    if (newSelected.length === currentWord.prefixes.length + currentWord.suffixes.length) {
-      // Simula combinação para verificar
-      const combined = currentWord.radical + newSelected.join('');
-      const isValid = currentWord.correctWords.some(w => w === combined);
-      
-      setShowFeedback(true);
-      feedbackScale.value = withSequence(
-        withSpring(0.8),
-        withSpring(1)
-      );
-
-      if (isValid) {
-        setScore(score + 1);
-        setBuiltWords([...builtWords, combined]);
-      }
+    const isCorrect = option === currentWord.missingPart;
+    if (isCorrect) {
+      setScore(score + 1);
     }
   };
 
-  const handleRemovePart = (index: number) => {
-    if (showFeedback) return;
-    
-    const removed = selectedParts[index];
-    const newSelected = selectedParts.filter((_, i) => i !== index);
-    setSelectedParts(newSelected);
-    setAvailableParts([...availableParts, removed]);
-  };
-
   const handleNext = () => {
-    setSelectedParts([]);
-    setAvailableParts([...currentWord.prefixes, ...currentWord.suffixes]);
+    setSelectedOption(null);
     setShowFeedback(false);
     setShowHint(false);
 
@@ -216,8 +200,7 @@ export default function ConstrutorScreen() {
 
   const resetExercise = () => {
     setCurrentIndex(0);
-    setSelectedParts([]);
-    setBuiltWords([]);
+    setSelectedOption(null);
     setShowFeedback(false);
     setScore(0);
     setCompleted(false);
@@ -228,19 +211,26 @@ export default function ConstrutorScreen() {
     const titles: Record<string, string> = {
       '1': 'Iniciante',
       '2': 'Aprendiz',
-      '3': 'Intermediário',
-      '4': 'Avançado',
+      '3': 'Intermediario',
+      '4': 'Avancado',
       '5': 'Mestre',
     };
-    return titles[String(level)] || 'Nível';
+    return titles[String(level)] || 'Nivel';
   };
 
+  // Mostra a palavra com a parte faltante
   const getDisplayWord = () => {
-    let word = currentWord.radical;
-    selectedParts.forEach(part => {
-      word += part;
-    });
-    return word;
+    const parts = currentWord.word.split(currentWord.missingPart);
+    if (parts.length === 2) {
+      return (
+        <View style={styles.wordDisplay}>
+          <Text style={styles.wordPart}>{parts[0]}</Text>
+          <Text style={styles.wordMissing}>___</Text>
+          <Text style={styles.wordPart}>{parts[1]}</Text>
+        </View>
+      );
+    }
+    return <Text style={styles.wordPart}>{currentWord.word}</Text>;
   };
 
   if (completed) {
@@ -251,18 +241,18 @@ export default function ConstrutorScreen() {
       <View style={styles.container}>
         <View style={styles.header}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
-            <Text style={styles.backButtonText}>← Voltar</Text>
+            <Text style={styles.backButtonText}>Voltar</Text>
           </Pressable>
           <View style={styles.headerInfo}>
-            <Text style={styles.levelBadge}>Concluído!</Text>
-            <Text style={styles.levelTitle}>Construtor de Palavras</Text>
+            <Text style={styles.levelBadge}>Concluido!</Text>
+            <Text style={styles.levelTitle}>Construtor</Text>
           </View>
         </View>
         
         <View style={styles.completionCard}>
-          <Text style={styles.completionEmoji}>✅</Text>
-          <Text style={styles.completionTitle}>Parabéns!</Text>
-          <Text style={styles.completionText}>Você construiu todas as palavras!</Text>
+          <Text style={styles.completionEmoji}>✓</Text>
+          <Text style={styles.completionTitle}>Parabens!</Text>
+          <Text style={styles.completionText}>Voce completou todas as palavras!</Text>
           
           <View style={styles.scoreContainer}>
             <Text style={styles.scoreNumber}>{score}</Text>
@@ -286,7 +276,7 @@ export default function ConstrutorScreen() {
               style={styles.continueButton} 
               onPress={() => router.push('/exercicio1')}
             >
-              <Text style={styles.continueButtonText}>Voltar aos níveis</Text>
+              <Text style={styles.continueButtonText}>Voltar aos niveis</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -294,18 +284,15 @@ export default function ConstrutorScreen() {
     );
   }
 
-  // Verifica se já construiu todas as palavras
-  const hasCompletedWord = selectedParts.length === currentWord.prefixes.length + currentWord.suffixes.length;
-
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       {/* Header */}
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>← Voltar</Text>
+          <Text style={styles.backButtonText}>Voltar</Text>
         </Pressable>
         <View style={styles.headerInfo}>
-          <Text style={styles.levelBadge}>Nível {level}</Text>
+          <Text style={styles.levelBadge}>Nivel {level}</Text>
           <Text style={styles.levelTitle}>{getLevelTitle()}</Text>
         </View>
       </View>
@@ -322,10 +309,14 @@ export default function ConstrutorScreen() {
       </View>
 
       <Animated.View style={[styles.card, animatedStyle]}>
-        {/* Radical */}
-        <View style={styles.radicalContainer}>
-          <Text style={styles.radicalLabel}>Radical:</Text>
-          <Text style={styles.radicalWord}>{currentWord.radical}</Text>
+        {/* Instrucao */}
+        <Text style={styles.instruction}>
+          Complete a palavra com a silaba correta:
+        </Text>
+
+        {/* Palavra com espaco faltante */}
+        <View style={styles.wordContainer}>
+          {getDisplayWord()}
         </View>
 
         {/* Dica */}
@@ -340,77 +331,77 @@ export default function ConstrutorScreen() {
 
         {showHint && (
           <View style={styles.hintContainer}>
-            <Text style={styles.hintText}>💡 {currentWord.hint}</Text>
-            <Text style={styles.hintExample}>
-              Exemplo: {currentWord.radical} + {currentWord.suffixes[0]} = {currentWord.radical}{currentWord.suffixes[0]}
-            </Text>
+            <Text style={styles.hintText}>Dica: {currentWord.hint}</Text>
           </View>
         )}
 
-        {/* Palavra em construção */}
-        <View style={styles.builderContainer}>
-          <Text style={styles.builderLabel}>Palavra em construção:</Text>
-          <View style={styles.builderWord}>
-            <Text style={styles.builderRadical}>{currentWord.radical}</Text>
-            {selectedParts.map((part, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.builderPart}
-                onPress={() => handleRemovePart(index)}
-              >
-                <Text style={styles.builderPartText}>{part}</Text>
-              </TouchableOpacity>
-            ))}
-            {selectedParts.length === 0 && (
-              <Text style={styles.builderPlaceholder}>___</Text>
-            )}
-          </View>
-          <Text style={styles.builderTip}>
-            Clique na parte para removê-la
-          </Text>
-        </View>
+        {/* Opcoes */}
+        <View style={styles.optionsContainer}>
+          <Text style={styles.optionsLabel}>Escolha a silaba:</Text>
+          <View style={styles.optionsGrid}>
+            {shuffledOptions.map((option, index) => {
+              const isSelected = option === selectedOption;
+              const isCorrect = option === currentWord.missingPart;
+              let buttonStyle = styles.optionButton;
+              
+              if (showFeedback) {
+                if (isCorrect) {
+                  buttonStyle = styles.optionButtonCorrect;
+                } else if (isSelected && !isCorrect) {
+                  buttonStyle = styles.optionButtonWrong;
+                } else {
+                  buttonStyle = styles.optionButtonDisabled;
+                }
+              }
 
-        {/* Partes disponíveis */}
-        <View style={styles.partsContainer}>
-          <Text style={styles.partsLabel}>
-            Peças disponíveis ({availableParts.length}):
-          </Text>
-          <View style={styles.partsGrid}>
-            {availableParts.map((part, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.partButton}
-                onPress={() => handlePartPress(part)}
-              >
-                <Text style={styles.partText}>{part}</Text>
-              </TouchableOpacity>
-            ))}
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={buttonStyle}
+                  onPress={() => handleOptionPress(option)}
+                  disabled={showFeedback}
+                >
+                  <Text style={styles.optionText}>{option}</Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
 
         {/* Feedback */}
         {showFeedback && (
           <Animated.View style={[styles.feedbackContainer, feedbackStyle]}>
-            {hasCompletedWord && selectedParts.length > 0 && (
+            {selectedOption === currentWord.missingPart ? (
               <View style={styles.feedbackCorrect}>
-                <Text style={styles.feedbackEmoji}>✅</Text>
-                <Text style={styles.feedbackTitle}>Palavra construída!</Text>
+                <Text style={styles.feedbackEmoji}>✓</Text>
+                <Text style={styles.feedbackTitle}>Acertou!</Text>
                 <Text style={styles.feedbackText}>
-                  Você formou: {currentWord.radical}{selectedParts.join('')}
+                  A palavra completa e: {currentWord.word}
                 </Text>
                 <Text style={styles.feedbackFamily}>
-                  Palavras possíveis: {currentWord.correctWords.join(', ')}
+                  "{currentWord.missingPart}" e a silaba correta!
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.feedbackWrong}>
+                <Text style={styles.feedbackEmoji}>✗</Text>
+                <Text style={styles.feedbackTitle}>Tente novamente!</Text>
+                <Text style={styles.feedbackText}>
+                  A silaba correta e "{currentWord.missingPart}"
+                </Text>
+                <Text style={styles.feedbackFamily}>
+                  Palavra completa: {currentWord.word}
                 </Text>
               </View>
             )}
           </Animated.View>
         )}
 
-        {/* Botão Próximo */}
+        {/* Botao Proximo */}
         {showFeedback && (
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
             <Text style={styles.nextButtonText}>
-              {isLastWord ? 'Ver resultados' : 'Próximo →'}
+              {isLastWord ? 'Ver resultados' : 'Proximo >'}
             </Text>
           </TouchableOpacity>
         )}

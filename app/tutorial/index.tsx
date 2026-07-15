@@ -1,7 +1,6 @@
 import { View, Text, Pressable, ScrollView, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { useState, useRef } from "react";
-import * as Speech from "expo-speech";
 import { styles } from "../../styles/tutorial";
 import TutorialCard from "../../components/TutorialCard";
 
@@ -10,7 +9,7 @@ interface TutorialStep {
   id: number;
   title: string;
   description: string;
-  type: 'welcome' | 'levels' | 'exercise1' | 'exercise2' | 'rules' | 'tips';
+  type: 'welcome' | 'levels' | 'exercise1' | 'exercise2' | 'exercise3' | 'exercise4' | 'rules' | 'tips';
 }
 
 // ===== DADOS =====
@@ -18,89 +17,57 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: 0,
     title: "Bem-vindo ao Deritiva!",
-    description: "Um aplicativo educativo para aprender brincando. Complete desafios e evolua no seu ritmo.",
+    description: "Um aplicativo educativo para aprender brincando. Complete os desafios e evolua no seu ritmo.",
     type: 'welcome',
   },
   {
     id: 1,
-    title: "Trilha de Desafios",
-    description: "São 5 níveis de dificuldade. Cada nível tem 3 exercícios para você completar.",
+    title: "Trilha de Niveis",
+    description: "Sao 5 niveis de dificuldade. Cada nivel tem 4 exercicios para voce completar.",
     type: 'levels',
   },
   {
     id: 2,
-    title: "Exercício: Sílaba Faltante",
-    description: "Veja a dica, leia a palavra incompleta e escolha a sílaba correta para completá-la.",
+    title: "Exercicio: Silaba Faltante",
+    description: "Veja a dica, leia a palavra incompleta e escolha a silaba correta para completa-la.",
     type: 'exercise1',
   },
   {
     id: 3,
-    title: "Exercício: Formando a Palavra",
-    description: "Organize as sílabas na ordem certa para formar a palavra correta.",
+    title: "Exercicio: Formando a Palavra",
+    description: "Organize as silabas na ordem certa para formar a palavra correta.",
     type: 'exercise2',
   },
   {
     id: 4,
-    title: "Como Avançar",
-    description: "Complete os exercícios para desbloquear novos níveis. Quanto mais você acerta, mais avança!",
-    type: 'rules',
+    title: "Exercicio: Construtor",
+    description: "Crie suas proprias palavras combinando silabas e letras.",
+    type: 'exercise3',
   },
   {
     id: 5,
+    title: "Exercicio: Intruso",
+    description: "Encontre a palavra que nao pertence a familia de palavras.",
+    type: 'exercise4',
+  },
+  {
+    id: 6,
+    title: "Sistema de Estrelas",
+    description: "Cada exercicio concluido concede estrelas. Quanto mais estrelas, melhor seu desempenho!",
+    type: 'rules',
+  },
+  {
+    id: 7,
     title: "Dicas para Jogar",
-    description: "Leia com atenção, não tenha medo de errar e aprenda com os erros.",
+    description: "Leia com atencao, nao tenha medo de errar e aprenda com os erros.",
     type: 'tips',
   },
 ];
 
 export default function TutorialScreen() {
   const router = useRouter();
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
-
-  const speakText = (text: string) => {
-    if (isSpeaking) {
-      Speech.stop();
-      setIsSpeaking(false);
-      return;
-    }
-
-    setIsSpeaking(true);
-    Speech.speak(text, {
-      language: "pt-BR",
-      pitch: 1,
-      rate: 0.9,
-      onDone: () => setIsSpeaking(false),
-      onError: () => setIsSpeaking(false),
-    });
-  };
-
-  const speakAllTutorial = () => {
-    if (isSpeaking) {
-      Speech.stop();
-      setIsSpeaking(false);
-      return;
-    }
-
-    setIsSpeaking(true);
-    const fullText = tutorialSteps.map(step => 
-      `${step.title}. ${step.description}`
-    ).join(". ");
-
-    Speech.speak(fullText, {
-      language: "pt-BR",
-      pitch: 1,
-      rate: 0.9,
-      onDone: () => setIsSpeaking(false),
-      onError: () => setIsSpeaking(false),
-    });
-  };
-
-  const speakCurrentStep = () => {
-    const step = tutorialSteps[currentStep];
-    speakText(`${step.title}. ${step.description}`);
-  };
 
   const nextStep = () => {
     if (currentStep < tutorialSteps.length - 1) {
@@ -123,33 +90,12 @@ export default function TutorialScreen() {
       {/* Header */}
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>← Voltar</Text>
+          <Text style={styles.backButtonText}>Voltar</Text>
         </Pressable>
         <Text style={styles.headerTitle}>Tutorial</Text>
       </View>
 
-
-      <View style={styles.voiceControls}>
-        <TouchableOpacity 
-          style={[styles.voiceButton, isSpeaking && styles.voiceButtonActive]} 
-          onPress={speakCurrentStep}
-        >
-          <Text style={styles.voiceButtonText}>
-            {isSpeaking ? "⏹ Parar" : " Ouvir etapa"}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-          style={[styles.voiceButton, styles.voiceButtonAll]} 
-          onPress={speakAllTutorial}
-        >
-          <Text style={styles.voiceButtonText}>
-            {isSpeaking ? "⏹ Parar" : "🔊 Ouvir tudo"}
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Conteúdo do Tutorial */}
+      {/* Conteudo do Tutorial */}
       <ScrollView 
         ref={scrollViewRef}
         style={styles.scrollContent} 
@@ -169,17 +115,17 @@ export default function TutorialScreen() {
           ))}
         </View>
 
-        {/* Card do Step com Demonstração Visual */}
+        {/* Card do Step com Demonstracao Visual */}
         <TutorialCard step={current} />
 
-        {/* Navegação */}
+        {/* Navegacao */}
         <View style={styles.navigation}>
           <TouchableOpacity 
             style={[styles.navButton, currentStep === 0 && styles.navButtonDisabled]} 
             onPress={prevStep}
             disabled={currentStep === 0}
           >
-            <Text style={styles.navButtonText}>← Anterior</Text>
+            <Text style={styles.navButtonText}>Anterior</Text>
           </TouchableOpacity>
 
           <Text style={styles.stepCounter}>
@@ -191,11 +137,11 @@ export default function TutorialScreen() {
             onPress={nextStep}
             disabled={currentStep === tutorialSteps.length - 1}
           >
-            <Text style={styles.navButtonText}>Próximo →</Text>
+            <Text style={styles.navButtonText}>Proximo</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Botão Jogar */}
+        {/* Botao Jogar */}
         {currentStep === tutorialSteps.length - 1 && (
           <TouchableOpacity 
             style={styles.playButton}
