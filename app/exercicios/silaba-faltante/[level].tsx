@@ -1,44 +1,56 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { 
-  View, Text, Pressable, StyleSheet, TouchableOpacity, ScrollView 
-} from "react-native";
-import { useState } from "react";
+import { View, Text, Pressable, TouchableOpacity, ScrollView } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  withSequence,
+} from "react-native-reanimated";
+import { useState, useEffect } from "react";
+import { styles } from "../../../styles/silabaFaltante";
 
-// Dados por nível
+// ===== DADOS POR NÍVEL =====
 const getWordsByLevel = (level: number) => {
-  const levelData: { [key: number]: any[] } = {
+  const levelData: Record<number, Array<{
+    word: string;
+    correct: string;
+    alternatives: string[];
+    fullWord: string;
+    hint: string;
+  }>> = {
     1: [
-      { emoji: "🐕", word: "CA__ORRO", correct: "CH", alternatives: ["CH", "SH", "SS", "RR"], fullWord: "CACHORRO", hint: "Animal de estimação" },
-      { emoji: "🐈", word: "G__TO", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "GATO", hint: "Animal que mia" },
-      { emoji: "🐦", word: "P__SSARO", correct: "Á", alternatives: ["Á", "A", "Ã", "E"], fullWord: "PÁSSARO", hint: "Animal que voa" },
+      { word: "CA__ORRO", correct: "CH", alternatives: ["CH", "SH", "SS", "RR"], fullWord: "CACHORRO", hint: "Animal de estimação que late" },
+      { word: "G__TO", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "GATO", hint: "Animal que mia" },
+      { word: "P__SSARO", correct: "Á", alternatives: ["Á", "A", "Ã", "E"], fullWord: "PÁSSARO", hint: "Animal que voa" },
     ],
     2: [
-      { emoji: "🐘", word: "ELEF__NTE", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "ELEFANTE", hint: "Animal com tromba" },
-      { emoji: "🦋", word: "BORB__LETA", correct: "O", alternatives: ["O", "A", "E", "U"], fullWord: "BORBOLETA", hint: "Inseto colorido" },
-      { emoji: "🐢", word: "TART__RUGA", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "TARTARUGA", hint: "Animal com casco" },
-      { emoji: "🐟", word: "PE__XE", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "PEIXE", hint: "Vive na água" },
+      { word: "ELEF__NTE", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "ELEFANTE", hint: "Animal com tromba" },
+      { word: "BORB__LETA", correct: "O", alternatives: ["O", "A", "E", "U"], fullWord: "BORBOLETA", hint: "Inseto colorido" },
+      { word: "TART__RUGA", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "TARTARUGA", hint: "Animal com casco" },
+      { word: "PE__XE", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "PEIXE", hint: "Vive na água" },
     ],
     3: [
-      { emoji: "🌭", word: "CACHORRO-Q__ENTE", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "CACHORRO-QUENTE", hint: "Comida de festa" },
-      { emoji: "🍝", word: "M__CARRÃO", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "MACARRÃO", hint: "Comida italiana" },
-      { emoji: "🍕", word: "P__ZZA", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "PIZZA", hint: "Comida redonda" },
-      { emoji: "🍔", word: "HAMB__RGUER", correct: "Ú", alternatives: ["Ú", "U", "A", "E"], fullWord: "HAMBÚRGUER", hint: "Sanduíche famoso" },
-      { emoji: "🍦", word: "SORV__TE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "SORVETE", hint: "Sobremesa gelada" },
+      { word: "CACHORRO-Q__ENTE", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "CACHORRO-QUENTE", hint: "Comida de festa" },
+      { word: "M__CARRÃO", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "MACARRÃO", hint: "Comida italiana" },
+      { word: "P__ZZA", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "PIZZA", hint: "Comida redonda" },
+      { word: "HAMB__RGUER", correct: "Ú", alternatives: ["Ú", "U", "A", "E"], fullWord: "HAMBÚRGUER", hint: "Sanduíche famoso" },
+      { word: "SORV__TE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "SORVETE", hint: "Sobremesa gelada" },
     ],
     4: [
-      { emoji: "🛝", word: "ESCORR__GADOR", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "ESCORREGADOR", hint: "Brinquedo de parque" },
-      { emoji: "🧱", word: "PARALELEP__PEDO", correct: "Í", alternatives: ["Í", "I", "E", "A"], fullWord: "PARALELEPÍPEDO", hint: "Pedra de rua" },
-      { emoji: "🥤", word: "REFRIG__RANTE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "REFRIGERANTE", hint: "Bebida gelada" },
-      { emoji: "📺", word: "TELEV__SÃO", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "TELEVISÃO", hint: "Aparelho de TV" },
-      { emoji: "🌀", word: "VENTIL__DOR", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "VENTILADOR", hint: "Aparelho que faz vento" },
+      { word: "ESCORR__GADOR", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "ESCORREGADOR", hint: "Brinquedo de parque" },
+      { word: "PARALELEP__PEDO", correct: "Í", alternatives: ["Í", "I", "E", "A"], fullWord: "PARALELEPÍPEDO", hint: "Pedra de rua" },
+      { word: "REFRIG__RANTE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "REFRIGERANTE", hint: "Bebida gelada" },
+      { word: "TELEV__SÃO", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "TELEVISÃO", hint: "Aparelho de TV" },
+      { word: "VENTIL__DOR", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "VENTILADOR", hint: "Aparelho que faz vento" },
     ],
     5: [
-      { emoji: "🌍", word: "CONTIN__NTE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "CONTINENTE", hint: "Grande porção de terra" },
-      { emoji: "🏛️", word: "MON__MENTO", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "MONUMENTO", hint: "Construção histórica" },
-      { emoji: "🚀", word: "FOG__TE", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "FOGUETE", hint: "Vai ao espaço" },
-      { emoji: "🦕", word: "DIN__SSAURO", correct: "O", alternatives: ["O", "A", "E", "I"], fullWord: "DINOSSAURO", hint: "Animal pré-histórico" },
-      { emoji: "🏰", word: "CAST__LO", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "CASTELO", hint: "Moradia de reis" },
-      { emoji: "🧪", word: "CIÊNCI__", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "CIÊNCIA", hint: "Estudo do conhecimento" },
+      { word: "CONTIN__NTE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "CONTINENTE", hint: "Grande porção de terra" },
+      { word: "MON__MENTO", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "MONUMENTO", hint: "Construção histórica" },
+      { word: "FOG__TE", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "FOGUETE", hint: "Vai ao espaço" },
+      { word: "DIN__SSAURO", correct: "O", alternatives: ["O", "A", "E", "I"], fullWord: "DINOSSAURO", hint: "Animal pré-histórico" },
+      { word: "CAST__LO", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "CASTELO", hint: "Moradia de reis" },
+      { word: "CIÊNCI__", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "CIÊNCIA", hint: "Estudo do conhecimento" },
     ],
   };
 
@@ -55,16 +67,40 @@ export default function SilabaFaltanteScreen() {
   const [showFeedback, setShowFeedback] = useState(false);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const words = getWordsByLevel(level);
   const currentWord = words[currentIndex];
   const isLastWord = currentIndex === words.length - 1;
+
+  // Animações
+  const scale = useSharedValue(0.9);
+  const opacity = useSharedValue(0);
+  const feedbackScale = useSharedValue(0);
+
+  useEffect(() => {
+    scale.value = withSpring(1, { damping: 12 });
+    opacity.value = withTiming(1, { duration: 500 });
+  }, [currentIndex]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  const feedbackStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: feedbackScale.value }],
+  }));
 
   const handleAlternativePress = (alt: string) => {
     if (showFeedback) return;
     
     setSelectedAlternative(alt);
     setShowFeedback(true);
+    feedbackScale.value = withSequence(
+      withSpring(0.8),
+      withSpring(1)
+    );
 
     if (alt === currentWord.correct) {
       setScore(score + 1);
@@ -74,6 +110,7 @@ export default function SilabaFaltanteScreen() {
   const handleNext = () => {
     setSelectedAlternative(null);
     setShowFeedback(false);
+    setShowHint(false);
 
     if (isLastWord) {
       setCompleted(true);
@@ -88,6 +125,18 @@ export default function SilabaFaltanteScreen() {
     setShowFeedback(false);
     setScore(0);
     setCompleted(false);
+    setShowHint(false);
+  };
+
+  const getLevelTitle = () => {
+    const titles: Record<string, string> = {
+      '1': 'Iniciante',
+      '2': 'Aprendiz',
+      '3': 'Intermediário',
+      '4': 'Avançado',
+      '5': 'Mestre',
+    };
+    return titles[String(level)] || 'Nível';
   };
 
   if (completed) {
@@ -96,23 +145,46 @@ export default function SilabaFaltanteScreen() {
     
     return (
       <View style={styles.container}>
-        <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>← Voltar</Text>
-        </Pressable>
+        <View style={styles.header}>
+          <Pressable onPress={() => router.back()} style={styles.backButton}>
+            <Text style={styles.backButtonText}>← Voltar</Text>
+          </Pressable>
+          <View style={styles.headerInfo}>
+            <Text style={styles.levelBadge}>Concluído!</Text>
+            <Text style={styles.levelTitle}>Sílaba Faltante</Text>
+          </View>
+        </View>
         
-        <View style={styles.card}>
-          <Text style={styles.completionEmoji}>🎉</Text>
+        <View style={styles.completionCard}>
+          <Text style={styles.completionEmoji}>✅</Text>
           <Text style={styles.completionTitle}>Parabéns!</Text>
           <Text style={styles.completionText}>Você completou o exercício!</Text>
           
           <View style={styles.scoreContainer}>
-            <Text style={styles.scoreText}>{score}/{totalQuestions} acertos</Text>
-            <Text style={styles.percentageText}>{percentage}%</Text>
+            <Text style={styles.scoreNumber}>{score}</Text>
+            <Text style={styles.scoreTotal}>/{totalQuestions}</Text>
+            <Text style={styles.scoreLabel}>acertos</Text>
           </View>
           
-          <TouchableOpacity style={styles.resetButton} onPress={resetExercise}>
-            <Text style={styles.resetButtonText}>Tentar novamente</Text>
-          </TouchableOpacity>
+          <View style={styles.percentageContainer}>
+            <Text style={styles.percentageText}>{percentage}%</Text>
+            <View style={styles.percentageBar}>
+              <View style={[styles.percentageFill, { width: `${percentage}%` }]} />
+            </View>
+          </View>
+
+          <View style={styles.completionButtons}>
+            <TouchableOpacity style={styles.retryButton} onPress={resetExercise}>
+              <Text style={styles.retryButtonText}>Tentar novamente</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={styles.continueButton} 
+              onPress={() => router.push('/exercicio1')}
+            >
+              <Text style={styles.continueButtonText}>Voltar aos níveis</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -120,58 +192,77 @@ export default function SilabaFaltanteScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      <Pressable onPress={() => router.back()} style={styles.backButton}>
-        <Text style={styles.backButtonText}>← Voltar</Text>
-      </Pressable>
+      {/* Header */}
+      <View style={styles.header}>
+        <Pressable onPress={() => router.back()} style={styles.backButton}>
+          <Text style={styles.backButtonText}>← Voltar</Text>
+        </Pressable>
+        <View style={styles.headerInfo}>
+          <Text style={styles.levelBadge}>Nível {level}</Text>
+          <Text style={styles.levelTitle}>{getLevelTitle()}</Text>
+        </View>
+      </View>
 
+      {/* Progresso */}
       <View style={styles.progressContainer}>
-        <Text style={styles.exerciseTitle}>Sílaba Faltante</Text>
-        <Text style={styles.levelText}>Nível {level}</Text>
-        <Text style={styles.progressText}>{currentIndex + 1} de {words.length}</Text>
+        <View style={styles.progressHeader}>
+          <Text style={styles.progressLabel}>Progresso</Text>
+          <Text style={styles.progressText}>{currentIndex + 1} de {words.length}</Text>
+        </View>
         <View style={styles.progressBar}>
           <View style={[styles.progressFill, { width: `${((currentIndex + 1) / words.length) * 100}%` }]} />
         </View>
       </View>
 
-      <View style={styles.card}>
-        <View style={styles.emojiContainer}>
-          <Text style={styles.emojiText}>{currentWord.emoji}</Text>
-        </View>
+      <Animated.View style={[styles.card, animatedStyle]}>
+        {/* Dica */}
+        <Pressable 
+          style={styles.hintButton}
+          onPress={() => setShowHint(!showHint)}
+        >
+          <Text style={styles.hintButtonText}>
+            {showHint ? 'Ocultar dica' : 'Ver dica'}
+          </Text>
+        </Pressable>
 
-        <Text style={styles.hintText}>💡 {currentWord.hint}</Text>
-
-        <View style={styles.wordContainer}>
-          {currentWord.word.split("").map((char, index) => {
-            const isMissing = char === "_";
-            return (
-              <View key={index} style={[
-                styles.letterBox,
-                isMissing && styles.missingLetterBox,
-                isMissing && showFeedback && selectedAlternative === currentWord.correct && styles.correctLetterBox,
-                isMissing && showFeedback && selectedAlternative !== currentWord.correct && selectedAlternative !== null && styles.wrongLetterBox,
-              ]}>
-                <Text style={[styles.letterText, isMissing && styles.missingLetter]}>
-                  {isMissing && selectedAlternative && showFeedback ? selectedAlternative : char}
-                </Text>
-              </View>
-            );
-          })}
-        </View>
-
-        {showFeedback && (
-          <View style={[
-            styles.feedbackContainer,
-            selectedAlternative === currentWord.correct ? styles.feedbackCorrect : styles.feedbackWrong
-          ]}>
-            <Text style={styles.feedbackText}>
-              {selectedAlternative === currentWord.correct ? "✅ Correto!" : `❌ A resposta correta era: ${currentWord.correct}`}
-            </Text>
-            {selectedAlternative !== currentWord.correct && (
-              <Text style={styles.fullWordText}>Palavra: {currentWord.fullWord}</Text>
-            )}
+        {showHint && (
+          <View style={styles.hintContainer}>
+            <Text style={styles.hintText}>💡 {currentWord.hint}</Text>
           </View>
         )}
 
+        {/* Palavra com espaço faltante */}
+        <View style={styles.wordContainer}>
+          <Text style={styles.wordLabel}>Complete a palavra:</Text>
+          <View style={styles.wordBoxes}>
+            {currentWord.word.split("").map((char, index) => {
+              const isMissing = char === "_";
+              const isCorrect = isMissing && showFeedback && selectedAlternative === currentWord.correct;
+              const isWrong = isMissing && showFeedback && selectedAlternative !== currentWord.correct && selectedAlternative !== null;
+              const displayChar = isMissing && selectedAlternative && showFeedback ? selectedAlternative : char;
+              
+              return (
+                <View key={index} style={[
+                  styles.letterBox,
+                  isMissing && styles.missingLetterBox,
+                  isCorrect && styles.correctLetterBox,
+                  isWrong && styles.wrongLetterBox,
+                ]}>
+                  <Text style={[
+                    styles.letterText,
+                    isMissing && styles.missingLetter,
+                    isCorrect && styles.correctLetter,
+                    isWrong && styles.wrongLetter,
+                  ]}>
+                    {displayChar}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        {/* Alternativas */}
         <Text style={styles.alternativesLabel}>Escolha a sílaba correta:</Text>
         <View style={styles.alternativesContainer}>
           {currentWord.alternatives.map((alt, index) => {
@@ -181,263 +272,62 @@ export default function SilabaFaltanteScreen() {
             
             if (showFeedback) {
               if (isCorrect) {
-                buttonStyle = {...styles.alternativeButton, ...styles.alternativeCorrect};
+                buttonStyle = styles.alternativeCorrect;
               } else if (isSelected && !isCorrect) {
-                buttonStyle = {...styles.alternativeButton, ...styles.alternativeWrong};
+                buttonStyle = styles.alternativeWrong;
               } else {
-                buttonStyle = {...styles.alternativeButton, ...styles.alternativeDisabled};
+                buttonStyle = styles.alternativeDisabled;
               }
             }
 
             return (
-              <TouchableOpacity key={index} style={buttonStyle} onPress={() => handleAlternativePress(alt)} disabled={showFeedback}>
-                <Text style={[styles.alternativeText, showFeedback && styles.alternativeTextDisabled]}>{alt}</Text>
+              <TouchableOpacity 
+                key={index} 
+                style={buttonStyle} 
+                onPress={() => handleAlternativePress(alt)} 
+                disabled={showFeedback}
+              >
+                <Text style={styles.alternativeText}>{alt}</Text>
               </TouchableOpacity>
             );
           })}
         </View>
 
+        {/* Feedback */}
+        {showFeedback && (
+          <Animated.View style={[styles.feedbackContainer, feedbackStyle]}>
+            {selectedAlternative === currentWord.correct ? (
+              <View style={styles.feedbackCorrect}>
+                <Text style={styles.feedbackEmoji}>✅</Text>
+                <Text style={styles.feedbackTitle}>Resposta correta!</Text>
+                <Text style={styles.feedbackText}>
+                  A palavra completa é: {currentWord.fullWord}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.feedbackWrong}>
+                <Text style={styles.feedbackEmoji}>❌</Text>
+                <Text style={styles.feedbackTitle}>Resposta incorreta</Text>
+                <Text style={styles.feedbackText}>
+                  A resposta correta é: {currentWord.correct}
+                </Text>
+                <Text style={styles.feedbackFullWord}>
+                  Palavra: {currentWord.fullWord}
+                </Text>
+              </View>
+            )}
+          </Animated.View>
+        )}
+
+        {/* Botão Próximo */}
         {showFeedback && (
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-            <Text style={styles.nextButtonText}>{isLastWord ? "Ver resultados" : "Próxima →"}</Text>
+            <Text style={styles.nextButtonText}>
+              {isLastWord ? 'Ver resultados' : 'Próximo →'}
+            </Text>
           </TouchableOpacity>
         )}
-      </View>
+      </Animated.View>
     </ScrollView>
   );
 }
-
-// Styles (mesmos do exercício anterior)
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#341e42",
-    paddingHorizontal: 20,
-    paddingTop: 54,
-  },
-  scrollContent: {
-    paddingBottom: 24,
-  },
-  backButton: {
-    alignSelf: "flex-start",
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 999,
-    marginBottom: 16,
-  },
-  backButtonText: {
-    color: "#341e42",
-    fontWeight: "800",
-  },
-  progressContainer: {
-    marginBottom: 16,
-  },
-  exerciseTitle: {
-    color: "#ffd54f",
-    fontSize: 22,
-    fontWeight: "900",
-  },
-  levelText: {
-    color: "#f6ebff",
-    fontSize: 14,
-    marginBottom: 4,
-  },
-  progressText: {
-    color: "#f6ebff",
-    fontSize: 14,
-    marginBottom: 6,
-  },
-  progressBar: {
-    height: 8,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 4,
-    overflow: "hidden",
-  },
-  progressFill: {
-    height: "100%",
-    backgroundColor: "#ffd54f",
-    borderRadius: 4,
-  },
-  card: {
-    backgroundColor: "rgba(255,255,255,0.12)",
-    borderRadius: 24,
-    padding: 24,
-    borderWidth: 1,
-    borderColor: "#ffd54f",
-  },
-  emojiContainer: {
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  emojiText: {
-    fontSize: 80,
-  },
-  hintText: {
-    color: "#e5c96f",
-    fontSize: 14,
-    fontStyle: "italic",
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  wordContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 24,
-    gap: 6,
-    flexWrap: "wrap",
-  },
-  letterBox: {
-    width: 50,
-    height: 50,
-    backgroundColor: "rgba(255,255,255,0.15)",
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.2)",
-  },
-  missingLetterBox: {
-    borderColor: "#ffd54f",
-    borderWidth: 3,
-    backgroundColor: "rgba(255,213,79,0.15)",
-  },
-  correctLetterBox: {
-    borderColor: "#4CAF50",
-    backgroundColor: "rgba(76, 175, 80, 0.3)",
-  },
-  wrongLetterBox: {
-    borderColor: "#f44336",
-    backgroundColor: "rgba(244, 67, 54, 0.3)",
-  },
-  letterText: {
-    color: "#ffffff",
-    fontSize: 22,
-    fontWeight: "800",
-  },
-  missingLetter: {
-    color: "#ffd54f",
-  },
-  alternativesLabel: {
-    color: "#f6ebff",
-    fontSize: 14,
-    marginBottom: 12,
-    textAlign: "center",
-  },
-  alternativesContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: 12,
-    marginBottom: 20,
-  },
-  alternativeButton: {
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-    borderRadius: 12,
-    minWidth: 60,
-    alignItems: "center",
-  },
-  alternativeCorrect: {
-    backgroundColor: "#4CAF50",
-  },
-  alternativeWrong: {
-    backgroundColor: "#f44336",
-  },
-  alternativeDisabled: {
-    opacity: 0.5,
-  },
-  alternativeText: {
-    color: "#341e42",
-    fontSize: 18,
-    fontWeight: "700",
-  },
-  alternativeTextDisabled: {
-    color: "#ffffff",
-  },
-  feedbackContainer: {
-    padding: 12,
-    borderRadius: 12,
-    marginBottom: 16,
-    alignItems: "center",
-  },
-  feedbackCorrect: {
-    backgroundColor: "rgba(76, 175, 80, 0.3)",
-    borderWidth: 1,
-    borderColor: "#4CAF50",
-  },
-  feedbackWrong: {
-    backgroundColor: "rgba(244, 67, 54, 0.3)",
-    borderWidth: 1,
-    borderColor: "#f44336",
-  },
-  feedbackText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  fullWordText: {
-    color: "#ffd54f",
-    fontSize: 18,
-    fontWeight: "800",
-    marginTop: 4,
-  },
-  nextButton: {
-    backgroundColor: "#ffd54f",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  nextButtonText: {
-    color: "#341e42",
-    fontWeight: "800",
-    fontSize: 16,
-  },
-  completionEmoji: {
-    fontSize: 60,
-    textAlign: "center",
-    marginBottom: 16,
-  },
-  completionTitle: {
-    color: "#ffffff",
-    fontSize: 28,
-    fontWeight: "900",
-    textAlign: "center",
-  },
-  completionText: {
-    color: "#f6ebff",
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  scoreContainer: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderRadius: 16,
-    padding: 20,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  scoreText: {
-    color: "#ffffff",
-    fontSize: 24,
-    fontWeight: "700",
-  },
-  percentageText: {
-    color: "#ffd54f",
-    fontSize: 18,
-    marginTop: 4,
-  },
-  resetButton: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  resetButtonText: {
-    color: "#ffffff",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});
