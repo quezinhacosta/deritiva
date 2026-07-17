@@ -17,57 +17,6 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
 
-  /* ===== LETRAS ANIMADAS FLUTUANTES ===== */
-  floatingLetter: {
-    position: "absolute",
-    fontSize: 48,
-    fontWeight: "900",
-    color: "#F5B55A",
-    opacity: 0.15,
-  },
-
-  letterD: {
-    top: "8%",
-    left: "5%",
-    transform: [{ rotate: "-15deg" }],
-  },
-
-  letterE: {
-    top: "20%",
-    right: "8%",
-    transform: [{ rotate: "10deg" }],
-  },
-
-  letterR: {
-    bottom: "25%",
-    left: "6%",
-    transform: [{ rotate: "-8deg" }],
-  },
-
-  letterI: {
-    bottom: "10%",
-    right: "5%",
-    transform: [{ rotate: "12deg" }],
-  },
-
-  letterT: {
-    top: "45%",
-    left: "3%",
-    transform: [{ rotate: "-20deg" }],
-  },
-
-  letterV: {
-    bottom: "40%",
-    right: "3%",
-    transform: [{ rotate: "15deg" }],
-  },
-
-  letterA: {
-    top: "35%",
-    right: "2%",
-    transform: [{ rotate: "-10deg" }],
-  },
-
   /* ===== TÍTULO PRINCIPAL ===== */
   titleContainer: {
     marginBottom: 40,
@@ -142,17 +91,6 @@ export const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 
-  /* ===== BOTÃO SHIMMER ===== */
-  shimmerOverlay: {
-    position: "absolute",
-    top: 0,
-    left: -100,
-    width: "150%",
-    height: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
-    transform: [{ skewX: "-20deg" }],
-  },
-
   /* ===== EFEITO GLOW ===== */
   glowContainer: {
     position: "absolute",
@@ -164,5 +102,43 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(245, 181, 90, 0.03)",
     transform: [{ translateX: -150 }, { translateY: -150 }],
     zIndex: 0,
+  },
+
+  /* ===== CARDS (para a tela de progresso) ===== */
+  card: {
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "rgba(245, 181, 90, 0.2)",
+    width: "100%",
+  },
+
+  cardTitle: {
+    color: "#F5B55A",
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 8,
+  },
+
+  cardText: {
+    color: "#E480BB",
+    fontSize: 14,
+    marginBottom: 4,
+  },
+
+  barBackground: {
+    width: "100%",
+    height: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: 4,
+    overflow: "hidden",
+  },
+
+  barFill: {
+    height: "100%",
+    backgroundColor: "#F5B55A",
+    borderRadius: 4,
   },
 });

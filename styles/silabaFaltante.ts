@@ -125,6 +125,8 @@ export const styles = StyleSheet.create({
   // ===== PALAVRA =====
   wordContainer: {
     marginBottom: 20,
+    alignItems: "center",
+    width: "100%",
   },
   wordLabel: {
     color: "#E480BB",
@@ -138,44 +140,57 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexWrap: "wrap",
-    gap: 6,
+    gap: 4,
+    paddingHorizontal: 4,
   },
-  letterBox: {
-    width: 48,
-    height: 48,
+  syllableBox: {
     backgroundColor: "rgba(255, 255, 255, 0.06)",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 2,
     borderColor: "rgba(255, 255, 255, 0.12)",
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    minWidth: 36,
+    minHeight: 44,
   },
-  missingLetterBox: {
+  missingSyllableBox: {
     borderColor: "#F5B55A",
     borderWidth: 3,
     backgroundColor: "rgba(245, 181, 90, 0.1)",
+    minWidth: 48,
+    minHeight: 48,
   },
-  correctLetterBox: {
-    borderColor: "#E480BB",
-    backgroundColor: "rgba(228, 128, 187, 0.2)",
+  correctSyllableBox: {
+    borderColor: "#4CAF50",
+    backgroundColor: "rgba(76, 175, 80, 0.15)",
   },
-  wrongLetterBox: {
-    borderColor: "#E97E0C",
-    backgroundColor: "rgba(233, 126, 12, 0.2)",
+  wrongSyllableBox: {
+    borderColor: "#f44336",
+    backgroundColor: "rgba(244, 67, 54, 0.15)",
   },
-  letterText: {
+  syllableText: {
     color: "#FFFFFF",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "800",
+    letterSpacing: 0.5,
   },
-  missingLetter: {
+  missingSyllableText: {
     color: "#F5B55A",
+    fontSize: 22,
+    fontWeight: "900",
   },
-  correctLetter: {
-    color: "#E480BB",
+  correctSyllableText: {
+    color: "#4CAF50",
   },
-  wrongLetter: {
-    color: "#E97E0C",
+  wrongSyllableText: {
+    color: "#f44336",
+  },
+  placeholderText: {
+    color: "#F5B55A",
+    fontSize: 18,
+    fontWeight: "900",
   },
 
   // ===== ALTERNATIVAS =====
@@ -204,17 +219,35 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   alternativeCorrect: {
-    backgroundColor: "#E480BB",
-    borderColor: "#F5B55A",
+    backgroundColor: "#4CAF50",
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: "#2E7D32",
+    minWidth: 60,
+    alignItems: "center",
   },
   alternativeWrong: {
-    backgroundColor: "#E97E0C",
-    borderColor: "#601938",
+    backgroundColor: "#f44336",
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: "#c62828",
+    minWidth: 60,
+    alignItems: "center",
   },
   alternativeDisabled: {
     opacity: 0.4,
     backgroundColor: "rgba(255, 255, 255, 0.1)",
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 8,
+    borderWidth: 2,
     borderColor: "rgba(255, 255, 255, 0.1)",
+    minWidth: 60,
+    alignItems: "center",
   },
   alternativeText: {
     color: "#601938",
@@ -228,19 +261,19 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   feedbackCorrect: {
-    backgroundColor: "rgba(228, 128, 187, 0.12)",
+    backgroundColor: "rgba(76, 175, 80, 0.12)",
     borderRadius: 12,
     padding: 16,
     borderWidth: 2,
-    borderColor: "#E480BB",
+    borderColor: "#4CAF50",
     alignItems: "center",
   },
   feedbackWrong: {
-    backgroundColor: "rgba(233, 126, 12, 0.12)",
+    backgroundColor: "rgba(244, 67, 54, 0.12)",
     borderRadius: 12,
     padding: 16,
     borderWidth: 2,
-    borderColor: "#E97E0C",
+    borderColor: "#f44336",
     alignItems: "center",
   },
   feedbackEmoji: {

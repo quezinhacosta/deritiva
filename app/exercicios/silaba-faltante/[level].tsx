@@ -11,46 +11,161 @@ import { useState, useEffect } from "react";
 import { styles } from "../../../styles/silabaFaltante";
 
 // ===== DADOS POR NÍVEL =====
+// Agora os dados trabalham com sílabas, não com letras individuais
 const getWordsByLevel = (level: number) => {
   const levelData: Record<number, Array<{
-    word: string;
-    correct: string;
-    alternatives: string[];
-    fullWord: string;
+    syllables: string[];        // Array de sílabas da palavra (ex: ["CA", "CHOR", "RO"])
+    missingIndex: number;       // Índice da sílaba faltante
+    correctSyllable: string;    // A sílaba correta que falta
+    alternatives: string[];     // Opções de sílabas
+    fullWord: string;           // Palavra completa para exibição
     hint: string;
   }>> = {
     1: [
-      { word: "CA__ORRO", correct: "CH", alternatives: ["CH", "SH", "SS", "RR"], fullWord: "CACHORRO", hint: "Animal de estimação que late" },
-      { word: "G__TO", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "GATO", hint: "Animal que mia" },
-      { word: "P__SSARO", correct: "Á", alternatives: ["Á", "A", "Ã", "E"], fullWord: "PÁSSARO", hint: "Animal que voa" },
+      { 
+        syllables: ["CA", "CHOR", "RO"], 
+        missingIndex: 1, 
+        correctSyllable: "CHOR", 
+        alternatives: ["CHOR", "TOR", "SOR", "POR"], 
+        fullWord: "CACHORRO", 
+        hint: "Animal de estimacao que late" 
+      },
+      { 
+        syllables: ["GA", "TO"], 
+        missingIndex: 1, 
+        correctSyllable: "TO", 
+        alternatives: ["TO", "TA", "TE", "TI"], 
+        fullWord: "GATO", 
+        hint: "Animal que mia" 
+      },
+      { 
+        syllables: ["PAS", "SA", "RO"], 
+        missingIndex: 1, 
+        correctSyllable: "SA", 
+        alternatives: ["SA", "SE", "SI", "SO"], 
+        fullWord: "PASSARO", 
+        hint: "Animal que voa" 
+      },
     ],
     2: [
-      { word: "ELEF__NTE", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "ELEFANTE", hint: "Animal com tromba" },
-      { word: "BORB__LETA", correct: "O", alternatives: ["O", "A", "E", "U"], fullWord: "BORBOLETA", hint: "Inseto colorido" },
-      { word: "TART__RUGA", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "TARTARUGA", hint: "Animal com casco" },
-      { word: "PE__XE", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "PEIXE", hint: "Vive na água" },
+      { 
+        syllables: ["E", "LE", "FAN", "TE"], 
+        missingIndex: 2, 
+        correctSyllable: "FAN", 
+        alternatives: ["FAN", "FEN", "FIN", "FON"], 
+        fullWord: "ELEFANTE", 
+        hint: "Animal com tromba" 
+      },
+      { 
+        syllables: ["BOR", "BO", "LE", "TA"], 
+        missingIndex: 2, 
+        correctSyllable: "LE", 
+        alternatives: ["LE", "LA", "LI", "LO"], 
+        fullWord: "BORBOLETA", 
+        hint: "Inseto colorido" 
+      },
+      { 
+        syllables: ["TAR", "TA", "RU", "GA"], 
+        missingIndex: 2, 
+        correctSyllable: "RU", 
+        alternatives: ["RU", "RA", "RE", "RI"], 
+        fullWord: "TARTARUGA", 
+        hint: "Animal com casco" 
+      },
+      { 
+        syllables: ["PEI", "XE"], 
+        missingIndex: 0, 
+        correctSyllable: "PEI", 
+        alternatives: ["PEI", "PAI", "POI", "PUI"], 
+        fullWord: "PEIXE", 
+        hint: "Vive na agua" 
+      },
     ],
     3: [
-      { word: "CACHORRO-Q__ENTE", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "CACHORRO-QUENTE", hint: "Comida de festa" },
-      { word: "M__CARRÃO", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "MACARRÃO", hint: "Comida italiana" },
-      { word: "P__ZZA", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "PIZZA", hint: "Comida redonda" },
-      { word: "HAMB__RGUER", correct: "Ú", alternatives: ["Ú", "U", "A", "E"], fullWord: "HAMBÚRGUER", hint: "Sanduíche famoso" },
-      { word: "SORV__TE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "SORVETE", hint: "Sobremesa gelada" },
+      { 
+        syllables: ["CA", "CHOR", "RO", "QUEN", "TE"], 
+        missingIndex: 3, 
+        correctSyllable: "QUEN", 
+        alternatives: ["QUEN", "QUAN", "QUIN", "QUON"], 
+        fullWord: "CACHORRO-QUENTE", 
+        hint: "Comida de festa" 
+      },
+      { 
+        syllables: ["MA", "CAR", "RAO"], 
+        missingIndex: 1, 
+        correctSyllable: "CAR", 
+        alternatives: ["CAR", "COR", "CUR", "CER"], 
+        fullWord: "MACARRAO", 
+        hint: "Comida italiana" 
+      },
+      { 
+        syllables: ["PIZ", "ZA"], 
+        missingIndex: 0, 
+        correctSyllable: "PIZ", 
+        alternatives: ["PIZ", "PEZ", "PAZ", "PUZ"], 
+        fullWord: "PIZZA", 
+        hint: "Comida redonda" 
+      },
     ],
     4: [
-      { word: "ESCORR__GADOR", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "ESCORREGADOR", hint: "Brinquedo de parque" },
-      { word: "PARALELEP__PEDO", correct: "Í", alternatives: ["Í", "I", "E", "A"], fullWord: "PARALELEPÍPEDO", hint: "Pedra de rua" },
-      { word: "REFRIG__RANTE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "REFRIGERANTE", hint: "Bebida gelada" },
-      { word: "TELEV__SÃO", correct: "I", alternatives: ["I", "E", "A", "O"], fullWord: "TELEVISÃO", hint: "Aparelho de TV" },
-      { word: "VENTIL__DOR", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "VENTILADOR", hint: "Aparelho que faz vento" },
+      { 
+        syllables: ["ES", "COR", "RE", "GA", "DOR"], 
+        missingIndex: 2, 
+        correctSyllable: "RE", 
+        alternatives: ["RE", "RA", "RI", "RO"], 
+        fullWord: "ESCORREGADOR", 
+        hint: "Brinquedo de parque" 
+      },
+      { 
+        syllables: ["PA", "RA", "LE", "LE", "PI", "PE", "DO"], 
+        missingIndex: 4, 
+        correctSyllable: "PI", 
+        alternatives: ["PI", "PA", "PE", "PO"], 
+        fullWord: "PARALELEPIPEDO", 
+        hint: "Pedra de rua" 
+      },
+      { 
+        syllables: ["RE", "FRI", "GE", "RAN", "TE"], 
+        missingIndex: 3, 
+        correctSyllable: "RAN", 
+        alternatives: ["RAN", "REN", "RIN", "RON"], 
+        fullWord: "REFRIGERANTE", 
+        hint: "Bebida gelada" 
+      },
     ],
     5: [
-      { word: "CONTIN__NTE", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "CONTINENTE", hint: "Grande porção de terra" },
-      { word: "MON__MENTO", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "MONUMENTO", hint: "Construção histórica" },
-      { word: "FOG__TE", correct: "U", alternatives: ["U", "A", "E", "I"], fullWord: "FOGUETE", hint: "Vai ao espaço" },
-      { word: "DIN__SSAURO", correct: "O", alternatives: ["O", "A", "E", "I"], fullWord: "DINOSSAURO", hint: "Animal pré-histórico" },
-      { word: "CAST__LO", correct: "E", alternatives: ["E", "A", "I", "O"], fullWord: "CASTELO", hint: "Moradia de reis" },
-      { word: "CIÊNCI__", correct: "A", alternatives: ["A", "E", "I", "O"], fullWord: "CIÊNCIA", hint: "Estudo do conhecimento" },
+      { 
+        syllables: ["CON", "TI", "NEN", "TE"], 
+        missingIndex: 2, 
+        correctSyllable: "NEN", 
+        alternatives: ["NEN", "NAN", "NIN", "NON"], 
+        fullWord: "CONTINENTE", 
+        hint: "Grande porcao de terra" 
+      },
+      { 
+        syllables: ["MO", "NU", "MEN", "TO"], 
+        missingIndex: 2, 
+        correctSyllable: "MEN", 
+        alternatives: ["MEN", "MAN", "MIN", "MON"], 
+        fullWord: "MONUMENTO", 
+        hint: "Construcao historica" 
+      },
+      { 
+        syllables: ["FO", "GUE", "TE"], 
+        missingIndex: 1, 
+        correctSyllable: "GUE", 
+        alternatives: ["GUE", "GA", "GI", "GO"], 
+        fullWord: "FOGUETE", 
+        hint: "Vai ao espaco" 
+      },
+      { 
+        syllables: ["DI", "NOS", "SAU", "RO"], 
+        missingIndex: 2, 
+        correctSyllable: "SAU", 
+        alternatives: ["SAU", "SEU", "SIU", "SOU"], 
+        fullWord: "DINOSSAURO", 
+        hint: "Animal pre-historico" 
+      },
     ],
   };
 
@@ -102,7 +217,7 @@ export default function SilabaFaltanteScreen() {
       withSpring(1)
     );
 
-    if (alt === currentWord.correct) {
+    if (alt === currentWord.correctSyllable) {
       setScore(score + 1);
     }
   };
@@ -132,11 +247,11 @@ export default function SilabaFaltanteScreen() {
     const titles: Record<string, string> = {
       '1': 'Iniciante',
       '2': 'Aprendiz',
-      '3': 'Intermediário',
-      '4': 'Avançado',
+      '3': 'Intermediario',
+      '4': 'Avancado',
       '5': 'Mestre',
     };
-    return titles[String(level)] || 'Nível';
+    return titles[String(level)] || 'Nivel';
   };
 
   if (completed) {
@@ -147,18 +262,18 @@ export default function SilabaFaltanteScreen() {
       <View style={styles.container}>
         <View style={styles.header}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
-            <Text style={styles.backButtonText}>← Voltar</Text>
+            <Text style={styles.backButtonText}>Voltar</Text>
           </Pressable>
           <View style={styles.headerInfo}>
-            <Text style={styles.levelBadge}>Concluído!</Text>
-            <Text style={styles.levelTitle}>Sílaba Faltante</Text>
+            <Text style={styles.levelBadge}>Concluido!</Text>
+            <Text style={styles.levelTitle}>Silaba Faltante</Text>
           </View>
         </View>
         
         <View style={styles.completionCard}>
-          <Text style={styles.completionEmoji}>✅</Text>
-          <Text style={styles.completionTitle}>Parabéns!</Text>
-          <Text style={styles.completionText}>Você completou o exercício!</Text>
+          <Text style={styles.completionEmoji}>✓</Text>
+          <Text style={styles.completionTitle}>Parabens!</Text>
+          <Text style={styles.completionText}>Voce completou o exercicio!</Text>
           
           <View style={styles.scoreContainer}>
             <Text style={styles.scoreNumber}>{score}</Text>
@@ -182,7 +297,7 @@ export default function SilabaFaltanteScreen() {
               style={styles.continueButton} 
               onPress={() => router.push('/exercicio1')}
             >
-              <Text style={styles.continueButtonText}>Voltar aos níveis</Text>
+              <Text style={styles.continueButtonText}>Voltar aos niveis</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -191,14 +306,18 @@ export default function SilabaFaltanteScreen() {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
+    <ScrollView 
+      style={styles.container} 
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+    >
       {/* Header */}
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>← Voltar</Text>
+          <Text style={styles.backButtonText}>Voltar</Text>
         </Pressable>
         <View style={styles.headerInfo}>
-          <Text style={styles.levelBadge}>Nível {level}</Text>
+          <Text style={styles.levelBadge}>Nivel {level}</Text>
           <Text style={styles.levelTitle}>{getLevelTitle()}</Text>
         </View>
       </View>
@@ -227,34 +346,45 @@ export default function SilabaFaltanteScreen() {
 
         {showHint && (
           <View style={styles.hintContainer}>
-            <Text style={styles.hintText}>💡 {currentWord.hint}</Text>
+            <Text style={styles.hintText}>Dica: {currentWord.hint}</Text>
           </View>
         )}
 
-        {/* Palavra com espaço faltante */}
+
         <View style={styles.wordContainer}>
           <Text style={styles.wordLabel}>Complete a palavra:</Text>
           <View style={styles.wordBoxes}>
-            {currentWord.word.split("").map((char, index) => {
-              const isMissing = char === "_";
-              const isCorrect = isMissing && showFeedback && selectedAlternative === currentWord.correct;
-              const isWrong = isMissing && showFeedback && selectedAlternative !== currentWord.correct && selectedAlternative !== null;
-              const displayChar = isMissing && selectedAlternative && showFeedback ? selectedAlternative : char;
+            {currentWord.syllables.map((syllable, index) => {
+              const isMissing = index === currentWord.missingIndex;
+              
+              // Para sílabas normais, mostra a sílaba
+              if (!isMissing) {
+                return (
+                  <View key={index} style={styles.syllableBox}>
+                    <Text style={styles.syllableText}>{syllable}</Text>
+                  </View>
+                );
+              }
+              
+              // Para a sílaba faltante, mostra o espaço vazio ou a resposta
+              const isCorrect = showFeedback && selectedAlternative === currentWord.correctSyllable;
+              const isWrong = showFeedback && selectedAlternative !== currentWord.correctSyllable && selectedAlternative !== null;
+              const displayText = showFeedback ? selectedAlternative : "___";
               
               return (
                 <View key={index} style={[
-                  styles.letterBox,
-                  isMissing && styles.missingLetterBox,
-                  isCorrect && styles.correctLetterBox,
-                  isWrong && styles.wrongLetterBox,
+                  styles.syllableBox,
+                  styles.missingSyllableBox,
+                  isCorrect && styles.correctSyllableBox,
+                  isWrong && styles.wrongSyllableBox,
                 ]}>
                   <Text style={[
-                    styles.letterText,
-                    isMissing && styles.missingLetter,
-                    isCorrect && styles.correctLetter,
-                    isWrong && styles.wrongLetter,
+                    styles.syllableText,
+                    styles.missingSyllableText,
+                    isCorrect && styles.correctSyllableText,
+                    isWrong && styles.wrongSyllableText,
                   ]}>
-                    {displayChar}
+                    {displayText}
                   </Text>
                 </View>
               );
@@ -263,10 +393,10 @@ export default function SilabaFaltanteScreen() {
         </View>
 
         {/* Alternativas */}
-        <Text style={styles.alternativesLabel}>Escolha a sílaba correta:</Text>
+        <Text style={styles.alternativesLabel}>Escolha a silaba correta:</Text>
         <View style={styles.alternativesContainer}>
           {currentWord.alternatives.map((alt, index) => {
-            const isCorrect = alt === currentWord.correct;
+            const isCorrect = alt === currentWord.correctSyllable;
             const isSelected = alt === selectedAlternative;
             let buttonStyle = styles.alternativeButton;
             
@@ -296,20 +426,20 @@ export default function SilabaFaltanteScreen() {
         {/* Feedback */}
         {showFeedback && (
           <Animated.View style={[styles.feedbackContainer, feedbackStyle]}>
-            {selectedAlternative === currentWord.correct ? (
+            {selectedAlternative === currentWord.correctSyllable ? (
               <View style={styles.feedbackCorrect}>
-                <Text style={styles.feedbackEmoji}>✅</Text>
+                <Text style={styles.feedbackEmoji}>✓</Text>
                 <Text style={styles.feedbackTitle}>Resposta correta!</Text>
                 <Text style={styles.feedbackText}>
-                  A palavra completa é: {currentWord.fullWord}
+                  A palavra completa e: {currentWord.fullWord}
                 </Text>
               </View>
             ) : (
               <View style={styles.feedbackWrong}>
-                <Text style={styles.feedbackEmoji}>❌</Text>
+                <Text style={styles.feedbackEmoji}>✗</Text>
                 <Text style={styles.feedbackTitle}>Resposta incorreta</Text>
                 <Text style={styles.feedbackText}>
-                  A resposta correta é: {currentWord.correct}
+                  A silaba correta e: {currentWord.correctSyllable}
                 </Text>
                 <Text style={styles.feedbackFullWord}>
                   Palavra: {currentWord.fullWord}
@@ -323,7 +453,7 @@ export default function SilabaFaltanteScreen() {
         {showFeedback && (
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
             <Text style={styles.nextButtonText}>
-              {isLastWord ? 'Ver resultados' : 'Próximo →'}
+              {isLastWord ? 'Ver resultados' : 'Proximo >'}
             </Text>
           </TouchableOpacity>
         )}
