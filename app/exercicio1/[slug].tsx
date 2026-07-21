@@ -47,16 +47,15 @@ export default function ExerciseScreen() {
     transform: [{ translateY: floatY.value }],
   }));
 
-  // Mapeamento de slugs para emojis
-  const getExerciseEmoji = (slug: string) => {
-    const emojis: Record<string, string> = {
-      'silaba-faltante': '🔍',
-      'formando-a-palavra': '🧩',
+  const getExerciseNumber = (slug: string) => {
+    const numbers: Record<string, string> = {
+      'silaba-faltante': '01',
+      'formando-a-palavra': '02',
     };
-    return emojis[slug] || '🎯';
+    return numbers[slug] || '00';
   };
 
-  const emoji = getExerciseEmoji(params.slug || '');
+  const number = getExerciseNumber(params.slug || '');
 
   return (
     <View style={styles.container}>
@@ -65,23 +64,23 @@ export default function ExerciseScreen() {
       </Pressable>
 
       <Animated.View style={[styles.card, animatedStyle]}>
-        {/* Ícone animado */}
+        {/* Numero do exercicio */}
         <View style={styles.cardIconContainer}>
-          <Animated.Text style={[styles.cardEmoji, floatStyle]}>
-            {emoji}
+          <Animated.Text style={[styles.cardNumber, floatStyle]}>
+            {number}
           </Animated.Text>
         </View>
 
         {/* Badge do nível */}
         <View style={styles.cardHeader}>
           <View style={styles.cardBadge}>
-            <Text style={styles.cardBadgeText}>Nível {params.level}</Text>
+            <Text style={styles.cardBadgeText}>Nivel {params.level}</Text>
           </View>
         </View>
 
         {/* Título */}
         <Text style={styles.cardTitle}>
-          {params.title ?? "Exercício"}
+          {params.title ?? "Exercicio"}
         </Text>
 
         {/* Divisor */}
@@ -89,18 +88,18 @@ export default function ExerciseScreen() {
 
         {/* Descrição */}
         <Text style={styles.cardSubtitle}>
-          Este espaço será usado para construir o exercício {params.slug} em breve.
+          Este espaço será usado para construir o exercicio {params.slug} em breve.
         </Text>
 
         {/* Dicas */}
         <View style={styles.cardTips}>
-          <Text style={styles.cardTip}>💡 Dica: Preste atenção nas sílabas!</Text>
-          <Text style={styles.cardTip}> Complete todos os níveis para desbloquear o próximo</Text>
+          <Text style={styles.cardTip}>Dica: Preste atenção nas silabas!</Text>
+          <Text style={styles.cardTip}>Complete todos os niveis para desbloquear o proximo</Text>
         </View>
 
         {/* Footer */}
         <View style={styles.cardFooter}>
-          <Text style={styles.cardFooterText}>🚀 Prepare-se para o desafio!</Text>
+          <Text style={styles.cardFooterText}>Prepare-se para o desafio!</Text>
         </View>
       </Animated.View>
     </View>

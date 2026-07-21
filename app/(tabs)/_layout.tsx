@@ -53,22 +53,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Progresso',
-          tabBarIcon: ({ focused }) => (
-            <View style={[styles.iconContainer, focused && styles.iconContainerActive]}>
-              <IconSymbol 
-                size={26} 
-                name="chart.bar.fill" 
-                color={focused ? '#F5B55A' : '#E480BB'} 
-              />
-              {focused && <View style={styles.activeDot} />}
-            </View>
-          ),
-        }}
-      />
     </Tabs>
   );
 }
