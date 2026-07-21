@@ -1,7 +1,9 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  // ===== LAYOUT PRINCIPAL =====
+  // ============================================================
+  // 1. LAYOUT PRINCIPAL
+  // ============================================================
   container: {
     flex: 1,
     backgroundColor: "#601938",
@@ -17,7 +19,9 @@ export const styles = StyleSheet.create({
     gap: 12,
   },
 
-  // ===== HEADER =====
+  // ============================================================
+  // 2. HEADER
+  // ============================================================
   header: {
     marginBottom: 20,
     paddingHorizontal: 4,
@@ -54,14 +58,10 @@ export const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-  // ===== BOTOES DE NAVEGACAO =====
-  navButtons: {
-    flexDirection: "row",
-    gap: 10,
-    marginBottom: 20,
-  },
+  // ============================================================
+  // 3. BOTOES DE NAVEGACAO
+  // ============================================================
   navButton: {
-    flex: 1,
     backgroundColor: "rgba(245, 181, 90, 0.12)",
     paddingVertical: 10,
     paddingHorizontal: 14,
@@ -69,21 +69,17 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "rgba(245, 181, 90, 0.2)",
     alignItems: "center",
-  },
-  navButtonHighlight: {
-    backgroundColor: "#F5B55A",
-    borderColor: "#E97E0C",
+    marginBottom: 16,
   },
   navButtonText: {
     color: "#FFFFFF",
     fontSize: 13,
     fontWeight: "700",
   },
-  navButtonTextHighlight: {
-    color: "#601938",
-  },
 
-  // ===== CARD DO NIVEL =====
+  // ============================================================
+  // 4. CARD DO NIVEL
+  // ============================================================
   levelCard: {
     backgroundColor: "rgba(255, 255, 255, 0.06)",
     borderRadius: 16,
@@ -91,7 +87,10 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#F5B55A",
     position: "relative",
-    boxShadow: "0px 4px 8px rgba(245, 181, 90, 0.15)",
+    shadowColor: "#F5B55A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
     elevation: 4,
   },
   levelCardLocked: {
@@ -100,10 +99,12 @@ export const styles = StyleSheet.create({
   },
   levelCardCompleted: {
     borderColor: "#E480BB",
-    backgroundColor: "rgba(228, 128, 187, 0.1)",
+    backgroundColor: "rgba(228, 128, 187, 0.08)",
   },
 
-  // ===== HEADER DO NIVEL =====
+  // ============================================================
+  // 5. HEADER DO NIVEL
+  // ============================================================
   levelHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -154,6 +155,10 @@ export const styles = StyleSheet.create({
     fontWeight: "500",
     marginTop: 1,
   },
+
+  // ============================================================
+  // 6. BADGE DO NIVEL
+  // ============================================================
   levelBadge: {
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -177,7 +182,9 @@ export const styles = StyleSheet.create({
     color: "rgba(255, 255, 255, 0.4)",
   },
 
-  // ===== ESTRELAS =====
+  // ============================================================
+  // 7. ESTRELAS
+  // ============================================================
   starsContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -193,14 +200,10 @@ export const styles = StyleSheet.create({
     color: "#F5B55A",
     fontWeight: "600",
   },
-  starsBadge: {
-    fontSize: 16,
-    color: "#F5B55A",
-    fontWeight: "bold",
-    marginLeft: 8,
-  },
 
-  // ===== CONECTOR DA TRILHA =====
+  // ============================================================
+  // 8. CONECTOR DA TRILHA
+  // ============================================================
   trailConnector: {
     position: "absolute",
     left: 28,
@@ -217,7 +220,9 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.1)",
   },
 
-  // ===== TRILHA DE PROGRESSO =====
+  // ============================================================
+  // 9. TRILHA DE PROGRESSO
+  // ============================================================
   trailRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -263,16 +268,10 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.03)",
     borderColor: "rgba(255, 255, 255, 0.08)",
   },
-  stepDotInner: {
-    fontSize: 10,
-    fontWeight: "900",
-    color: "#601938",
-  },
-  stepDotInnerLocked: {
-    color: "rgba(255, 255, 255, 0.2)",
-  },
 
-  // ===== LISTA DE EXERCICIOS =====
+  // ============================================================
+  // 10. LISTA DE EXERCICIOS
+  // ============================================================
   exerciseList: {
     gap: 6,
     marginTop: 4,
@@ -305,9 +304,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
   },
-  exerciseIcon: {
-    fontSize: 18,
-  },
   exerciseTexts: {
     flex: 1,
   },
@@ -319,25 +315,108 @@ export const styles = StyleSheet.create({
   exerciseTitleLocked: {
     color: "rgba(96, 25, 56, 0.4)",
   },
-  exerciseSubtitle: {
-    color: "#6e5d7e",
-    fontSize: 11,
-    marginTop: 1,
-  },
   exerciseStatus: {
     fontSize: 16,
     marginLeft: 8,
+    color: "#601938",
+  },
+  starsBadge: {
+    fontSize: 14,
+    color: "#F5B55A",
+    fontWeight: "bold",
+    marginLeft: 8,
   },
 
-  // ===== MISCELANEA =====
-  difficultyTag: {
-    fontSize: 12,
-    color: "#E480BB",
-    marginTop: 2,
+  // ============================================================
+  // 11. CARD DO EXERCICIO ([slug].tsx)
+  // ============================================================
+  card: {
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderRadius: 24,
+    padding: 28,
+    borderWidth: 2,
+    borderColor: "#F5B55A",
+    minHeight: 400,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#F5B55A",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
   },
-  difficultyBadge: {
-    fontSize: 12,
+  cardIconContainer: {
+    marginBottom: 16,
+  },
+  cardNumber: {
+    fontSize: 48,
+    fontWeight: "900",
+    color: "#F5B55A",
+  },
+  cardHeader: {
+    marginBottom: 12,
+  },
+  cardBadge: {
+    backgroundColor: "#F5B55A",
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: "#E97E0C",
+  },
+  cardBadgeText: {
+    color: "#601938",
+    fontWeight: "900",
+    fontSize: 14,
+  },
+  cardTitle: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "900",
+    textAlign: "center",
+    marginBottom: 16,
+    letterSpacing: 0.5,
+  },
+  cardDivider: {
+    width: 60,
+    height: 3,
+    backgroundColor: "#F5B55A",
+    borderRadius: 2,
+    marginBottom: 20,
+  },
+  cardSubtitle: {
     color: "#E480BB",
-    marginTop: 2,
+    fontSize: 16,
+    textAlign: "center",
+    lineHeight: 24,
+    marginBottom: 24,
+  },
+  cardTips: {
+    width: "100%",
+    backgroundColor: "rgba(245, 181, 90, 0.08)",
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "rgba(245, 181, 90, 0.15)",
+    marginBottom: 20,
+  },
+  cardTip: {
+    color: "#F5B55A",
+    fontSize: 14,
+    fontWeight: "500",
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  cardFooter: {
+    width: "100%",
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(255, 255, 255, 0.06)",
+  },
+  cardFooterText: {
+    color: "#E480BB",
+    fontSize: 14,
+    fontWeight: "600",
+    textAlign: "center",
   },
 });

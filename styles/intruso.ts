@@ -1,358 +1,384 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  // ============================================================
+  // 1. LAYOUT PRINCIPAL
+  // ============================================================
   container: {
     flex: 1,
     backgroundColor: "#601938",
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
     paddingTop: 48,
+    paddingBottom: 24,
   },
   scrollContent: {
-    flex: 1,
     paddingBottom: 24,
   },
 
-  // ===== HEADER =====
+  // ============================================================
+  // 2. HEADER
+  // ============================================================
   header: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-    gap: 12,
+    paddingHorizontal: 4,
   },
   backButton: {
     backgroundColor: "#F5B55A",
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "#E97E0C",
+    marginRight: 12,
   },
   backButtonText: {
     color: "#601938",
     fontWeight: "900",
     fontSize: 14,
   },
-  headerTitle: {
-    color: "#F5B55A",
-    fontSize: 22,
-    fontWeight: "900",
-    letterSpacing: 0.5,
+  headerInfo: {
+    flex: 1,
   },
-
-  // ===== VOICE CONTROLS (removido) =====
-  voiceControls: {
-    display: "none",
-  },
-
-  // ===== PROGRESSO =====
-  progressContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-    marginBottom: 20,
-    paddingVertical: 8,
-  },
-  progressDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-  },
-  progressDotActive: {
-    backgroundColor: "#F5B55A",
-    width: 20,
-    borderRadius: 5,
-  },
-  progressDotCompleted: {
-    backgroundColor: "#E480BB",
-  },
-
-  // ===== NAVEGACAO =====
-  navigation: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 20,
-    paddingHorizontal: 4,
-  },
-  navButton: {
-    backgroundColor: "#F5B55A",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: "#E97E0C",
-    minWidth: 100,
-    alignItems: "center",
-  },
-  navButtonDisabled: {
-    opacity: 0.3,
-  },
-  navButtonText: {
-    color: "#601938",
-    fontWeight: "700",
-    fontSize: 14,
-  },
-  stepCounter: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-
-  // ===== BOTAO JOGAR =====
-  playButton: {
-    backgroundColor: "#F5B55A",
-    paddingVertical: 16,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: "#E97E0C",
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  playButtonText: {
-    color: "#601938",
-    fontWeight: "900",
-    fontSize: 18,
-    letterSpacing: 0.5,
-  },
-
-  // ===== CARD DO TUTORIAL =====
-  card: {
-    backgroundColor: "rgba(255, 255, 255, 0.06)",
-    borderRadius: 16,
-    padding: 20,
-    borderWidth: 2,
-    borderColor: "#F5B55A",
-    marginBottom: 8,
-  },
-  cardTitle: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "800",
-    textAlign: "center",
-    marginBottom: 12,
-  },
-  cardDescription: {
-    color: "#E480BB",
-    fontSize: 15,
-    textAlign: "center",
-    lineHeight: 22,
-    marginBottom: 16,
-  },
-
-  // ===== INSTRUCTION (adicionado) =====
-  instruction: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "700",
-    textAlign: "center",
-    marginBottom: 16,
-  },
-
-  // ===== DEMONSTRACAO VISUAL =====
-  demoContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.04)",
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: "rgba(245, 181, 90, 0.15)",
-    alignItems: "center",
-  },
-  demoTitle: {
+  levelBadge: {
     color: "#E480BB",
     fontSize: 12,
     fontWeight: "600",
-    marginBottom: 8,
-    letterSpacing: 1,
     textTransform: "uppercase",
+    letterSpacing: 1,
   },
-  demoContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  demoWord: {
-    color: "#F5B55A",
-    fontSize: 24,
-    fontWeight: "900",
-    letterSpacing: 2,
-  },
-  demoWordMissing: {
-    color: "#E480BB",
-    fontSize: 24,
-    fontWeight: "900",
-    letterSpacing: 2,
-    backgroundColor: "rgba(228, 128, 187, 0.15)",
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: "#E480BB",
-    borderStyle: "dashed",
-  },
-  demoWordPart: {
+  levelTitle: {
     color: "#FFFFFF",
-    fontSize: 24,
-    fontWeight: "900",
-    letterSpacing: 2,
-  },
-  demoOption: {
-    backgroundColor: "#F5B55A",
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: "#E97E0C",
-    minWidth: 50,
-    alignItems: "center",
-  },
-  demoOptionText: {
-    color: "#601938",
+    fontSize: 20,
     fontWeight: "800",
-    fontSize: 16,
+    marginTop: 2,
   },
-  demoOptionCorrect: {
-    backgroundColor: "#4CAF50",
-    borderColor: "#2E7D32",
+
+  // ============================================================
+  // 3. PROGRESSO
+  // ============================================================
+  progressContainer: {
+    marginBottom: 20,
+    paddingHorizontal: 4,
   },
-  demoOptionWrong: {
-    backgroundColor: "#f44336",
-    borderColor: "#c62828",
+  progressHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 6,
   },
-  demoRadical: {
+  progressLabel: {
+    color: "#E480BB",
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  progressText: {
+    color: "#F5B55A",
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  progressBar: {
+    height: 6,
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    borderRadius: 4,
+    overflow: "hidden",
+  },
+  progressFill: {
+    height: "100%",
+    backgroundColor: "#F5B55A",
+    borderRadius: 4,
+  },
+
+  // ============================================================
+  // 4. CARD PRINCIPAL
+  // ============================================================
+  card: {
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderRadius: 20,
+    padding: 24,
+    borderWidth: 2,
+    borderColor: "rgba(245, 181, 90, 0.2)",
+    shadowColor: "#F5B55A",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4,
+  },
+
+  // ============================================================
+  // 5. FAMILIA
+  // ============================================================
+  familyContainer: {
+    backgroundColor: "rgba(245, 181, 90, 0.08)",
+    borderRadius: 12,
+    padding: 16,
+    alignItems: "center",
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "rgba(245, 181, 90, 0.15)",
+  },
+  familyLabel: {
+    color: "#E480BB",
+    fontSize: 13,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  familyWord: {
     color: "#F5B55A",
     fontSize: 28,
     fontWeight: "900",
     letterSpacing: 2,
   },
-  demoSuffix: {
-    backgroundColor: "#F5B55A",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: "#E97E0C",
-  },
-  demoSuffixText: {
-    color: "#601938",
-    fontSize: 20,
-    fontWeight: "800",
-  },
-  demoFamily: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: 8,
-  },
-  demoFamilyWord: {
-    backgroundColor: "rgba(245, 181, 90, 0.12)",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
+
+  // ============================================================
+  // 6. DICA
+  // ============================================================
+  hintButton: {
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    alignSelf: "center",
+    marginBottom: 12,
     borderWidth: 1,
-    borderColor: "rgba(245, 181, 90, 0.15)",
+    borderColor: "rgba(255, 255, 255, 0.08)",
   },
-  demoFamilyWordText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  demoFamilyIntruder: {
-    backgroundColor: "rgba(244, 67, 54, 0.12)",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: "#f44336",
-  },
-  demoFamilyIntruderText: {
-    color: "#f44336",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  demoHint: {
+  hintButtonText: {
     color: "#E480BB",
     fontSize: 13,
-    textAlign: "center",
-    fontStyle: "italic",
-    marginTop: 8,
+    fontWeight: "600",
   },
-  demoLevels: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 8,
-    flexWrap: "wrap",
-  },
-  demoLevel: {
-    backgroundColor: "rgba(245, 181, 90, 0.12)",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
+  hintContainer: {
+    backgroundColor: "rgba(245, 181, 90, 0.08)",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: "rgba(245, 181, 90, 0.15)",
-    alignItems: "center",
-    minWidth: 40,
   },
-  demoLevelActive: {
-    backgroundColor: "#F5B55A",
-    borderColor: "#E97E0C",
-  },
-  demoLevelText: {
-    color: "#FFFFFF",
+  hintText: {
+    color: "#F5B55A",
     fontSize: 14,
-    fontWeight: "600",
-  },
-  demoLevelTextActive: {
-    color: "#601938",
-    fontWeight: "800",
-  },
-  demoStars: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 4,
-    marginTop: 4,
-  },
-  demoStar: {
-    color: "#F5B55A",
-    fontSize: 24,
-  },
-  demoStarEmpty: {
-    color: "rgba(255, 255, 255, 0.15)",
-    fontSize: 24,
-  },
-  demoTip: {
-    color: "#E480BB",
-    fontSize: 13,
+    fontWeight: "500",
     textAlign: "center",
-    lineHeight: 20,
   },
-  demoTipHighlight: {
-    color: "#F5B55A",
+
+  // ============================================================
+  // 7. INSTRUCAO
+  // ============================================================
+  instruction: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 20,
+    lineHeight: 24,
+  },
+
+  // ============================================================
+  // 8. PALAVRAS
+  // ============================================================
+  wordsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 12,
+    marginBottom: 16,
+  },
+  wordButton: {
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    minWidth: 80,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "rgba(255, 255, 255, 0.1)",
+  },
+  wordButtonIntruder: {
+    backgroundColor: "rgba(76, 175, 80, 0.15)",
+    borderColor: "#4CAF50",
+  },
+  wordButtonWrong: {
+    backgroundColor: "rgba(244, 67, 54, 0.15)",
+    borderColor: "#F44336",
+  },
+  wordButtonDisabled: {
+    opacity: 0.4,
+    borderColor: "rgba(255, 255, 255, 0.05)",
+  },
+  wordText: {
+    color: "#FFFFFF",
+    fontSize: 16,
     fontWeight: "700",
   },
-  demoSeparator: {
-    color: "rgba(255, 255, 255, 0.1)",
-    fontSize: 20,
-    marginHorizontal: 4,
+
+  // ============================================================
+  // 9. FEEDBACK
+  // ============================================================
+  feedbackContainer: {
+    marginBottom: 16,
   },
-  demoEmoji: {
+  feedbackCorrect: {
+    backgroundColor: "rgba(76, 175, 80, 0.12)",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(76, 175, 80, 0.2)",
+  },
+  feedbackWrong: {
+    backgroundColor: "rgba(244, 67, 54, 0.12)",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(244, 67, 54, 0.2)",
+  },
+  feedbackEmoji: {
     fontSize: 32,
     marginBottom: 4,
   },
-  demoTitleText: {
+  feedbackTitle: {
     color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: "800",
     marginBottom: 4,
   },
-  demoSubtitle: {
+  feedbackText: {
     color: "#E480BB",
+    fontSize: 14,
+    textAlign: "center",
+    fontWeight: "500",
+  },
+  feedbackFamily: {
+    color: "#F5B55A",
     fontSize: 13,
     textAlign: "center",
-    lineHeight: 18,
+    marginTop: 8,
+    fontWeight: "500",
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(255, 255, 255, 0.06)",
+  },
+
+  // ============================================================
+  // 10. BOTAO PROXIMO
+  // ============================================================
+  nextButton: {
+    backgroundColor: "#F5B55A",
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#E97E0C",
+  },
+  nextButtonText: {
+    color: "#601938",
+    fontSize: 16,
+    fontWeight: "800",
+  },
+
+  // ============================================================
+  // 11. TELA DE CONCLUSAO
+  // ============================================================
+  completionCard: {
+    backgroundColor: "rgba(255, 255, 255, 0.06)",
+    borderRadius: 24,
+    padding: 32,
+    borderWidth: 2,
+    borderColor: "#F5B55A",
+    alignItems: "center",
+  },
+  completionEmoji: {
+    fontSize: 56,
+    color: "#4CAF50",
+    marginBottom: 8,
+  },
+  completionTitle: {
+    color: "#FFFFFF",
+    fontSize: 28,
+    fontWeight: "900",
+    marginBottom: 4,
+  },
+  completionText: {
+    color: "#E480BB",
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 24,
+  },
+  scoreContainer: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    marginBottom: 8,
+  },
+  scoreNumber: {
+    color: "#F5B55A",
+    fontSize: 48,
+    fontWeight: "900",
+  },
+  scoreTotal: {
+    color: "#E480BB",
+    fontSize: 24,
+    fontWeight: "600",
+  },
+  scoreLabel: {
+    color: "#E480BB",
+    fontSize: 14,
+    fontWeight: "600",
+    marginLeft: 8,
+  },
+  percentageContainer: {
+    width: "100%",
+    marginBottom: 24,
+  },
+  percentageText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 4,
+  },
+  percentageBar: {
+    height: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    borderRadius: 4,
+    overflow: "hidden",
+  },
+  percentageFill: {
+    height: "100%",
+    backgroundColor: "#F5B55A",
+    borderRadius: 4,
+  },
+  completionButtons: {
+    width: "100%",
+    gap: 12,
+  },
+  retryButton: {
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.1)",
+  },
+  retryButtonText: {
+    color: "#E480BB",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  continueButton: {
+    backgroundColor: "#F5B55A",
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#E97E0C",
+  },
+  continueButtonText: {
+    color: "#601938",
+    fontSize: 16,
+    fontWeight: "800",
   },
 });
