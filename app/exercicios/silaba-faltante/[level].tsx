@@ -10,25 +10,24 @@ import Animated, {
 import { useState, useEffect } from "react";
 import { styles } from "../../../styles/silabaFaltante";
 
-// ===== DADOS POR NÍVEL =====
-// Agora os dados trabalham com sílabas, não com letras individuais
+
 const getWordsByLevel = (level: number) => {
   const levelData: Record<number, Array<{
-    syllables: string[];        // Array de sílabas da palavra (ex: ["CA", "CHOR", "RO"])
-    missingIndex: number;       // Índice da sílaba faltante
-    correctSyllable: string;    // A sílaba correta que falta
-    alternatives: string[];     // Opções de sílabas
-    fullWord: string;           // Palavra completa para exibição
+    syllables: string[];      
+    missingIndex: number;      
+    correctSyllable: string;    
+    alternatives: string[];    
+    fullWord: string;        
     hint: string;
   }>> = {
     1: [
       { 
-        syllables: ["CA", "CHOR", "RO"], 
+        syllables: ["DE", "DO"], 
         missingIndex: 1, 
-        correctSyllable: "CHOR", 
-        alternatives: ["CHOR", "TOR", "SOR", "POR"], 
-        fullWord: "CACHORRO", 
-        hint: "Animal de estimacao que late" 
+        correctSyllable: "DO", 
+        alternatives: ["DO", "DE", "DU", "DI"], 
+        fullWord: "DEDO", 
+        hint: "Parte da mão" 
       },
       { 
         syllables: ["GA", "TO"], 
@@ -73,22 +72,22 @@ const getWordsByLevel = (level: number) => {
         hint: "Animal com casco" 
       },
       { 
-        syllables: ["PEI", "XE"], 
+        syllables: ["BE", "LE", "ZA"], 
         missingIndex: 0, 
-        correctSyllable: "PEI", 
-        alternatives: ["PEI", "PAI", "POI", "PUI"], 
-        fullWord: "PEIXE", 
-        hint: "Vive na agua" 
+        correctSyllable: "BE", 
+        alternatives: ["BE", "BO", "BA", "BU"], 
+        fullWord: "BELEZA", 
+        hint: "Se algo é belo, então há..." 
       },
     ],
     3: [
       { 
-        syllables: ["CA", "CHOR", "RO", "QUEN", "TE"], 
-        missingIndex: 3, 
-        correctSyllable: "QUEN", 
-        alternatives: ["QUEN", "QUAN", "QUIN", "QUON"], 
-        fullWord: "CACHORRO-QUENTE", 
-        hint: "Comida de festa" 
+        syllables: ["AS", "SUS", "TAR"], 
+        missingIndex: 1, 
+        correctSyllable: "SUS", 
+        alternatives: ["SUS", "SAS", "SSUS", "SOS"], 
+        fullWord: "ASSUSTAR", 
+        hint: "Ação de assustar alguém" 
       },
       { 
         syllables: ["MA", "CAR", "RAO"], 
@@ -109,28 +108,28 @@ const getWordsByLevel = (level: number) => {
     ],
     4: [
       { 
-        syllables: ["ES", "COR", "RE", "GA", "DOR"], 
+        syllables: ["ES", "COR", "RER"], 
         missingIndex: 2, 
-        correctSyllable: "RE", 
-        alternatives: ["RE", "RA", "RI", "RO"], 
-        fullWord: "ESCORREGADOR", 
+        correctSyllable: "RER", 
+        alternatives: ["RER", "RAR", "RIR", "ROR"], 
+        fullWord: "ESCORRER", 
         hint: "Brinquedo de parque" 
       },
       { 
-        syllables: ["PA", "RA", "LE", "LE", "PI", "PE", "DO"], 
-        missingIndex: 4, 
-        correctSyllable: "PI", 
-        alternatives: ["PI", "PA", "PE", "PO"], 
-        fullWord: "PARALELEPIPEDO", 
-        hint: "Pedra de rua" 
+        syllables: ["POR", "TU", "GUÊS"], 
+        missingIndex: 1, 
+        correctSyllable: "TU", 
+        alternatives: ["TA", "TA", "TE", "TU"], 
+        fullWord: "PORTUGUÊS", 
+        hint: "Quem nasce em portugal é..." 
       },
       { 
-        syllables: ["RE", "FRI", "GE", "RAN", "TE"], 
-        missingIndex: 3, 
-        correctSyllable: "RAN", 
-        alternatives: ["RAN", "REN", "RIN", "RON"], 
-        fullWord: "REFRIGERANTE", 
-        hint: "Bebida gelada" 
+        syllables: ["AS", "SUS", "TA", "DO"], 
+        missingIndex: 0, 
+        correctSyllable: "AS", 
+        alternatives: ["AS", "TA", "SUS", "DO"], 
+        fullWord: "ASSUSTADO", 
+        hint: "Se eu me assustei, então estou..." 
       },
     ],
     5: [
@@ -151,12 +150,12 @@ const getWordsByLevel = (level: number) => {
         hint: "Construcao historica" 
       },
       { 
-        syllables: ["FO", "GUE", "TE"], 
+        syllables: ["BI", "CI","CLE", "TA"], 
         missingIndex: 1, 
-        correctSyllable: "GUE", 
-        alternatives: ["GUE", "GA", "GI", "GO"], 
-        fullWord: "FOGUETE", 
-        hint: "Vai ao espaco" 
+        correctSyllable: "CI", 
+        alternatives: ["CA", "CU", "CI", "CO"], 
+        fullWord: "Bicicleta", 
+        hint: "Meio de transporte de duas rodas" 
       },
       { 
         syllables: ["DI", "NOS", "SAU", "RO"], 
