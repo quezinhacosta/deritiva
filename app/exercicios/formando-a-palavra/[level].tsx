@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Pressable, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Pressable, TouchableOpacity, ScrollView, Image } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -19,31 +19,107 @@ const getWordsByLevel = (level: number) => {
     word: string;
     syllables: string[];
     hint: string;
+    image: any;
   }>> = {
     1: [
-      { word: 'DENTE', syllables: ['DEN', 'TE'], hint: 'Parte da boca' },
-      { word: 'SOL', syllables: ['SOL'], hint: 'Estrela que ilumina o dia' },
-      { word: 'DOIS', syllables: ['DO', 'IS'], hint: '1+1=?' },
+      { 
+        word: 'DENTE', 
+        syllables: ['DEN', 'TE'], 
+        hint: 'Parte da boca',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+      },
+      { 
+        word: 'SOL', 
+        syllables: ['SOL'], 
+        hint: 'Estrela que ilumina o dia',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/sol.png')
+      },
+      { 
+        word: 'DOIS', 
+        syllables: ['DO', 'IS'], 
+        hint: '1+1=?',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dois.png')
+      },
     ],
     2: [
-      { word: 'CACHORRO', syllables: ['CA', 'CHOR', 'RO'], hint: 'Animal domestico que late' },
-      { word: 'ESCOLA', syllables: ['ES', 'CO', 'LA'], hint: 'Instituição de aprendizagem' },
-      { word: 'BILHETE', syllables: ['BI', 'LHE', 'TE'], hint: 'Similar de carta' },
+      { 
+        word: 'CACHORRO', 
+        syllables: ['CA', 'CHOR', 'RO'], 
+        hint: 'Animal domestico que late',
+        image: require('../../../assets/images/formando-a-palavra/nivel-2/cachorro.png')
+      },
+      { 
+        word: 'ESCOLA', 
+        syllables: ['ES', 'CO', 'LA'], 
+        hint: 'Instituição de aprendizagem',
+        image: require('../../../assets/images/formando-a-palavra/nivel-2/escola.png')
+      },
+      { 
+        word: 'BILHETE', 
+        syllables: ['BI', 'LHE', 'TE'], 
+        hint: 'Similar de carta',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+      },
     ],
     3: [
-      { word: 'BORBOLETA', syllables: ['BOR', 'BO', 'LE', 'TA'], hint: 'Inseto colorido que voa' },
-      { word: 'MORANGO', syllables: ['MO', 'RAN', 'GO'], hint: 'Fruta vermelha e doce' },
-      { word: 'CAMISA', syllables: ['CA', 'MI', 'SA'], hint: 'Peça de roupa' },
+      { 
+        word: 'BORBOLETA', 
+        syllables: ['BOR', 'BO', 'LE', 'TA'], 
+        hint: 'Inseto colorido que voa',
+        image: require('../../../assets/images/formando-a-palavra/nivel-3/borboleta.png')
+      },
+      { 
+        word: 'MORANGO', 
+        syllables: ['MO', 'RAN', 'GO'], 
+        hint: 'Fruta vermelha e doce',
+        image: require('../../../assets/images/formando-a-palavra/nivel-3/morango.png')
+      },
+      { 
+        word: 'CAMISA', 
+        syllables: ['CA', 'MI', 'SA'], 
+        hint: 'Peça de roupa',
+        image: require('../../../assets/images/formando-a-palavra/nivel-3/camisa.png')
+      },
     ],
     4: [
-      { word: 'MACHUCADO', syllables: ['MA', 'CHU', 'CA', 'DO'], hint: 'Lesão corporal' },
-      { word: 'BICICLETA', syllables: ['BI', 'CI', 'CLE', 'TA'], hint: 'Meio de transporte de duas rodas' },
-      { word: 'CHOCOLATE', syllables: ['CHO', 'CO', 'LA', 'TE'], hint: 'Doce feito de cacau' },
+      { 
+        word: 'MACHUCADO', 
+        syllables: ['MA', 'CHU', 'CA', 'DO'], 
+        hint: 'Lesão corporal',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+      },
+      { 
+        word: 'BICICLETA', 
+        syllables: ['BI', 'CI', 'CLE', 'TA'], 
+        hint: 'Meio de transporte de duas rodas',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+      },
+      { 
+        word: 'CHOCOLATE', 
+        syllables: ['CHO', 'CO', 'LA', 'TE'], 
+        hint: 'Doce feito de cacau',
+        image: require('../../../assets/images/formando-a-palavra/nivel-4/chocolate.png')
+      },
     ],
     5: [
-      { word: 'MACARRAO', syllables: ['MA', 'CAR', 'RAO'], hint: 'Comida italiana' },
-      { word: 'DINOSSAURO', syllables: ['DI', 'NOS', 'SAU', 'RO'], hint: 'Animal pré-histórico' },
-      { word: 'ANIVERSARIO', syllables: ['A', 'NI', 'VER', 'SA', 'RIO'], hint: 'Comemoração do nascimento de alguém' },
+      { 
+        word: 'MACARRAO', 
+        syllables: ['MA', 'CAR', 'RAO'], 
+        hint: 'Comida italiana',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+      },
+      { 
+        word: 'DINOSSAURO', 
+        syllables: ['DI', 'NOS', 'SAU', 'RO'], 
+        hint: 'Animal pré-histórico',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+      },
+      { 
+        word: 'ANIVERSARIO', 
+        syllables: ['A', 'NI', 'VER', 'SA', 'RIO'], 
+        hint: 'Comemoração do nascimento de alguém',
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+      },
     ],
   };
 
@@ -67,6 +143,7 @@ export default function FormandoPalavraScreen() {
   const [completed, setCompleted] = useState(false);
   const [failed, setFailed] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [showImage, setShowImage] = useState(false); // NOVO: estado para controlar a imagem
   const [saving, setSaving] = useState(false);
 
   const words = getWordsByLevel(level);
@@ -106,6 +183,7 @@ export default function FormandoPalavraScreen() {
     setIsCorrect(false);
     setIsWrong(false);
     setShowHint(false);
+    setShowImage(false); // Reseta a imagem ao trocar de palavra
   };
 
   // ===== SALVAR PROGRESSO =====
@@ -341,6 +419,27 @@ export default function FormandoPalavraScreen() {
       </View>
 
       <Animated.View style={[styles.card, animatedStyle]}>
+        {/* ===== BOTÃO PARA MOSTRAR IMAGEM ===== */}
+        <TouchableOpacity 
+          style={styles.imageButton}
+          onPress={() => setShowImage(!showImage)}
+        >
+          <Text style={styles.imageButtonText}>
+            {showImage ? '🔼 Ocultar imagem' : '🖼️ Ver imagem'}
+          </Text>
+        </TouchableOpacity>
+
+        {/* ===== IMAGEM ===== */}
+        {showImage && (
+          <View style={styles.imageContainer}>
+            <Image 
+              source={currentWord.image}
+              style={styles.image}
+              resizeMode="contain"
+            />
+          </View>
+        )}
+
         <View style={styles.wordContainer}>
           <Text style={styles.wordLabel}>Forme a palavra:</Text>
           <View style={styles.wordSlots}>

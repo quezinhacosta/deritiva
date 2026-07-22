@@ -510,4 +510,34 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
+  // ===== IMAGEM =====
+imageButton: {
+  backgroundColor: "rgba(245, 181, 90, 0.12)",
+  paddingVertical: 10,
+  paddingHorizontal: 16,
+  borderRadius: 8,
+  alignSelf: "center",
+  marginVertical: 8,
+  borderWidth: 1,
+  borderColor: "rgba(245, 181, 90, 0.2)",
+},
+  imageButtonText: {
+    color: "#F5B55A",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  imageContainer: {
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    borderRadius: 12,
+    padding: 12,
+    marginVertical: 8,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.08)",
+  },
+  image: {
+    width: 200,
+    height: 150,
+    borderRadius: 8,
+  },
 });
