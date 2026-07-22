@@ -1,9 +1,61 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  withRepeat,
+  Easing,
+} from "react-native-reanimated";
+import { useEffect } from "react";
+import { styles } from "../../styles/exercicio1";
 
 export default function ExerciseScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ slug: string; level: string; title: string }>();
+  const params = useLocalSearchParams<{ 
+    slug: string; 
+    level: string; 
+    title: string;
+    exerciseId: string;
+  }>();
+  
+  const scale = useSharedValue(0.9);
+  const opacity = useSharedValue(0);
+  const floatY = useSharedValue(0);
+
+  useEffect(() => {
+    scale.value = withSpring(1, { damping: 12 });
+    opacity.value = withTiming(1, { duration: 500 });
+    
+    floatY.value = withRepeat(
+      withTiming(-10, { 
+        duration: 1500, 
+        easing: Easing.inOut(Easing.ease) 
+      }),
+      -1,
+      true
+    );
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  const floatStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: floatY.value }],
+  }));
+
+  const getExerciseNumber = (slug: string) => {
+    const numbers: Record<string, string> = {
+      'silaba-faltante': '01',
+      'formando-a-palavra': '02',
+    };
+    return numbers[slug] || '00';
+  };
+
+  const number = getExerciseNumber(params.slug || '');
 
   return (
     <View style={styles.container}>
@@ -11,60 +63,45 @@ export default function ExerciseScreen() {
         <Text style={styles.backButtonText}>← Voltar</Text>
       </Pressable>
 
-      <View style={styles.card}>
-        <Text style={styles.eyebrow}>Nível {params.level}</Text>
-        <Text style={styles.title}>{params.title ?? "Exercício"}</Text>
-        <Text style={styles.subtitle}>
-          Este espaço será usado para construir o exercício {params.slug} em breve.
+      <Animated.View style={[styles.card, animatedStyle]}>
+        {/* Numero do exercicio */}
+        <View style={styles.cardIconContainer}>
+          <Animated.Text style={[styles.cardNumber, floatStyle]}>
+            {number}
+          </Animated.Text>
+        </View>
+
+        {/* Badge do nível */}
+        <View style={styles.cardHeader}>
+          <View style={styles.cardBadge}>
+            <Text style={styles.cardBadgeText}>Nivel {params.level}</Text>
+          </View>
+        </View>
+
+        {/* Título */}
+        <Text style={styles.cardTitle}>
+          {params.title ?? "Exercicio"}
         </Text>
-      </View>
+
+        {/* Divisor */}
+        <View style={styles.cardDivider} />
+
+        {/* Descrição */}
+        <Text style={styles.cardSubtitle}>
+          Este espaço será usado para construir o exercicio {params.slug} em breve.
+        </Text>
+
+        {/* Dicas */}
+        <View style={styles.cardTips}>
+          <Text style={styles.cardTip}>Dica: Preste atenção nas silabas!</Text>
+          <Text style={styles.cardTip}>Complete todos os niveis para desbloquear o proximo</Text>
+        </View>
+
+        {/* Footer */}
+        <View style={styles.cardFooter}>
+          <Text style={styles.cardFooterText}>Prepare-se para o desafio!</Text>
+        </View>
+      </Animated.View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#341e42",
-    paddingHorizontal: 20,
-    paddingTop: 54,
-    paddingBottom: 24,
-    justifyContent: "center",
-  },
-  backButton: {
-    alignSelf: "flex-start",
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 999,
-    marginBottom: 16,
-  },
-  backButtonText: {
-    color: "#341e42",
-    fontWeight: "800",
-  },
-  card: {
-    backgroundColor: "rgba(255,255,255,0.12)",
-    borderRadius: 24,
-    padding: 24,
-    borderWidth: 1,
-    borderColor: "#ffd54f",
-  },
-  eyebrow: {
-    color: "#ffd54f",
-    fontWeight: "800",
-    marginBottom: 8,
-    letterSpacing: 1,
-  },
-  title: {
-    color: "#ffffff",
-    fontSize: 24,
-    fontWeight: "900",
-    marginBottom: 10,
-  },
-  subtitle: {
-    color: "#f6ebff",
-    fontSize: 15,
-    lineHeight: 22,
-  },
-});

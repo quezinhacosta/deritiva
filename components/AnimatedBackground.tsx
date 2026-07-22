@@ -1,93 +1,85 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
 import Animated, {
-  Easing,
-  useAnimatedStyle,
   useSharedValue,
-  withDelay,
+  useAnimatedStyle,
   withRepeat,
   withTiming,
-} from "react-native-reanimated";
-import { styles } from "../styles/homestyles";
+  Easing,
+  withSequence,
+} from 'react-native-reanimated';
 
-type FloatingLetterProps = {
-  char: string;
-  style: any;
-  duration?: number;
-  amplitude?: number;
-  delay?: number;
-  xAmplitude?: number;
-};
-
-function FloatingLetter({
-  char,
-  style,
-  duration = 2400,
-  amplitude = 12,
-  delay = 0,
-  xAmplitude = 10,
-}: FloatingLetterProps) {
-  const translateY = useSharedValue(0);
-  const translateX = useSharedValue(0);
-  const opacity = useSharedValue(0.45);
+// Componente de fundo com efeito de gradiente animado (sem bolas)
+export default function AnimatedBackground() {
+  // Valores para animação do gradiente
+  const gradientX = useSharedValue(0);
+  const gradientY = useSharedValue(0);
 
   useEffect(() => {
-    translateY.value = withDelay(
-      delay,
-      withRepeat(
-        withTiming(-amplitude, {
-          duration,
-          easing: Easing.inOut(Easing.quad),
-        }),
-        -1,
-        true
-      )
+    // Animação suave do gradiente
+    gradientX.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 3000, easing: Easing.inOut(Easing.ease) }),
+        withTiming(0, { duration: 3000, easing: Easing.inOut(Easing.ease) })
+      ),
+      -1,
+      true
     );
 
-    translateX.value = withDelay(
-      delay,
-      withRepeat(
-        withTiming(xAmplitude, {
-          duration: duration * 1.25,
-          easing: Easing.inOut(Easing.quad),
-        }),
-        -1,
-        true
-      )
+    gradientY.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 4000, easing: Easing.inOut(Easing.ease) }),
+        withTiming(0, { duration: 4000, easing: Easing.inOut(Easing.ease) })
+      ),
+      -1,
+      true
     );
-
-    opacity.value = withDelay(
-      delay,
-      withRepeat(
-        withTiming(0.9, {
-          duration: duration / 2,
-          easing: Easing.inOut(Easing.quad),
-        }),
-        -1,
-        true
-      )
-    );
-  }, [amplitude, delay, duration, opacity, translateX, translateY, xAmplitude]);
+  }, []);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
-    opacity: opacity.value,
+    transform: [
+      { translateX: gradientX.value * 20 - 10 },
+      { translateY: gradientY.value * 20 - 10 },
+    ],
   }));
 
   return (
-    <Animated.Text style={[styles.floatingLetter, style, animatedStyle]}>
-      {char}
-    </Animated.Text>
-  );
-}
-
-export default function AnimatedBackground() {
-  return (
-    <View style={[StyleSheet.absoluteFillObject, { pointerEvents: "none" }]}>
-      <FloatingLetter char="D" style={styles.letterD} duration={1800} amplitude={12} xAmplitude={14} />
-      <FloatingLetter char="E" style={styles.letterE} duration={2000} amplitude={14} delay={120} xAmplitude={16} />
-      <FloatingLetter char="R" style={styles.letterR} duration={1900} amplitude={13} delay={220} xAmplitude={15} />
-      <FloatingLetter char="I" style={styles.letterI} duration={2200} amplitude={15} delay={320} xAmplitude={18} />
+    <View style={styles.container}>
+      {/* Gradiente animado de fundo */}
+      <Animated.View style={[styles.gradient, animatedStyle]} />
+      
+      {/* Overlay sutil para profundidade */}
+      <View style={styles.overlay} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#601938',
+    zIndex: 0,
+  },
+  gradient: {
+    position: 'absolute',
+    top: -50,
+    left: -50,
+    right: -50,
+    bottom: -50,
+    backgroundColor: 'transparent',
+    // Usando um gradiente radial aproximado com opacidade
+    borderWidth: 0,
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(96, 25, 56, 0.3)',
+  },
+});
