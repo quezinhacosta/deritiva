@@ -9,6 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useState, useEffect } from "react";
 import { styles } from "../../../styles/construtor";
+import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress";
 
 // ===== DADOS POR NIVEL =====
 const getConstrutorData = (level: number) => {
@@ -139,6 +140,14 @@ export default function ConstrutorScreen() {
   const wordsData = getConstrutorData(level);
   const currentWord = wordsData[currentIndex];
   const isLastWord = currentIndex === wordsData.length - 1;
+
+  useEffect(() => {
+    if (!completed) return;
+    const totalQuestions = wordsData.length;
+    const percentage = Math.round((score / totalQuestions) * 100);
+    const errors = totalQuestions - score;
+    saveExerciseResult(level, `construtor-${level}`, starsFromPercentage(percentage), errors);
+  }, [completed]);
 
   // Animacoes
   const scale = useSharedValue(0.9);

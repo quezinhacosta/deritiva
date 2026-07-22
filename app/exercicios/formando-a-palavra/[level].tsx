@@ -9,6 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useState, useEffect } from "react";
 import { styles } from "../../../styles/formandoPalavra";
+import { saveExerciseResult } from "../../../utils/progress";
 
 // ===== DADOS DAS PALAVRAS POR NÍVEL =====
 const wordData: Record<string, { word: string; syllables: string[]; hint: string }> = {
@@ -53,7 +54,13 @@ export default function FormandoPalavraScreen() {
   const [isComplete, setIsComplete] = useState(false);
 
   const currentWord = wordData[level] || wordData['1'];
-  
+
+  useEffect(() => {
+    if (!isComplete) return;
+    const stars = attempts === 0 ? 3 : attempts <= 2 ? 2 : 1;
+    saveExerciseResult(parseInt(level), `formando-a-palavra-${level}`, stars, attempts);
+  }, [isComplete]);
+
   // Animações
   const scale = useSharedValue(0.9);
   const opacity = useSharedValue(0);

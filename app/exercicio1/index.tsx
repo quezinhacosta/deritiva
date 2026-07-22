@@ -1,5 +1,5 @@
 import { useRouter, useFocusEffect } from "expo-router";
-import { ScrollView, Text, Pressable, View } from "react-native";
+import { ScrollView, Text, Pressable, View, Alert, Platform } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -9,6 +9,7 @@ import Animated, {
 import { useCallback, useState, useEffect } from "react";
 import { styles } from "../../styles/exercicio1";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { resetProgress } from "../../utils/progress";
 
 interface Exercise {
   id: string;
@@ -353,6 +354,31 @@ export default function ExerciseLevelsScreen() {
     });
   };
 
+  // ===== RESETAR PROGRESSO =====
+  const handleResetProgress = () => {
+    const message = "Isso vai apagar todas as estrelas e desbloqueios salvos. Deseja continuar?";
+    const doReset = async () => {
+      await resetProgress();
+      setLevelsData(defaultLevels);
+    };
+
+    if (Platform.OS === "web") {
+      if (window.confirm(message)) {
+        doReset();
+      }
+      return;
+    }
+
+    Alert.alert(
+      "Resetar progresso",
+      message,
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Resetar", style: "destructive", onPress: doReset },
+      ]
+    );
+  };
+
   // ===== HANDLE EXERCISE PRESS =====
   const handleExercisePress = (exercise: Exercise, levelId: number) => {
     const routePath = `/exercicios/${exercise.route}/${levelId}`;
@@ -382,6 +408,9 @@ export default function ExerciseLevelsScreen() {
         <View style={styles.headerTop}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
             <Text style={styles.backButtonText}>Voltar</Text>
+          </Pressable>
+          <Pressable onPress={handleResetProgress} style={styles.resetButton}>
+            <Text style={styles.resetButtonText}>Resetar progresso</Text>
           </Pressable>
         </View>
         <Text style={styles.title}>Minha Jornada</Text>

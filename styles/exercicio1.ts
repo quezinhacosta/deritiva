@@ -45,6 +45,19 @@ export const styles = StyleSheet.create({
     fontWeight: "900",
     fontSize: 14,
   },
+  resetButton: {
+    backgroundColor: "rgba(220, 53, 69, 0.12)",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: "rgba(220, 53, 69, 0.4)",
+  },
+  resetButtonText: {
+    color: "#F08A96",
+    fontWeight: "900",
+    fontSize: 14,
+  },
   title: {
     color: "#F5B55A",
     fontSize: 26,

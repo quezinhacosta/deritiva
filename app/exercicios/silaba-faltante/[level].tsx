@@ -9,6 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useState, useEffect } from "react";
 import { styles } from "../../../styles/silabaFaltante";
+import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress";
 
 
 const getWordsByLevel = (level: number) => {
@@ -186,6 +187,14 @@ export default function SilabaFaltanteScreen() {
   const words = getWordsByLevel(level);
   const currentWord = words[currentIndex];
   const isLastWord = currentIndex === words.length - 1;
+
+  useEffect(() => {
+    if (!completed) return;
+    const totalQuestions = words.length;
+    const percentage = Math.round((score / totalQuestions) * 100);
+    const errors = totalQuestions - score;
+    saveExerciseResult(level, `silaba-faltante-${level}`, starsFromPercentage(percentage), errors);
+  }, [completed]);
 
   // Animações
   const scale = useSharedValue(0.9);
