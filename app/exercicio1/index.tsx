@@ -176,7 +176,7 @@ function LevelCard({ level, index, totalLevels, onExercisePress }: LevelCardProp
           {isUnlocked ? (
             totalStars > 0 ? `Estrelas: ${Array(totalStars).fill('★').join('')}` : 'Nenhuma estrela ainda'
           ) : (
-            '🔒 Complete o nivel anterior para desbloquear'
+            ' Complete o nivel anterior para desbloquear'
           )}
         </Text>
       </View>
