@@ -425,7 +425,7 @@ export default function FormandoPalavraScreen() {
           onPress={() => setShowImage(!showImage)}
         >
           <Text style={styles.imageButtonText}>
-            {showImage ? '🔼 Ocultar imagem' : '🖼️ Ver imagem'}
+            {showImage ? 'Ocultar imagem' : ' Ver imagem'}
           </Text>
         </TouchableOpacity>
 
