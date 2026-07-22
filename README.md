@@ -1,50 +1,159 @@
-# Welcome to your Expo app 👋
+#  Deritiva - Aplicativo Educativo para Intervenção em Ortografia
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+[![Expo](https://img.shields.io/badge/Expo-54.0.0-000.svg)](https://expo.dev)
+[![React Native](https://img.shields.io/badge/React_Native-0.75.4-61DAFB.svg)](https://reactnative.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-3178C6.svg)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Get started
+**Deritiva** é um aplicativo mobile educativo desenvolvido para auxiliar no aprendizado da ortografia de palavras derivadas, com foco especial em indivíduos com dislexia. O aplicativo combina exercícios interativos, gamificação e recursos de acessibilidade para tornar o aprendizado mais envolvente e eficaz.
 
-1. Install dependencies
+##  Objetivo
 
-   ```bash
-   npm install
-   ```
+O aplicativo tem como objetivo principal intervir na ortografia de palavras derivadas, utilizando uma abordagem baseada na derivação morfológica. Através de exercícios progressivos, o usuário desenvolve habilidades de:
 
-2. Start the app
+- Reconhecimento de sílabas e padrões ortográficos
+- Compreensão de famílias de palavras e derivações
+- Raciocínio lógico e análise de estruturas linguísticas
+- Associação entre forma escrita e significado
 
-   ```bash
-   npx expo start
-   ```
+##  Funcionalidades
 
-In the output, you'll find options to open the app in a
+###  Níveis de Dificuldade
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+O aplicativo possui **5 níveis de dificuldade progressiva**, cada um com **4 exercícios**:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Nível | Título | Descrição |
+|-------|--------|-----------|
+| 1 | Iniciante | Palavras simples e de alta frequência |
+| 2 | Explorador | Palavras com maior complexidade silábica |
+| 3 | Aventureiro | Palavras com encontros consonantais |
+| 4 | Mestre | Palavras com estruturas mais complexas |
+| 5 | Lenda | Palavras desafiadoras e de baixa frequência |
 
-## Get a fresh project
+### 🎮 Tipos de Exercícios
 
-When you're ready, run:
+#### 1. Sílaba Faltante
+Completar a palavra com a sílaba correta entre 4 opções.
+- **Habilidade**: Identificação e associação silábica
+- **Dificuldade**: Progressiva por nível
 
-```bash
-npm run reset-project
+#### 2. Formando a Palavra
+Organizar sílabas embaralhadas para formar a palavra correta.
+- **Habilidade**: Ordenação e estruturação silábica
+- **Dificuldade**: Aumenta o número de sílabas por nível
+
+#### 3. Construtor
+Escolher a sílaba correta para completar uma palavra a partir do radical.
+- **Habilidade**: Reconhecimento de sufixos e radicais
+- **Foco**: Derivação de palavras
+
+#### 4. Intruso
+Identificar a palavra que não pertence à família de palavras.
+- **Habilidade**: Análise de famílias morfológicas
+- **Foco**: Derivação e relação semântica
+
+### Sistema de Progresso
+
+- **Estrelas**: 1 a 3 estrelas por exercício, baseado no desempenho
+- **Progresso**: Visualização do avanço por nível
+- **Desbloqueio**: Próximo nível liberado após completar todos os exercícios
+- **Persistência**: Progresso salvo localmente no dispositivo
+
+### ♿ Acessibilidade
+
+- **Tutorial interativo** com explicações detalhadas
+- **Dicas** disponíveis em cada exercício
+- **Feedback imediato** com indicação visual de acerto/erro
+- **Cores de alto contraste** para facilitar a leitura
+- **Fontes legíveis** e espaçamento adequado
+
+## Tecnologias Utilizadas
+
+| Tecnologia | Versão | Finalidade |
+|------------|--------|------------|
+| **Expo** | 54.0.0 | Framework para desenvolvimento mobile |
+| **React Native** | 0.75.4 | Biblioteca para interface nativa |
+| **TypeScript** | 5.3.3 | Tipagem estática e segurança |
+| **React Navigation** | 6.x | Navegação entre telas |
+| **React Native Reanimated** | 3.10.0 | Animações fluidas |
+| **AsyncStorage** | - | Persistência local de dados |
+
+## Estrutura do Projeto
+
+deritiva/
+├── app/
+│ ├── (tabs)/ # Telas com navegação por abas
+│ │ ├── _layout.tsx # Configuração das abas
+│ │ └── index.tsx # Tela Home
+│ ├── exercicio1/ # Tela de níveis
+│ │ └── index.tsx # Lista de níveis e exercícios
+│ ├── exercicios/ # Exercícios por tipo
+│ │ ├── silaba-faltante/
+│ │ │ └── [level].tsx # Exercício por nível
+│ │ ├── formando-a-palavra/
+│ │ │ └── [level].tsx
+│ │ ├── construtor/
+│ │ │ └── [level].tsx
+│ │ └── intruso/
+│ │ └── [level].tsx
+│ ├── tutorial/ # Tutorial interativo
+│ │ └── index.tsx
+│ ├── _layout.tsx # Layout principal
+│ └── index.tsx # Rota inicial
+├── assets/
+│ └── images/ # Imagens do aplicativo
+│ └── deritiva.png # Logo
+├── components/ # Componentes reutilizáveis
+│ ├── AnimatedBackground.tsx
+│ ├── TutorialCard.tsx
+│ └── haptic-tab.tsx
+├── constants/ # Constantes do app
+│ └── theme.ts # Cores e temas
+├── hooks/ # Hooks personalizados
+├── styles/ # Estilos centralizados
+│ ├── exercicio1.ts
+│ ├── homestyles.ts
+│ ├── silabaFaltante.ts
+│ ├── formandoPalavra.ts
+│ ├── construtor.ts
+│ └── intruso.ts
+├── App.js # Ponto de entrada
+├── app.json # Configuração do Expo
+├── package.json # Dependências
+├── tsconfig.json # Configuração TypeScript
+└── README.md # Este arquivo
+
+
+## Como Rodar o Projeto
+
+### Pré-requisitos
+
+- [Node.js](https://nodejs.org/) (versão 18 ou superior)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+- Dispositivo físico com [Expo Go](https://expo.dev/go) ou emulador
+
+### Passo a Passo
+
+1. **Clone o repositório**
+
+
+git clone https://github.com/seu-usuario/deritiva.git
+cd deritiva
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Instale as dependências
 
-## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
+npm install --legacy-peer-deps
+Inicie o aplicativo
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+npx expo start -c
+Execute em um dispositivo
 
-## Join the community
 
-Join our community of developers creating universal apps.
+Android: Escaneie o QR Code com o app Expo Go
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+iOS: Escaneie o QR Code com a câmera do iPhone
+
+Web: Pressione w no terminal ou acesse http://localhost:8081
