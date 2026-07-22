@@ -29,13 +29,13 @@ const getIntrusoData = (level: number) => {
       { 
         family: 'TERRA', 
         words: ['TERRENO', 'TERRESTRE', 'ENTERRAR'], 
-        intruder: 'MONTANHA',
+        intruder: 'TERMINAR',
         hint: 'Qual palavra nao vem de TERRA?'
       },
       { 
         family: 'SOL', 
         words: ['SOLAR', 'SOLEIRA', 'ENSOLAR'], 
-        intruder: 'LUA',
+        intruder: 'SOLTAR',
         hint: 'Qual palavra nao vem de SOL?'
       },
     ],
@@ -43,18 +43,18 @@ const getIntrusoData = (level: number) => {
       { 
         family: 'MAR', 
         words: ['MARINHO', 'MARE', 'SUBMARINO'], 
-        intruder: 'RIO',
+        intruder: 'MERGULHAR',
         hint: 'Qual palavra nao vem de MAR?'
       },
       { 
         family: 'LUZ', 
         words: ['LUMINOSO', 'ILUMINAR', 'LUSTRE'], 
-        intruder: 'SOMBRA',
+        intruder: 'LUXAR',
         hint: 'Qual palavra nao vem de LUZ?'
       },
       { 
         family: 'FELIZ', 
-        words: ['FELIZARDO', 'FELICIDADE', 'INFELIZ'], 
+        words: ['FELIZARDO', 'FELICIDADE'], 
         intruder: 'FESTA',
         hint: 'Qual palavra nao vem de FELIZ?'
       },
@@ -68,21 +68,21 @@ const getIntrusoData = (level: number) => {
       },
       { 
         family: 'CASA', 
-        words: ['CASINHA', 'CASARAO', 'CASAMENTO'], 
-        intruder: 'APARTAMENTO',
+        words: ['CASINHA', 'CASARÃO', 'CASAMENTO'], 
+        intruder: 'CASTELO',
         hint: 'Qual palavra nao vem de CASA?'
       },
       { 
         family: 'GATO', 
         words: ['GATINHO', 'GATUNO', 'GATARRADA'], 
-        intruder: 'CACHORRO',
+        intruder: 'GARRA',
         hint: 'Qual palavra nao vem de GATO?'
       },
     ],
     4: [
       { 
         family: 'AGUA', 
-        words: ['AQUATICO', 'AGUACEIRO', 'ENCHENTE'], 
+        words: ['AQUATICO', 'AGUACEIRO'], 
         intruder: 'CHUVA',
         hint: 'Qual palavra nao vem de AGUA?'
       },
@@ -108,14 +108,14 @@ const getIntrusoData = (level: number) => {
       },
       { 
         family: 'PAZ', 
-        words: ['PACIFICO', 'PASSEAR', 'APAZIGUAR'], 
-        intruder: 'GUERRA',
+        words: ['PACIFICO', 'APAZIGUAR'], 
+        intruder: 'PASSEAR',
         hint: 'Qual palavra nao vem de PAZ?'
       },
       { 
         family: 'BELEZA', 
         words: ['BELO', 'EMBELEZAR', 'BELISSIMO'], 
-        intruder: 'FEIO',
+        intruder: 'FORMOSURA',
         hint: 'Qual palavra nao vem de BELEZA?'
       },
     ],

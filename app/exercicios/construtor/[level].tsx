@@ -23,14 +23,14 @@ const getConstrutorData = (level: number) => {
       { 
         word: 'FLORAL',
         missingPart: 'AL',
-        options: ['AL', 'ES', 'OS'],
+        options: ['AL', 'EL', 'UL'],
         hint: 'Qual sufixo completa FLOR?'
       },
       { 
         word: 'TERRENO',
-        missingPart: 'ENO',
-        options: ['ENO', 'ESTE', 'ADO'],
-        hint: 'Qual sufixo completa TERRA?'
+        missingPart: 'NO',
+        options: ['NO', 'NI', 'NE'],
+        hint: 'Qual sufixo completa "TERRE" corretamente?'
       },
       { 
         word: 'SOLAR',
@@ -63,7 +63,7 @@ const getConstrutorData = (level: number) => {
       { 
         word: 'MENININHA',
         missingPart: 'INHA',
-        options: ['INHA', 'INHO', 'ONHA'],
+        options: ['INHA', 'INHU', 'ONHA'],
         hint: 'Qual sufixo completa MENINA?'
       },
       { 
@@ -83,8 +83,8 @@ const getConstrutorData = (level: number) => {
       { 
         word: 'LUMINOSO',
         missingPart: 'OSO',
-        options: ['OSO', 'ASA', 'ISO'],
-        hint: 'Qual sufixo completa LUZ?'
+        options: ['OSO', 'ESE', 'ISO'],
+        hint: 'Qual sufixo completa LUMIN...?'
       },
       { 
         word: 'PEDREIRA',
@@ -103,7 +103,7 @@ const getConstrutorData = (level: number) => {
       { 
         word: 'AMOROSO',
         missingPart: 'OSO',
-        options: ['OSO', 'ISA', 'ASA'],
+        options: ['OSO', 'ISA', 'USU'],
         hint: 'Qual sufixo completa AMOR?'
       },
       { 

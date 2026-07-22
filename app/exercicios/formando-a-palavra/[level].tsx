@@ -21,14 +21,14 @@ const getWordsByLevel = (level: number) => {
     hint: string;
   }>> = {
     1: [
-      { word: 'GATO', syllables: ['GA', 'TO'], hint: 'Animal que mia' },
+      { word: 'DENTE', syllables: ['DEN', 'TE'], hint: 'Parte da boca' },
       { word: 'SOL', syllables: ['SOL'], hint: 'Estrela que ilumina o dia' },
-      { word: 'MESA', syllables: ['ME', 'SA'], hint: 'Móvel usado para refeições' },
+      { word: 'DOIS', syllables: ['DO', 'IS'], hint: '1+1=?' },
     ],
     2: [
-      { word: 'CACHORRO', syllables: ['CA', 'CHO', 'RRO'], hint: 'Animal que late' },
-      { word: 'BOLA', syllables: ['BO', 'LA'], hint: 'Objeto redondo usado em jogos' },
-      { word: 'FELIZ', syllables: ['FE', 'LIZ'], hint: 'Sentimento de alegria' },
+      { word: 'CACHORRO', syllables: ['CA', 'CHOR', 'RO'], hint: 'Animal domestico que late' },
+      { word: 'ESCOLA', syllables: ['ES', 'CO', 'LA'], hint: 'Instituição de aprendizagem' },
+      { word: 'BILHETE', syllables: ['BI', 'LHE', 'TE'], hint: 'Similar de carta' },
     ],
     3: [
       { word: 'BORBOLETA', syllables: ['BOR', 'BO', 'LE', 'TA'], hint: 'Inseto colorido que voa' },
@@ -36,14 +36,14 @@ const getWordsByLevel = (level: number) => {
       { word: 'CAMISA', syllables: ['CA', 'MI', 'SA'], hint: 'Peça de roupa' },
     ],
     4: [
-      { word: 'ELEFANTE', syllables: ['E', 'LE', 'FAN', 'TE'], hint: 'Animal grande com tromba' },
+      { word: 'MACHUCADO', syllables: ['MA', 'CHU', 'CA', 'DO'], hint: 'Lesão corporal' },
       { word: 'BICICLETA', syllables: ['BI', 'CI', 'CLE', 'TA'], hint: 'Meio de transporte de duas rodas' },
       { word: 'CHOCOLATE', syllables: ['CHO', 'CO', 'LA', 'TE'], hint: 'Doce feito de cacau' },
     ],
     5: [
       { word: 'MACARRAO', syllables: ['MA', 'CAR', 'RAO'], hint: 'Comida italiana' },
       { word: 'DINOSSAURO', syllables: ['DI', 'NOS', 'SAU', 'RO'], hint: 'Animal pré-histórico' },
-      { word: 'CONTINENTE', syllables: ['CON', 'TI', 'NEN', 'TE'], hint: 'Grande porção de terra' },
+      { word: 'ANIVERSARIO', syllables: ['A', 'NI', 'VER', 'SA', 'RIO'], hint: 'Comemoração do nascimento de alguém' },
     ],
   };
 
