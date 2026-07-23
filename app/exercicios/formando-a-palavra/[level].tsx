@@ -58,7 +58,7 @@ const getWordsByLevel = (level: number) => {
         word: 'BILHETE', 
         syllables: ['BI', 'LHE', 'TE'], 
         hint: 'Similar de carta',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+        image: require('../../../assets/images/formando-a-palavra/nivel-2/bilhete.png')
       },
     ],
     3: [
@@ -92,7 +92,7 @@ const getWordsByLevel = (level: number) => {
         word: 'BICICLETA', 
         syllables: ['BI', 'CI', 'CLE', 'TA'], 
         hint: 'Meio de transporte de duas rodas',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+        image: require('../../../assets/images/formando-a-palavra/nivel-4/bicicleta.png')
       },
       { 
         word: 'CHOCOLATE', 
@@ -115,10 +115,10 @@ const getWordsByLevel = (level: number) => {
         image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
       },
       { 
-        word: 'ANIVERSARIO', 
-        syllables: ['A', 'NI', 'VER', 'SA', 'RIO'], 
-        hint: 'Comemoração do nascimento de alguém',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+        word: 'AEROPORTO', 
+        syllables: ['A', 'E', 'RO', 'POR', 'TO'], 
+        hint: 'Area onde aviões pousam e decolam',
+        image: require('../../../assets/images/formando-a-palavra/nivel-5/aeroporto.png')
       },
     ],
   };

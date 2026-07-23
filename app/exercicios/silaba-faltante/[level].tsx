@@ -256,7 +256,7 @@ export default function SilabaFaltanteScreen() {
       '1': 'Iniciante',
       '2': 'Aprendiz',
       '3': 'Intermediario',
-      '4': 'Avancado',
+      '4': 'Avançado',
       '5': 'Mestre',
     };
     return titles[String(level)] || 'Nivel';

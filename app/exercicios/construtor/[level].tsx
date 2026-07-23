@@ -221,7 +221,7 @@ export default function ConstrutorScreen() {
       '1': 'Iniciante',
       '2': 'Aprendiz',
       '3': 'Intermediario',
-      '4': 'Avancado',
+      '4': 'Avançado',
       '5': 'Mestre',
     };
     return titles[String(level)] || 'Nivel';
@@ -320,7 +320,7 @@ export default function ConstrutorScreen() {
       <Animated.View style={[styles.card, animatedStyle]}>
         {/* Instrucao */}
         <Text style={styles.instruction}>
-          Complete a palavra com a silaba correta:
+          Complete a palavra com a parte faltante correta:
         </Text>
 
         {/* Palavra com espaco faltante */}

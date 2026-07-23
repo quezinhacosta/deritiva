@@ -48,7 +48,7 @@ const getIntrusoData = (level: number) => {
       },
       { 
         family: 'LUZ', 
-        words: ['LUMINOSO', 'ILUMINAR', 'LUSTRE'], 
+        words: ['LUMINOSO', 'ILUMINAR', 'LUZIR'], 
         intruder: 'LUXAR',
         hint: 'Qual palavra nao vem de LUZ?'
       },
@@ -82,7 +82,7 @@ const getIntrusoData = (level: number) => {
     4: [
       { 
         family: 'AGUA', 
-        words: ['AQUATICO', 'AGUACEIRO'], 
+        words: ['AQUATICO', 'AGUACEIRO', 'AGUADO'], 
         intruder: 'CHUVA',
         hint: 'Qual palavra nao vem de AGUA?'
       },
@@ -221,7 +221,7 @@ export default function IntrusoScreen() {
       '1': 'Iniciante',
       '2': 'Aprendiz',
       '3': 'Intermediario',
-      '4': 'Avancado',
+      '4': 'Avançado',
       '5': 'Mestre',
     };
     return titles[String(level)] || 'Nivel';

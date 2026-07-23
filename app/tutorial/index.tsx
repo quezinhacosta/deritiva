@@ -23,13 +23,13 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: 1,
     title: "Estrutura do Jogo",
-    description: "O jogo possui 5 niveis de dificuldade: Iniciante, Aprendiz, Intermediario, Avancado e Mestre. Cada nivel contem 4 exercicios diferentes para voce praticar e evoluir.",
+    description: "O jogo possui 5 niveis de dificuldade: Iniciante, Aprendiz, Intermediario, Avançado e Mestre. Cada nivel contem 4 exercicios diferentes para você praticar e evoluir.",
     type: 'levels',
   },
   {
     id: 2,
     title: "Exercicio 1: Silaba Faltante",
-    description: "Neste exercicio, voce vera uma palavra incompleta com um espaco para uma silaba. Sua missao e escolher a silaba correta entre as opcoes para completar a palavra. Use a dica se precisar de ajuda!",
+    description: "Neste exercicio, você verá uma palavra incompleta com um espaco para uma silaba. Sua missao e escolher a silaba correta entre as opcoes para completar a palavra. Use a dica se precisar de ajuda!",
     type: 'exercise1',
   },
   {
