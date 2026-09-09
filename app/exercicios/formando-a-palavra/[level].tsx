@@ -9,24 +9,22 @@ import Animated, {
 } from "react-native-reanimated";
 import { useState, useEffect } from "react";
 import { styles } from "../../../styles/formandoPalavra";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const STORAGE_KEY = '@deritiva_progress';
+import { saveExerciseResult } from '../../../utils/progress';
 
 // ===== DADOS POR NÍVEL (3 PALAVRAS CADA) =====
 const getWordsByLevel = (level: number) => {
-  const levelData: Record<number, Array<{
+  const levelData: Record<number, {
     word: string;
     syllables: string[];
     hint: string;
     image: any;
-  }>> = {
+  }[]> = {
     1: [
       { 
         word: 'DENTE', 
         syllables: ['DEN', 'TE'], 
         hint: 'Parte da boca',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+        image: null
       },
       { 
         word: 'SOL', 
@@ -86,7 +84,7 @@ const getWordsByLevel = (level: number) => {
         word: 'MACHUCADO', 
         syllables: ['MA', 'CHU', 'CA', 'DO'], 
         hint: 'Lesão corporal',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+        image: null
       },
       { 
         word: 'BICICLETA', 
@@ -106,7 +104,7 @@ const getWordsByLevel = (level: number) => {
         word: 'MACARRAO', 
         syllables: ['MA', 'CAR', 'RAO'], 
         hint: 'Comida italiana',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+        image: null
       },
       { 
         word: 'DINOSSAURO', 
@@ -192,43 +190,7 @@ export default function FormandoPalavraScreen() {
     setSaving(true);
 
     try {
-      const saved = await AsyncStorage.getItem(STORAGE_KEY);
-      let progress = saved ? JSON.parse(saved) : [];
-
-      let levelIndex = progress.findIndex((l: any) => l.id === level);
-      if (levelIndex === -1) {
-        progress.push({ id: level, unlocked: level === 1, exercises: [] });
-        levelIndex = progress.length - 1;
-      }
-
-      const exerciseIndex = progress[levelIndex].exercises.findIndex(
-        (e: any) => e.id === exerciseId
-      );
-
-      const exerciseData = {
-        id: exerciseId,
-        completed: true,
-        stars: stars,
-        errors: errors
-      };
-
-      if (exerciseIndex === -1) {
-        progress[levelIndex].exercises.push(exerciseData);
-      } else {
-        progress[levelIndex].exercises[exerciseIndex] = exerciseData;
-      }
-
-      const levelExercises = progress[levelIndex].exercises;
-      const allCompleted = levelExercises.every((e: any) => e.completed === true);
-
-      if (allCompleted && levelExercises.length === 4) {
-        const nextLevel = progress.find((l: any) => l.id === level + 1);
-        if (nextLevel) {
-          nextLevel.unlocked = true;
-        }
-      }
-
-      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      await saveExerciseResult(level, exerciseId, stars, errors);
       router.replace('/exercicio1');
 
     } catch (error) {
@@ -430,7 +392,7 @@ export default function FormandoPalavraScreen() {
         </TouchableOpacity>
 
         {/* ===== IMAGEM ===== */}
-        {showImage && (
+        {showImage && currentWord.image && (
           <View style={styles.imageContainer}>
             <Image 
               source={currentWord.image}

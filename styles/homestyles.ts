@@ -10,6 +10,103 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
   },
 
+  scrollContent: {
+    paddingBottom: 32,
+  },
+
+  header: {
+    marginBottom: 24,
+    alignItems: "center",
+  },
+
+  infoCard: {
+    borderRadius: 16,
+    borderWidth: 1,
+    padding: 20,
+    marginBottom: 24,
+  },
+
+  cardDescription: {
+    fontSize: 15,
+    lineHeight: 22,
+    marginBottom: 20,
+  },
+
+  metricsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+
+  metricItem: {
+    alignItems: "center",
+    flex: 1,
+  },
+
+  metricNumber: {
+    fontSize: 28,
+    fontWeight: "900",
+  },
+
+  metricLabel: {
+    fontSize: 12,
+    marginTop: 4,
+  },
+
+  metricDivider: {
+    width: 1,
+    height: 32,
+    backgroundColor: "rgba(82, 121, 111, 0.35)",
+  },
+
+  featuresSection: {
+    marginBottom: 28,
+  },
+
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    marginBottom: 12,
+  },
+
+  featureBadge: {
+    borderRadius: 10,
+    padding: 14,
+    marginBottom: 8,
+  },
+
+  badgeText: {
+    fontSize: 15,
+    fontWeight: "700",
+  },
+
+  actionContainer: {
+    gap: 12,
+  },
+
+  primaryButton: {
+    borderRadius: 12,
+    paddingVertical: 16,
+    alignItems: "center",
+  },
+
+  primaryButtonText: {
+    fontSize: 16,
+    fontWeight: "800",
+  },
+
+  secondaryButton: {
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingVertical: 14,
+    alignItems: "center",
+  },
+
+  secondaryButtonText: {
+    fontSize: 15,
+    fontWeight: "700",
+  },
+
   content: {
     flex: 1,
     justifyContent: "center",

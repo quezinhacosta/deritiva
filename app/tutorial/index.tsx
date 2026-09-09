@@ -3,14 +3,7 @@ import { useRouter } from "expo-router";
 import { useState, useRef } from "react";
 import { styles } from "../../styles/tutorial";
 import TutorialCard from "../../components/TutorialCard";
-
-// ===== TIPOS =====
-interface TutorialStep {
-  id: number;
-  title: string;
-  description: string;
-  type: 'welcome' | 'levels' | 'exercise1' | 'exercise2' | 'exercise3' | 'exercise4' | 'stars' | 'freedom' | 'tips';
-}
+import { TutorialStep } from "../../types/tutorial";
 
 // ===== DADOS =====
 const tutorialSteps: TutorialStep[] = [
@@ -23,7 +16,7 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: 1,
     title: "Estrutura do Jogo",
-    description: "O jogo possui 5 niveis de dificuldade: Iniciante, Aprendiz, Intermediario, Avançado e Mestre. Cada nivel contem 4 exercicios diferentes para você praticar e evoluir.",
+    description: "O jogo possui 5 niveis de dificuldade: Iniciante, Explorador, Aventureiro, Mestre e Lenda. Cada nivel contem 4 exercicios diferentes para você praticar e evoluir.",
     type: 'levels',
   },
   {
@@ -59,7 +52,7 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: 7,
     title: "Liberdade para Explorar",
-    description: "Todos os 5 niveis estao completamente desbloqueados desde o inicio! Voce pode escolher qualquer nivel e qualquer exercicio para jogar quando quiser. Nao ha restricoes, explore no seu proprio ritmo.",
+    description: "O primeiro nivel começa desbloqueado. Ao completar os 4 exercicios de um nivel, o proximo nivel e liberado para voce continuar avancando no seu ritmo.",
     type: 'freedom',
   },
   {

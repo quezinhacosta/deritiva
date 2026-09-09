@@ -17,7 +17,7 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/deritiva.png"
     },
     "plugins": [
       "expo-router",

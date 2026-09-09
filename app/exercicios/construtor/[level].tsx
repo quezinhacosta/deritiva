@@ -13,12 +13,12 @@ import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress
 
 // ===== DADOS POR NIVEL =====
 const getConstrutorData = (level: number) => {
-  const levelData: Record<number, Array<{
+  const levelData: Record<number, {
     word: string;
     missingPart: string;
     options: string[];
     hint: string;
-  }>> = {
+  }[]> = {
     1: [
       { 
         word: 'FLORAL',
@@ -388,7 +388,7 @@ export default function ConstrutorScreen() {
                   A palavra completa e: {currentWord.word}
                 </Text>
                 <Text style={styles.feedbackFamily}>
-                  "{currentWord.missingPart}" e a silaba correta!
+                  &quot;{currentWord.missingPart}&quot; e a silaba correta!
                 </Text>
               </View>
             ) : (
@@ -396,7 +396,7 @@ export default function ConstrutorScreen() {
                 <Text style={styles.feedbackEmoji}>✗</Text>
                 <Text style={styles.feedbackTitle}>Tente novamente!</Text>
                 <Text style={styles.feedbackText}>
-                  A silaba correta e "{currentWord.missingPart}"
+                  A silaba correta e &quot;{currentWord.missingPart}&quot;
                 </Text>
                 <Text style={styles.feedbackFamily}>
                   Palavra completa: {currentWord.word}

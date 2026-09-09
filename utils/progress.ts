@@ -1,47 +1,47 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { buildDefaultLevels } from '@/data/levels';
+import { LevelDefinition, SavedLevel } from '@/types/exercise';
 
 export const PROGRESS_STORAGE_KEY = '@deritiva_progress';
 
-const EXERCISE_ROUTES = ['silaba-faltante', 'formando-a-palavra', 'construtor', 'intruso'];
-const TOTAL_LEVELS = 5;
-
-interface SavedExercise {
-  id: string;
-  completed: boolean;
-  stars: number;
-  errors: number;
+function toSavedLevels(levels: LevelDefinition[]): SavedLevel[] {
+  return levels.map(({ id, unlocked, exercises }) => ({
+    id,
+    unlocked,
+    exercises: exercises.map(({ id: exerciseId, completed, stars, errors }) => ({
+      id: exerciseId,
+      completed,
+      stars,
+      errors,
+    })),
+  }));
 }
 
-interface SavedLevel {
-  id: number;
-  unlocked: boolean;
-  exercises: SavedExercise[];
-}
+function mergeSavedLevels(saved: SavedLevel[]): LevelDefinition[] {
+  const defaults = buildDefaultLevels();
+  return defaults.map((level) => {
+    const savedLevel = saved.find((item) => item.id === level.id);
+    if (!savedLevel) return level;
 
-function buildDefaultProgress(): SavedLevel[] {
-  return Array.from({ length: TOTAL_LEVELS }, (_, i) => {
-    const levelId = i + 1;
     return {
-      id: levelId,
-      unlocked: levelId === 1,
-      exercises: EXERCISE_ROUTES.map(route => ({
-        id: `${route}-${levelId}`,
-        completed: false,
-        stars: 0,
-        errors: 0,
-      })),
+      ...level,
+      unlocked: savedLevel.unlocked,
+      exercises: level.exercises.map((exercise) => {
+        const savedExercise = savedLevel.exercises.find((item) => item.id === exercise.id);
+        return savedExercise ? { ...exercise, ...savedExercise } : exercise;
+      }),
     };
   });
 }
 
-async function loadSavedLevels(): Promise<SavedLevel[]> {
+export async function loadProgress(): Promise<LevelDefinition[]> {
   try {
     const saved = await AsyncStorage.getItem(PROGRESS_STORAGE_KEY);
-    if (saved) return JSON.parse(saved);
+    if (saved) return mergeSavedLevels(JSON.parse(saved) as SavedLevel[]);
   } catch (error) {
     console.error('Erro ao carregar progresso:', error);
   }
-  return buildDefaultProgress();
+  return buildDefaultLevels();
 }
 
 // Salva o resultado de um exercicio e desbloqueia o proximo nivel
@@ -53,7 +53,7 @@ export async function saveExerciseResult(
   errors: number
 ): Promise<void> {
   try {
-    const levels = await loadSavedLevels();
+    const levels = await loadProgress();
 
     const level = levels.find(l => l.id === levelId);
     if (!level) return;
@@ -74,7 +74,7 @@ export async function saveExerciseResult(
       if (nextLevel) nextLevel.unlocked = true;
     }
 
-    await AsyncStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(levels));
+    await AsyncStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(toSavedLevels(levels)));
   } catch (error) {
     console.error('Erro ao salvar progresso do exercicio:', error);
   }

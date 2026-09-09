@@ -13,14 +13,14 @@ import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress
 
 
 const getWordsByLevel = (level: number) => {
-  const levelData: Record<number, Array<{
+  const levelData: Record<number, {
     syllables: string[];      
     missingIndex: number;      
     correctSyllable: string;    
     alternatives: string[];    
     fullWord: string;        
     hint: string;
-  }>> = {
+  }[]> = {
     1: [
       { 
         syllables: ["DE", "DO"], 

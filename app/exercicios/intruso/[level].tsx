@@ -13,12 +13,12 @@ import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress
 
 // ===== DADOS POR NIVEL =====
 const getIntrusoData = (level: number) => {
-  const levelData: Record<number, Array<{
+  const levelData: Record<number, {
     family: string;
     words: string[];
     intruder: string;
     hint: string;
-  }>> = {
+  }[]> = {
     1: [
       { 
         family: 'FLOR', 
@@ -335,7 +335,7 @@ export default function IntrusoScreen() {
           {shuffledWords.map((word, index) => {
             const isIntruder = word === currentWord.intruder;
             const isSelected = word === selectedWord;
-            let buttonStyle = styles.wordButton;
+            let buttonStyle: any = styles.wordButton;
             
             if (showFeedback) {
               if (isIntruder) {
@@ -367,7 +367,7 @@ export default function IntrusoScreen() {
                 <Text style={styles.feedbackEmoji}>✓</Text>
                 <Text style={styles.feedbackTitle}>Acertou!</Text>
                 <Text style={styles.feedbackText}>
-                  "{currentWord.intruder}" nao pertence a familia {currentWord.family}
+                  &quot;{currentWord.intruder}&quot; nao pertence a familia {currentWord.family}
                 </Text>
                 <Text style={styles.feedbackFamily}>
                   Palavras da familia: {currentWord.words.join(', ')}
@@ -378,7 +378,7 @@ export default function IntrusoScreen() {
                 <Text style={styles.feedbackEmoji}>✗</Text>
                 <Text style={styles.feedbackTitle}>Tente novamente!</Text>
                 <Text style={styles.feedbackText}>
-                  O intruso e "{currentWord.intruder}"
+                  O intruso e &quot;{currentWord.intruder}&quot;
                 </Text>
                 <Text style={styles.feedbackFamily}>
                   Palavras da familia: {currentWord.words.join(', ')}

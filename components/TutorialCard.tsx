@@ -1,12 +1,6 @@
 import { View, Text } from "react-native";
 import { styles } from "../styles/tutorial";
-
-interface TutorialStep {
-  id: number;
-  title: string;
-  description: string;
-  type: 'welcome' | 'levels' | 'exercise1' | 'exercise2' | 'rules' | 'tips';
-}
+import { TutorialStep } from "../types/tutorial";
 
 interface TutorialCardProps {
   step: TutorialStep;
@@ -58,7 +52,7 @@ export default function TutorialCard({ step }: TutorialCardProps) {
 
             <View style={[styles.demoRow, { marginTop: 8 }]}>
               <Text style={{ color: '#F5B55A', fontSize: 12, fontWeight: '600' }}>
-                ✅ A sílaba correta é "TA" → GATA
+                ✅ A sílaba correta é &quot;TA&quot; → GATA
               </Text>
             </View>
           </View>
@@ -96,6 +90,19 @@ export default function TutorialCard({ step }: TutorialCardProps) {
                 CA → SA → CHO = CASACHO
               </Text>
             </View>
+          </View>
+        );
+
+      case 'exercise3':
+      case 'exercise4':
+      case 'stars':
+      case 'freedom':
+        return (
+          <View style={styles.demoContainer}>
+            <Text style={styles.demoTitle}>{step.title}</Text>
+            <Text style={{ color: '#E480BB', fontSize: 14, textAlign: 'center', lineHeight: 20 }}>
+              {step.description}
+            </Text>
           </View>
         );
 

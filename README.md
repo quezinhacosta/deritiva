@@ -1,8 +1,8 @@
 #  Deritiva - Aplicativo Educativo para Intervenção em Ortografia
 
 [![Expo](https://img.shields.io/badge/Expo-54.0.0-000.svg)](https://expo.dev)
-[![React Native](https://img.shields.io/badge/React_Native-0.75.4-61DAFB.svg)](https://reactnative.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-3178C6.svg)](https://www.typescriptlang.org/)
+[![React Native](https://img.shields.io/badge/React_Native-0.81.5-61DAFB.svg)](https://reactnative.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178C6.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **Deritiva** é um aplicativo mobile educativo desenvolvido para auxiliar no aprendizado da ortografia de palavras derivadas, com foco especial em indivíduos com dislexia. O aplicativo combina exercícios interativos, gamificação e recursos de acessibilidade para tornar o aprendizado mais envolvente e eficaz.
@@ -72,10 +72,10 @@ Identificar a palavra que não pertence à família de palavras.
 | Tecnologia | Versão | Finalidade |
 |------------|--------|------------|
 | **Expo** | 54.0.0 | Framework para desenvolvimento mobile |
-| **React Native** | 0.75.4 | Biblioteca para interface nativa |
-| **TypeScript** | 5.3.3 | Tipagem estática e segurança |
-| **React Navigation** | 6.x | Navegação entre telas |
-| **React Native Reanimated** | 3.10.0 | Animações fluidas |
+| **React Native** | 0.81.5 | Biblioteca para interface nativa |
+| **TypeScript** | 5.9.2 | Tipagem estática e segurança |
+| **Expo Router** | 6.0.23 | Navegação baseada em arquivos |
+| **React Native Reanimated** | 4.1.1 | Animações fluidas |
 | **AsyncStorage** | - | Persistência local de dados |
 
 ## Estrutura do Projeto
@@ -98,11 +98,11 @@ deritiva/
 │ │ └── [level].tsx
 │ ├── tutorial/ # Tutorial interativo
 │ │ └── index.tsx
-│ ├── _layout.tsx # Layout principal
-│ └── index.tsx # Rota inicial
+│ └── _layout.tsx # Layout principal
+├── data/ # Catálogos compartilhados dos níveis
+├── types/ # Contratos de exercícios e tutorial
 ├── assets/
-│ └── images/ # Imagens do aplicativo
-│ └── deritiva.png # Logo
+│ └── images/ # Imagens dos exercícios
 ├── components/ # Componentes reutilizáveis
 │ ├── AnimatedBackground.tsx
 │ ├── TutorialCard.tsx
@@ -110,6 +110,7 @@ deritiva/
 ├── constants/ # Constantes do app
 │ └── theme.ts # Cores e temas
 ├── hooks/ # Hooks personalizados
+├── utils/ # Persistência e regras de progresso
 ├── styles/ # Estilos centralizados
 │ ├── exercicio1.ts
 │ ├── homestyles.ts
@@ -117,7 +118,6 @@ deritiva/
 │ ├── formandoPalavra.ts
 │ ├── construtor.ts
 │ └── intruso.ts
-├── App.js # Ponto de entrada
 ├── app.json # Configuração do Expo
 ├── package.json # Dependências
 ├── tsconfig.json # Configuração TypeScript
@@ -135,25 +135,16 @@ deritiva/
 
 ### Passo a Passo
 
-1. **Clone o repositório**
+1. Instale as dependências:
 
-
-git clone https://github.com/seu-usuario/deritiva.git
-cd deritiva
+```bash
+npm install
 ```
 
-2. Instale as dependências
+2. Inicie o projeto:
 
-
-npm install --legacy-peer-deps
-Inicie o aplicativo
-
+```bash
 npx expo start -c
-Execute em um dispositivo
+```
 
-
-Android: Escaneie o QR Code com o app Expo Go
-
-iOS: Escaneie o QR Code com a câmera do iPhone
-
-Web: Pressione w no terminal ou acesse http://localhost:8081
+Use o QR Code no Expo Go ou pressione `w` para abrir a versão web.
