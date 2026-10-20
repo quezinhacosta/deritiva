@@ -94,15 +94,100 @@ export default function TutorialCard({ step }: TutorialCardProps) {
         );
 
       case 'exercise3':
+        return (
+          <View style={styles.demoContainer}>
+            <Text style={styles.demoTitle}>Exemplo: Construtor de Palavras</Text>
+            <View style={[styles.demoRow, { marginTop: 8 }]}>
+              <View style={styles.demoWord}>
+                <View style={styles.demoWordPart}>
+                  <Text style={styles.demoWordPartText}>FLOR</Text>
+                </View>
+                <View style={[styles.demoWordPart, styles.demoWordPartHighlight]}>
+                  <Text style={styles.demoWordPartHighlightText}>___</Text>
+                </View>
+              </View>
+            </View>
+            <View style={[styles.demoRow, { marginTop: 12 }]}>
+              <Text style={{ color: '#E480BB', fontSize: 14 }}>Escolha o sufixo correto:</Text>
+            </View>
+            <View style={[styles.demoRow, { marginTop: 8 }]}>
+              <View style={[styles.demoSyllable, styles.demoSyllableHighlight]}>
+                <Text style={[styles.demoSyllableText, styles.demoSyllableHighlightText]}>AL</Text>
+              </View>
+              <View style={styles.demoSyllable}>
+                <Text style={styles.demoSyllableText}>EL</Text>
+              </View>
+              <View style={styles.demoSyllable}>
+                <Text style={styles.demoSyllableText}>UL</Text>
+              </View>
+            </View>
+            <View style={[styles.demoRow, { marginTop: 8 }]}>
+              <Text style={{ color: '#F5B55A', fontSize: 12, fontWeight: '600' }}>
+                ✅ FLOR + AL = FLORAL
+              </Text>
+            </View>
+          </View>
+        );
+
       case 'exercise4':
+        return (
+          <View style={styles.demoContainer}>
+            <Text style={styles.demoTitle}>Exemplo: Identificar o Intruso</Text>
+            <View style={[styles.demoRow, { marginTop: 8 }]}>
+              <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '700' }}>
+                Família: FLOR
+              </Text>
+            </View>
+            <View style={[styles.demoRow, { marginTop: 10, flexWrap: 'wrap', gap: 8 }]}>
+              <View style={styles.demoSyllable}>
+                <Text style={styles.demoSyllableText}>FLORAL</Text>
+              </View>
+              <View style={styles.demoSyllable}>
+                <Text style={styles.demoSyllableText}>FLORIDO</Text>
+              </View>
+              <View style={[styles.demoSyllable, styles.demoSyllableHighlight, { borderColor: '#E97E0C' }]}>
+                <Text style={[styles.demoSyllableText, styles.demoSyllableHighlightText]}>FLORESTA ✗</Text>
+              </View>
+            </View>
+            <View style={[styles.demoRow, { marginTop: 8 }]}>
+              <Text style={{ color: '#F5B55A', fontSize: 12, fontWeight: '600' }}>
+                🎯 FLORESTA não deriva de FLOR (é o intruso!)
+              </Text>
+            </View>
+          </View>
+        );
+
       case 'stars':
+        return (
+          <View style={styles.demoContainer}>
+            <Text style={styles.demoTitle}>Estrelas por Desempenho</Text>
+            <View style={{ gap: 8, marginTop: 8, width: '100%' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(245, 181, 90, 0.15)', padding: 8, borderRadius: 8 }}>
+                <Text style={{ fontSize: 18, marginRight: 8 }}>⭐⭐⭐</Text>
+                <Text style={{ color: '#F5B55A', fontWeight: '700' }}>3 Estrelas: 100% de acertos</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(228, 128, 187, 0.15)', padding: 8, borderRadius: 8 }}>
+                <Text style={{ fontSize: 18, marginRight: 8 }}>⭐⭐</Text>
+                <Text style={{ color: '#E480BB', fontWeight: '700' }}>2 Estrelas: 70% ou mais</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.08)', padding: 8, borderRadius: 8 }}>
+                <Text style={{ fontSize: 18, marginRight: 8 }}>⭐</Text>
+                <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>1 Estrela: Menos de 70%</Text>
+              </View>
+            </View>
+          </View>
+        );
+
       case 'freedom':
         return (
           <View style={styles.demoContainer}>
-            <Text style={styles.demoTitle}>{step.title}</Text>
-            <Text style={{ color: '#E480BB', fontSize: 14, textAlign: 'center', lineHeight: 20 }}>
-              {step.description}
-            </Text>
+            <Text style={styles.demoTitle}>Progressão Contínua</Text>
+            <View style={{ gap: 8, marginTop: 8, width: '100%' }}>
+              <View style={{ backgroundColor: 'rgba(245, 181, 90, 0.15)', padding: 10, borderRadius: 8 }}>
+                <Text style={{ color: '#F5B55A', fontWeight: '700' }}>🔓 Nível 1 liberado desde o início</Text>
+                <Text style={{ color: '#E480BB', fontSize: 13, marginTop: 4 }}>Complete os 4 exercícios do nível para desbloquear o próximo!</Text>
+              </View>
+            </View>
           </View>
         );
 

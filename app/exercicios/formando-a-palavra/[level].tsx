@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
   withSequence,
 } from "react-native-reanimated";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { styles } from "../../../styles/formandoPalavra";
 import { saveExerciseResult } from '../../../utils/progress';
 
@@ -24,7 +24,7 @@ const getWordsByLevel = (level: number) => {
         word: 'DENTE', 
         syllables: ['DEN', 'TE'], 
         hint: 'Parte da boca',
-        image: null
+        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
       },
       { 
         word: 'SOL', 
@@ -110,7 +110,7 @@ const getWordsByLevel = (level: number) => {
         word: 'DINOSSAURO', 
         syllables: ['DI', 'NOS', 'SAU', 'RO'], 
         hint: 'Animal pré-histórico',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+        image: null
       },
       { 
         word: 'AEROPORTO', 
@@ -154,22 +154,7 @@ export default function FormandoPalavraScreen() {
   const opacity = useSharedValue(0);
   const feedbackScale = useSharedValue(0);
 
-  useEffect(() => {
-    scale.value = withSpring(1, { damping: 12 });
-    opacity.value = withTiming(1, { duration: 500 });
-    resetWord();
-  }, [currentIndex, level]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
-    opacity: opacity.value,
-  }));
-
-  const feedbackStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: feedbackScale.value }],
-  }));
-
-  const resetWord = () => {
+  const resetWord = useCallback(() => {
     const shuffled = [...currentWord.syllables];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -182,22 +167,33 @@ export default function FormandoPalavraScreen() {
     setIsWrong(false);
     setShowHint(false);
     setShowImage(false); // Reseta a imagem ao trocar de palavra
-  };
+  }, [currentWord.syllables]);
+
+  useEffect(() => {
+    scale.value = withSpring(1, { damping: 12 });
+    opacity.value = withTiming(1, { duration: 500 });
+    resetWord();
+  }, [currentIndex, level, opacity, resetWord, scale]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  const feedbackStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: feedbackScale.value }],
+  }));
 
   // ===== SALVAR PROGRESSO =====
-  const saveProgress = async (stars: number) => {
-    if (saving) return;
-    setSaving(true);
-
-    try {
-      await saveExerciseResult(level, exerciseId, stars, errors);
-      router.replace('/exercicio1');
-
-    } catch (error) {
-      console.error('Erro ao salvar progresso:', error);
-      setSaving(false);
-    }
-  };
+  useEffect(() => {
+    if (!completed) return;
+    const totalQuestions = words.length;
+    const percentage = Math.round((score / totalQuestions) * 100);
+    let stars = 3;
+    if (percentage < 70) stars = 1;
+    else if (percentage < 100) stars = 2;
+    void saveExerciseResult(level, exerciseId, stars, errors);
+  }, [completed, errors, exerciseId, level, score, words.length]);
 
   const handleSyllablePress = (syllable: string, index: number) => {
     if (showFeedback || completed || failed || saving) return;
@@ -216,15 +212,6 @@ export default function FormandoPalavraScreen() {
         setShowFeedback(true);
         setScore(score + 1);
         feedbackScale.value = withSequence(withSpring(1.2), withSpring(1));
-
-        if (isLastWord) {
-          const totalQuestions = words.length;
-          const percentage = Math.round((score + 1) / totalQuestions * 100);
-          let stars = 3;
-          if (percentage < 70) stars = 1;
-          else if (percentage < 100) stars = 2;
-          saveProgress(stars);
-        }
       } else {
         setIsWrong(true);
         setShowFeedback(true);

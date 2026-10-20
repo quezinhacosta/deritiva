@@ -34,7 +34,7 @@ export default function AnimatedBackground() {
       -1,
       true
     );
-  }, []);
+  }, [gradientX, gradientY]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [

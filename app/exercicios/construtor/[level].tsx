@@ -47,9 +47,9 @@ const getConstrutorData = (level: number) => {
         hint: 'Qual sufixo completa MAR?'
       },
       { 
-        word: 'MARE',
-        missingPart: 'E',
-        options: ['E', 'A', 'O'],
+        word: 'MARÉ',
+        missingPart: 'É',
+        options: ['É', 'A', 'O'],
         hint: 'Qual sufixo completa MAR?'
       },
       { 
@@ -146,8 +146,8 @@ export default function ConstrutorScreen() {
     const totalQuestions = wordsData.length;
     const percentage = Math.round((score / totalQuestions) * 100);
     const errors = totalQuestions - score;
-    saveExerciseResult(level, `construtor-${level}`, starsFromPercentage(percentage), errors);
-  }, [completed]);
+    void saveExerciseResult(level, `construtor-${level}`, starsFromPercentage(percentage), errors);
+  }, [completed, level, score, wordsData.length]);
 
   // Animacoes
   const scale = useSharedValue(0.9);
@@ -168,7 +168,7 @@ export default function ConstrutorScreen() {
     setSelectedOption(null);
     setShowFeedback(false);
     setShowHint(false);
-  }, [currentIndex]);
+  }, [currentIndex, currentWord.options, opacity, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -229,13 +229,15 @@ export default function ConstrutorScreen() {
 
   // Mostra a palavra com a parte faltante
   const getDisplayWord = () => {
-    const parts = currentWord.word.split(currentWord.missingPart);
-    if (parts.length === 2) {
+    const idx = currentWord.word.indexOf(currentWord.missingPart);
+    if (idx !== -1) {
+      const before = currentWord.word.slice(0, idx);
+      const after = currentWord.word.slice(idx + currentWord.missingPart.length);
       return (
         <View style={styles.wordDisplay}>
-          <Text style={styles.wordPart}>{parts[0]}</Text>
+          <Text style={styles.wordPart}>{before}</Text>
           <Text style={styles.wordMissing}>___</Text>
-          <Text style={styles.wordPart}>{parts[1]}</Text>
+          <Text style={styles.wordPart}>{after}</Text>
         </View>
       );
     }

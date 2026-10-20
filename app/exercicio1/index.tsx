@@ -164,7 +164,7 @@ export default function ExerciseLevelsScreen() {
     };
 
     if (Platform.OS === 'web') {
-      if (window.confirm(message)) void doReset();
+      if (typeof window !== 'undefined' && window.confirm(message)) void doReset();
       return;
     }
 

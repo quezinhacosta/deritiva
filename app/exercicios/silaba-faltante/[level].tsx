@@ -120,7 +120,7 @@ const getWordsByLevel = (level: number) => {
         syllables: ["POR", "TU", "GUÊS"], 
         missingIndex: 1, 
         correctSyllable: "TU", 
-        alternatives: ["TA", "TA", "TE", "TU"], 
+        alternatives: ["TI", "TA", "TE", "TU"], 
         fullWord: "PORTUGUÊS", 
         hint: "Quem nasce em portugal é..." 
       },
@@ -155,7 +155,7 @@ const getWordsByLevel = (level: number) => {
         missingIndex: 1, 
         correctSyllable: "CI", 
         alternatives: ["CA", "CU", "CI", "CO"], 
-        fullWord: "Bicicleta", 
+        fullWord: "BICICLETA", 
         hint: "Meio de transporte de duas rodas" 
       },
       { 
@@ -193,8 +193,8 @@ export default function SilabaFaltanteScreen() {
     const totalQuestions = words.length;
     const percentage = Math.round((score / totalQuestions) * 100);
     const errors = totalQuestions - score;
-    saveExerciseResult(level, `silaba-faltante-${level}`, starsFromPercentage(percentage), errors);
-  }, [completed]);
+    void saveExerciseResult(level, `silaba-faltante-${level}`, starsFromPercentage(percentage), errors);
+  }, [completed, level, score, words.length]);
 
   // Animações
   const scale = useSharedValue(0.9);
@@ -204,7 +204,7 @@ export default function SilabaFaltanteScreen() {
   useEffect(() => {
     scale.value = withSpring(1, { damping: 12 });
     opacity.value = withTiming(1, { duration: 500 });
-  }, [currentIndex]);
+  }, [currentIndex, opacity, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

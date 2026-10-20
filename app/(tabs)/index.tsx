@@ -55,7 +55,7 @@ export default function HomeScreen() {
       -1,
       true
     );
-  }, []);
+  }, [titleRotate, titleScale]);
 
   const titleAnimatedStyle = useAnimatedStyle(() => ({
     transform: [

@@ -146,8 +146,8 @@ export default function IntrusoScreen() {
     const totalQuestions = wordsData.length;
     const percentage = Math.round((score / totalQuestions) * 100);
     const errors = totalQuestions - score;
-    saveExerciseResult(level, `intruso-${level}`, starsFromPercentage(percentage), errors);
-  }, [completed]);
+    void saveExerciseResult(level, `intruso-${level}`, starsFromPercentage(percentage), errors);
+  }, [completed, level, score, wordsData.length]);
 
   // Animacoes
   const scale = useSharedValue(0.9);
@@ -168,7 +168,7 @@ export default function IntrusoScreen() {
     setSelectedWord(null);
     setShowFeedback(false);
     setShowHint(false);
-  }, [currentIndex]);
+  }, [currentIndex, currentWord.intruder, currentWord.words, opacity, scale]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
