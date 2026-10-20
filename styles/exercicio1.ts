@@ -201,11 +201,10 @@ export const styles = StyleSheet.create({
   starsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingVertical: 8,
     backgroundColor: "rgba(255, 255, 255, 0.05)",
     borderRadius: 8,
-    marginHorizontal: 16,
     marginBottom: 12,
   },
   starsText: {
@@ -334,10 +333,10 @@ export const styles = StyleSheet.create({
     color: "#601938",
   },
   starsBadge: {
-    fontSize: 14,
-    color: "#F5B55A",
-    fontWeight: "bold",
-    marginLeft: 8,
+    fontSize: 13,
+    color: "#E97E0C",
+    fontWeight: "700",
+    marginTop: 2,
   },
 
   // ============================================================

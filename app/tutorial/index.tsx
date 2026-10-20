@@ -46,7 +46,7 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: 6,
     title: "Sistema de Pontuacao",
-    description: "Cada exercicio concluido concede estrelas de acordo com seu desempenho. Quanto mais estrelas voce ganha, melhor e seu progresso. As estrelas sao acumuladas em cada nivel e mostram seu dominio do conteudo.",
+    description: "Cada exercicio concluido concede ate 4 estrelas de acordo com seu desempenho. Conquiste 100% de acertos para ganhar as 4 estrelas maximas, ou pelo menos 1 estrela ao concluir a atividade!",
     type: 'stars',
   },
   {

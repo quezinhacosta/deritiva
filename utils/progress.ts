@@ -61,10 +61,13 @@ export async function saveExerciseResult(
     const exerciseIndex = level.exercises.findIndex(e => e.id === exerciseId);
     if (exerciseIndex === -1) return;
 
+    const previousStars = level.exercises[exerciseIndex].stars || 0;
+    const bestStars = Math.max(previousStars, stars);
+
     level.exercises[exerciseIndex] = {
       ...level.exercises[exerciseIndex],
       completed: true,
-      stars,
+      stars: bestStars,
       errors,
     };
 
@@ -89,8 +92,8 @@ export async function resetProgress(): Promise<void> {
 }
 
 export function starsFromPercentage(percentage: number): number {
-  if (percentage >= 100) return 3;
-  if (percentage >= 70) return 2;
-  if (percentage > 0) return 1;
-  return 0;
+  if (percentage >= 100) return 4;
+  if (percentage >= 75) return 3;
+  if (percentage >= 50) return 2;
+  return 1; // Pelo menos 1 estrela para qualquer atividade concluída
 }

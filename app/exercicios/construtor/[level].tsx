@@ -12,13 +12,12 @@ import { styles } from "../../../styles/construtor";
 import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress";
 
 // ===== DADOS POR NIVEL =====
-const getConstrutorData = (level: number) => {
-  const levelData: Record<number, {
-    word: string;
-    missingPart: string;
-    options: string[];
-    hint: string;
-  }[]> = {
+const CONSTRUTOR_DATA: Record<number, {
+  word: string;
+  missingPart: string;
+  options: string[];
+  hint: string;
+}[]> = {
     1: [
       { 
         word: 'FLORAL',
@@ -121,9 +120,6 @@ const getConstrutorData = (level: number) => {
     ],
   };
 
-  return levelData[level] || levelData[1];
-};
-
 export default function ConstrutorScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ level: string }>();
@@ -137,7 +133,7 @@ export default function ConstrutorScreen() {
   const [showHint, setShowHint] = useState(false);
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
 
-  const wordsData = getConstrutorData(level);
+  const wordsData = CONSTRUTOR_DATA[level] || CONSTRUTOR_DATA[1];
   const currentWord = wordsData[currentIndex];
   const isLastWord = currentIndex === wordsData.length - 1;
 
@@ -154,11 +150,11 @@ export default function ConstrutorScreen() {
   const opacity = useSharedValue(0);
   const feedbackScale = useSharedValue(0);
 
+  // Embaralha as opcoes uma unica vez por palavra/nivel
   useEffect(() => {
     scale.value = withSpring(1, { damping: 12 });
     opacity.value = withTiming(1, { duration: 500 });
     
-    // Embaralha as opcoes
     const options = [...currentWord.options];
     for (let i = options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -168,7 +164,8 @@ export default function ConstrutorScreen() {
     setSelectedOption(null);
     setShowFeedback(false);
     setShowHint(false);
-  }, [currentIndex, currentWord.options, opacity, scale]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, level]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -233,10 +230,19 @@ export default function ConstrutorScreen() {
     if (idx !== -1) {
       const before = currentWord.word.slice(0, idx);
       const after = currentWord.word.slice(idx + currentWord.missingPart.length);
+      const isCorrect = showFeedback && selectedOption === currentWord.missingPart;
+      const isWrong = showFeedback && selectedOption !== null && !isCorrect;
+      const displayText = showFeedback && selectedOption ? selectedOption : "___";
       return (
         <View style={styles.wordDisplay}>
           <Text style={styles.wordPart}>{before}</Text>
-          <Text style={styles.wordMissing}>___</Text>
+          <Text style={[
+            styles.wordMissing, 
+            isCorrect && { color: '#4CAF50', borderBottomColor: '#4CAF50' },
+            isWrong && { color: '#E53935', borderBottomColor: '#E53935' }
+          ]}>
+            {displayText}
+          </Text>
           <Text style={styles.wordPart}>{after}</Text>
         </View>
       );
@@ -247,6 +253,7 @@ export default function ConstrutorScreen() {
   if (completed) {
     const totalQuestions = wordsData.length;
     const percentage = Math.round((score / totalQuestions) * 100);
+    const stars = starsFromPercentage(percentage);
     
     return (
       <View style={styles.container}>
@@ -273,6 +280,12 @@ export default function ConstrutorScreen() {
           
           <View style={styles.percentageContainer}>
             <Text style={styles.percentageText}>{percentage}%</Text>
+            <Text style={styles.starsEarned}>
+              {'⭐'.repeat(stars)}
+            </Text>
+            <Text style={{ color: '#F5B55A', fontSize: 15, fontWeight: '700', marginBottom: 6 }}>
+              {stars === 4 ? 'Excelente! 4 de 4 estrelas ⭐' : `${stars} de 4 estrelas conquistadas`}
+            </Text>
             <View style={styles.percentageBar}>
               <View style={[styles.percentageFill, { width: `${percentage}%` }]} />
             </View>

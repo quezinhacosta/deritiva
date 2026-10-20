@@ -349,6 +349,11 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 4,
   },
+  starsEarned: {
+    fontSize: 28,
+    textAlign: "center",
+    marginVertical: 4,
+  },
   percentageBar: {
     height: 8,
     backgroundColor: "rgba(255, 255, 255, 0.1)",

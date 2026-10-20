@@ -33,7 +33,8 @@ function LevelCard({ level, index, totalLevels, onExercisePress }: LevelCardProp
     opacity: opacity.value,
   }));
   const completedExercises = level.exercises.filter((exercise) => exercise.completed).length;
-  const totalStars = level.exercises.reduce((total, exercise) => total + exercise.stars, 0);
+  const totalStars = level.exercises.reduce((total, exercise) => total + (exercise.stars || 0), 0);
+  const maxLevelStars = level.exercises.length * 4;
   const isComplete = completedExercises === level.exercises.length;
   const isLast = index === totalLevels - 1;
 
@@ -79,9 +80,9 @@ function LevelCard({ level, index, totalLevels, onExercisePress }: LevelCardProp
         <Text style={styles.starsText}>
           {level.unlocked
             ? totalStars > 0
-              ? `Estrelas: ${'★'.repeat(totalStars)}`
-              : 'Nenhuma estrela ainda'
-            : 'Complete o nivel anterior para desbloquear'}
+              ? `⭐ ${totalStars} de ${maxLevelStars} estrelas conquistadas`
+              : 'Nenhuma estrela conquistada ainda'
+            : 'Complete o nível anterior para desbloquear'}
         </Text>
       </View>
 
@@ -103,6 +104,7 @@ function LevelCard({ level, index, totalLevels, onExercisePress }: LevelCardProp
       <View style={styles.exerciseList}>
         {level.exercises.map((exercise) => {
           const isLocked = !level.unlocked;
+          const starsCount = Math.min(4, Math.max(0, exercise.stars || 0));
           return (
             <Pressable
               key={exercise.id}
@@ -119,8 +121,14 @@ function LevelCard({ level, index, totalLevels, onExercisePress }: LevelCardProp
                   <Text style={[styles.exerciseTitle, isLocked && styles.exerciseTitleLocked]}>
                     {exercise.title}
                   </Text>
-                  {exercise.completed && (
-                    <Text style={styles.starsBadge}>{'★'.repeat(exercise.stars)}</Text>
+                  {exercise.completed ? (
+                    <Text style={styles.starsBadge}>
+                      {'★'.repeat(starsCount) + '☆'.repeat(4 - starsCount)} ({starsCount}/4)
+                    </Text>
+                  ) : (
+                    <Text style={[styles.starsBadge, { color: 'rgba(96, 25, 56, 0.4)' }]}>
+                      ☆☆☆☆ (0/4)
+                    </Text>
                   )}
                 </View>
               </View>

@@ -160,19 +160,23 @@ export default function TutorialCard({ step }: TutorialCardProps) {
       case 'stars':
         return (
           <View style={styles.demoContainer}>
-            <Text style={styles.demoTitle}>Estrelas por Desempenho</Text>
+            <Text style={styles.demoTitle}>Estrelas por Desempenho (Até 4⭐)</Text>
             <View style={{ gap: 8, marginTop: 8, width: '100%' }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(245, 181, 90, 0.15)', padding: 8, borderRadius: 8 }}>
-                <Text style={{ fontSize: 18, marginRight: 8 }}>⭐⭐⭐</Text>
-                <Text style={{ color: '#F5B55A', fontWeight: '700' }}>3 Estrelas: 100% de acertos</Text>
+                <Text style={{ fontSize: 16, marginRight: 8 }}>⭐⭐⭐⭐</Text>
+                <Text style={{ color: '#F5B55A', fontWeight: '700', fontSize: 13 }}>4 Estrelas: 100% de acertos</Text>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(228, 128, 187, 0.15)', padding: 8, borderRadius: 8 }}>
-                <Text style={{ fontSize: 18, marginRight: 8 }}>⭐⭐</Text>
-                <Text style={{ color: '#E480BB', fontWeight: '700' }}>2 Estrelas: 70% ou mais</Text>
+                <Text style={{ fontSize: 16, marginRight: 8 }}>⭐⭐⭐</Text>
+                <Text style={{ color: '#E480BB', fontWeight: '700', fontSize: 13 }}>3 Estrelas: 75% ou mais</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(245, 181, 90, 0.1)', padding: 8, borderRadius: 8 }}>
+                <Text style={{ fontSize: 16, marginRight: 8 }}>⭐⭐</Text>
+                <Text style={{ color: '#F5B55A', fontWeight: '600', fontSize: 13 }}>2 Estrelas: 50% ou mais</Text>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.08)', padding: 8, borderRadius: 8 }}>
-                <Text style={{ fontSize: 18, marginRight: 8 }}>⭐</Text>
-                <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>1 Estrela: Menos de 70%</Text>
+                <Text style={{ fontSize: 16, marginRight: 8 }}>⭐</Text>
+                <Text style={{ color: '#FFFFFF', fontWeight: '600', fontSize: 13 }}>1 Estrela: Conclusão da atividade</Text>
               </View>
             </View>
           </View>

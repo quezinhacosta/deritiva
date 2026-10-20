@@ -12,15 +12,15 @@ import { styles } from "../../../styles/silabaFaltante";
 import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress";
 
 
-const getWordsByLevel = (level: number) => {
-  const levelData: Record<number, {
-    syllables: string[];      
-    missingIndex: number;      
-    correctSyllable: string;    
-    alternatives: string[];    
-    fullWord: string;        
-    hint: string;
-  }[]> = {
+// ===== DADOS POR NÍVEL =====
+const SILABA_DATA: Record<number, {
+  syllables: string[];      
+  missingIndex: number;      
+  correctSyllable: string;    
+  alternatives: string[];    
+  fullWord: string;        
+  hint: string;
+}[]> = {
     1: [
       { 
         syllables: ["DE", "DO"], 
@@ -114,7 +114,7 @@ const getWordsByLevel = (level: number) => {
         correctSyllable: "RER", 
         alternatives: ["RER", "RAR", "RIR", "ROR"], 
         fullWord: "ESCORRER", 
-        hint: "Brinquedo de parque" 
+        hint: "Deixar a água ou líquido fluir" 
       },
       { 
         syllables: ["POR", "TU", "GUÊS"], 
@@ -169,9 +169,6 @@ const getWordsByLevel = (level: number) => {
     ],
   };
 
-  return levelData[level] || levelData[1];
-};
-
 export default function SilabaFaltanteScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ level: string }>();
@@ -183,8 +180,9 @@ export default function SilabaFaltanteScreen() {
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [shuffledAlternatives, setShuffledAlternatives] = useState<string[]>([]);
 
-  const words = getWordsByLevel(level);
+  const words = SILABA_DATA[level] || SILABA_DATA[1];
   const currentWord = words[currentIndex];
   const isLastWord = currentIndex === words.length - 1;
 
@@ -201,10 +199,22 @@ export default function SilabaFaltanteScreen() {
   const opacity = useSharedValue(0);
   const feedbackScale = useSharedValue(0);
 
+  // Embaralha as alternativas uma unica vez por questao
   useEffect(() => {
     scale.value = withSpring(1, { damping: 12 });
     opacity.value = withTiming(1, { duration: 500 });
-  }, [currentIndex, opacity, scale]);
+
+    const alts = [...currentWord.alternatives];
+    for (let i = alts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [alts[i], alts[j]] = [alts[j], alts[i]];
+    }
+    setShuffledAlternatives(alts);
+    setSelectedAlternative(null);
+    setShowFeedback(false);
+    setShowHint(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, level]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -265,6 +275,7 @@ export default function SilabaFaltanteScreen() {
   if (completed) {
     const totalQuestions = words.length;
     const percentage = Math.round((score / totalQuestions) * 100);
+    const stars = starsFromPercentage(percentage);
     
     return (
       <View style={styles.container}>
@@ -291,6 +302,12 @@ export default function SilabaFaltanteScreen() {
           
           <View style={styles.percentageContainer}>
             <Text style={styles.percentageText}>{percentage}%</Text>
+            <Text style={styles.starsEarned}>
+              {'⭐'.repeat(stars)}
+            </Text>
+            <Text style={{ color: '#F5B55A', fontSize: 15, fontWeight: '700', marginBottom: 6 }}>
+              {stars === 4 ? 'Excelente! 4 de 4 estrelas ⭐' : `${stars} de 4 estrelas conquistadas`}
+            </Text>
             <View style={styles.percentageBar}>
               <View style={[styles.percentageFill, { width: `${percentage}%` }]} />
             </View>
@@ -403,7 +420,7 @@ export default function SilabaFaltanteScreen() {
         {/* Alternativas */}
         <Text style={styles.alternativesLabel}>Escolha a silaba correta:</Text>
         <View style={styles.alternativesContainer}>
-          {currentWord.alternatives.map((alt, index) => {
+          {shuffledAlternatives.map((alt, index) => {
             const isCorrect = alt === currentWord.correctSyllable;
             const isSelected = alt === selectedAlternative;
             let buttonStyle = styles.alternativeButton;

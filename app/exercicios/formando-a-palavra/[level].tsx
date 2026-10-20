@@ -7,122 +7,127 @@ import Animated, {
   withTiming,
   withSequence,
 } from "react-native-reanimated";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { styles } from "../../../styles/formandoPalavra";
-import { saveExerciseResult } from '../../../utils/progress';
+import { saveExerciseResult, starsFromPercentage } from '../../../utils/progress';
 
 // ===== DADOS POR NÍVEL (3 PALAVRAS CADA) =====
-const getWordsByLevel = (level: number) => {
-  const levelData: Record<number, {
-    word: string;
-    syllables: string[];
-    hint: string;
-    image: any;
-  }[]> = {
-    1: [
-      { 
-        word: 'DENTE', 
-        syllables: ['DEN', 'TE'], 
-        hint: 'Parte da boca',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
-      },
-      { 
-        word: 'SOL', 
-        syllables: ['SOL'], 
-        hint: 'Estrela que ilumina o dia',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/sol.png')
-      },
-      { 
-        word: 'DOIS', 
-        syllables: ['DO', 'IS'], 
-        hint: '1+1=?',
-        image: require('../../../assets/images/formando-a-palavra/nivel-1/dois.png')
-      },
-    ],
-    2: [
-      { 
-        word: 'CACHORRO', 
-        syllables: ['CA', 'CHOR', 'RO'], 
-        hint: 'Animal domestico que late',
-        image: require('../../../assets/images/formando-a-palavra/nivel-2/cachorro.png')
-      },
-      { 
-        word: 'ESCOLA', 
-        syllables: ['ES', 'CO', 'LA'], 
-        hint: 'Instituição de aprendizagem',
-        image: require('../../../assets/images/formando-a-palavra/nivel-2/escola.png')
-      },
-      { 
-        word: 'BILHETE', 
-        syllables: ['BI', 'LHE', 'TE'], 
-        hint: 'Similar de carta',
-        image: require('../../../assets/images/formando-a-palavra/nivel-2/bilhete.png')
-      },
-    ],
-    3: [
-      { 
-        word: 'BORBOLETA', 
-        syllables: ['BOR', 'BO', 'LE', 'TA'], 
-        hint: 'Inseto colorido que voa',
-        image: require('../../../assets/images/formando-a-palavra/nivel-3/borboleta.png')
-      },
-      { 
-        word: 'MORANGO', 
-        syllables: ['MO', 'RAN', 'GO'], 
-        hint: 'Fruta vermelha e doce',
-        image: require('../../../assets/images/formando-a-palavra/nivel-3/morango.png')
-      },
-      { 
-        word: 'CAMISA', 
-        syllables: ['CA', 'MI', 'SA'], 
-        hint: 'Peça de roupa',
-        image: require('../../../assets/images/formando-a-palavra/nivel-3/camisa.png')
-      },
-    ],
-    4: [
-      { 
-        word: 'MACHUCADO', 
-        syllables: ['MA', 'CHU', 'CA', 'DO'], 
-        hint: 'Lesão corporal',
-        image: null
-      },
-      { 
-        word: 'BICICLETA', 
-        syllables: ['BI', 'CI', 'CLE', 'TA'], 
-        hint: 'Meio de transporte de duas rodas',
-        image: require('../../../assets/images/formando-a-palavra/nivel-4/bicicleta.png')
-      },
-      { 
-        word: 'CHOCOLATE', 
-        syllables: ['CHO', 'CO', 'LA', 'TE'], 
-        hint: 'Doce feito de cacau',
-        image: require('../../../assets/images/formando-a-palavra/nivel-4/chocolate.png')
-      },
-    ],
-    5: [
-      { 
-        word: 'MACARRAO', 
-        syllables: ['MA', 'CAR', 'RAO'], 
-        hint: 'Comida italiana',
-        image: null
-      },
-      { 
-        word: 'DINOSSAURO', 
-        syllables: ['DI', 'NOS', 'SAU', 'RO'], 
-        hint: 'Animal pré-histórico',
-        image: null
-      },
-      { 
-        word: 'AEROPORTO', 
-        syllables: ['A', 'E', 'RO', 'POR', 'TO'], 
-        hint: 'Area onde aviões pousam e decolam',
-        image: require('../../../assets/images/formando-a-palavra/nivel-5/aeroporto.png')
-      },
-    ],
-  };
-
-  return levelData[level] || levelData[1];
+const WORDS_DATA: Record<number, {
+  word: string;
+  syllables: string[];
+  hint: string;
+  image: any;
+}[]> = {
+  1: [
+    { 
+      word: 'DENTE', 
+      syllables: ['DEN', 'TE'], 
+      hint: 'Parte da boca',
+      image: require('../../../assets/images/formando-a-palavra/nivel-1/dente.png')
+    },
+    { 
+      word: 'SOL', 
+      syllables: ['SOL'], 
+      hint: 'Estrela que ilumina o dia',
+      image: require('../../../assets/images/formando-a-palavra/nivel-1/sol.png')
+    },
+    { 
+      word: 'DOIS', 
+      syllables: ['DO', 'IS'], 
+      hint: '1+1=?',
+      image: require('../../../assets/images/formando-a-palavra/nivel-1/dois.png')
+    },
+  ],
+  2: [
+    { 
+      word: 'CACHORRO', 
+      syllables: ['CA', 'CHOR', 'RO'], 
+      hint: 'Animal domestico que late',
+      image: require('../../../assets/images/formando-a-palavra/nivel-2/cachorro.png')
+    },
+    { 
+      word: 'ESCOLA', 
+      syllables: ['ES', 'CO', 'LA'], 
+      hint: 'Instituição de aprendizagem',
+      image: require('../../../assets/images/formando-a-palavra/nivel-2/escola.png')
+    },
+    { 
+      word: 'BILHETE', 
+      syllables: ['BI', 'LHE', 'TE'], 
+      hint: 'Similar de carta',
+      image: require('../../../assets/images/formando-a-palavra/nivel-2/bilhete.png')
+    },
+  ],
+  3: [
+    { 
+      word: 'BORBOLETA', 
+      syllables: ['BOR', 'BO', 'LE', 'TA'], 
+      hint: 'Inseto colorido que voa',
+      image: require('../../../assets/images/formando-a-palavra/nivel-3/borboleta.png')
+    },
+    { 
+      word: 'MORANGO', 
+      syllables: ['MO', 'RAN', 'GO'], 
+      hint: 'Fruta vermelha e doce',
+      image: require('../../../assets/images/formando-a-palavra/nivel-3/morango.png')
+    },
+    { 
+      word: 'CAMISA', 
+      syllables: ['CA', 'MI', 'SA'], 
+      hint: 'Peça de roupa',
+      image: require('../../../assets/images/formando-a-palavra/nivel-3/camisa.png')
+    },
+  ],
+  4: [
+    { 
+      word: 'MACHUCADO', 
+      syllables: ['MA', 'CHU', 'CA', 'DO'], 
+      hint: 'Lesão corporal',
+      image: null
+    },
+    { 
+      word: 'BICICLETA', 
+      syllables: ['BI', 'CI', 'CLE', 'TA'], 
+      hint: 'Meio de transporte de duas rodas',
+      image: require('../../../assets/images/formando-a-palavra/nivel-4/bicicleta.png')
+    },
+    { 
+      word: 'CHOCOLATE', 
+      syllables: ['CHO', 'CO', 'LA', 'TE'], 
+      hint: 'Doce feito de cacau',
+      image: require('../../../assets/images/formando-a-palavra/nivel-4/chocolate.png')
+    },
+  ],
+  5: [
+    { 
+      word: 'MACARRAO', 
+      syllables: ['MA', 'CAR', 'RAO'], 
+      hint: 'Comida italiana',
+      image: null
+    },
+    { 
+      word: 'DINOSSAURO', 
+      syllables: ['DI', 'NOS', 'SAU', 'RO'], 
+      hint: 'Animal pré-histórico',
+      image: null
+    },
+    { 
+      word: 'AEROPORTO', 
+      syllables: ['A', 'E', 'RO', 'POR', 'TO'], 
+      hint: 'Area onde aviões pousam e decolam',
+      image: require('../../../assets/images/formando-a-palavra/nivel-5/aeroporto.png')
+    },
+  ],
 };
+
+function shuffleSyllables(list: string[]): string[] {
+  const shuffled = [...list];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 export default function FormandoPalavraScreen() {
   const router = useRouter();
@@ -139,41 +144,32 @@ export default function FormandoPalavraScreen() {
   const [score, setScore] = useState(0);
   const [errors, setErrors] = useState(0);
   const [completed, setCompleted] = useState(false);
-  const [failed, setFailed] = useState(false);
   const [showHint, setShowHint] = useState(false);
-  const [showImage, setShowImage] = useState(false); // NOVO: estado para controlar a imagem
+  const [showImage, setShowImage] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  const words = getWordsByLevel(level);
+  const words = WORDS_DATA[level] || WORDS_DATA[1];
   const currentWord = words[currentIndex];
   const isLastWord = currentIndex === words.length - 1;
-  const MAX_ERRORS = 1;
 
   // Animações
   const scale = useSharedValue(0.9);
   const opacity = useSharedValue(0);
   const feedbackScale = useSharedValue(0);
 
-  const resetWord = useCallback(() => {
-    const shuffled = [...currentWord.syllables];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    setSyllables(shuffled);
+  // Inicializa e embaralha as sílabas UMA ÚNICA VEZ por palavra
+  useEffect(() => {
+    scale.value = withSpring(1, { damping: 12 });
+    opacity.value = withTiming(1, { duration: 500 });
+    setSyllables(shuffleSyllables(currentWord.syllables));
     setSelectedSyllables([]);
     setShowFeedback(false);
     setIsCorrect(false);
     setIsWrong(false);
     setShowHint(false);
-    setShowImage(false); // Reseta a imagem ao trocar de palavra
-  }, [currentWord.syllables]);
-
-  useEffect(() => {
-    scale.value = withSpring(1, { damping: 12 });
-    opacity.value = withTiming(1, { duration: 500 });
-    resetWord();
-  }, [currentIndex, level, opacity, resetWord, scale]);
+    setShowImage(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, level]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -189,14 +185,12 @@ export default function FormandoPalavraScreen() {
     if (!completed) return;
     const totalQuestions = words.length;
     const percentage = Math.round((score / totalQuestions) * 100);
-    let stars = 3;
-    if (percentage < 70) stars = 1;
-    else if (percentage < 100) stars = 2;
+    const stars = starsFromPercentage(percentage);
     void saveExerciseResult(level, exerciseId, stars, errors);
   }, [completed, errors, exerciseId, level, score, words.length]);
 
   const handleSyllablePress = (syllable: string, index: number) => {
-    if (showFeedback || completed || failed || saving) return;
+    if (showFeedback || completed || saving) return;
 
     const newSyllables = [...syllables];
     newSyllables.splice(index, 1);
@@ -210,25 +204,19 @@ export default function FormandoPalavraScreen() {
       if (formedWord === currentWord.word) {
         setIsCorrect(true);
         setShowFeedback(true);
-        setScore(score + 1);
+        setScore((prev) => prev + 1);
         feedbackScale.value = withSequence(withSpring(1.2), withSpring(1));
       } else {
         setIsWrong(true);
         setShowFeedback(true);
-        const newErrors = errors + 1;
-        setErrors(newErrors);
-
-        if (newErrors >= MAX_ERRORS + 1) {
-          setFailed(true);
-        } else {
-          setTimeout(resetWord, 1500);
-        }
+        setErrors((prev) => prev + 1);
+        feedbackScale.value = withSequence(withSpring(0.8), withSpring(1));
       }
     }
   };
 
   const handleRemoveSyllable = (index: number) => {
-    if (showFeedback || completed || failed || saving) return;
+    if (showFeedback || completed || saving) return;
 
     const newSelected = [...selectedSyllables];
     const removed = newSelected.splice(index, 1);
@@ -238,9 +226,14 @@ export default function FormandoPalavraScreen() {
     setSyllables(newSyllables);
   };
 
-  const handleNext = () => {
-    resetWord();
+  const handleRetryCurrentWord = () => {
+    setSyllables(shuffleSyllables(currentWord.syllables));
+    setSelectedSyllables([]);
+    setShowFeedback(false);
+    setIsWrong(false);
+  };
 
+  const handleNext = () => {
     if (isLastWord) {
       setCompleted(true);
     } else {
@@ -253,41 +246,21 @@ export default function FormandoPalavraScreen() {
     setScore(0);
     setErrors(0);
     setCompleted(false);
-    setFailed(false);
     setSaving(false);
-    resetWord();
+    setSyllables(shuffleSyllables((WORDS_DATA[level] || WORDS_DATA[1])[0].syllables));
+    setSelectedSyllables([]);
+    setShowFeedback(false);
+    setIsCorrect(false);
+    setIsWrong(false);
+    setShowHint(false);
+    setShowImage(false);
   };
-
-  // ===== TELA DE FALHA =====
-  if (failed) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Pressable onPress={() => router.back()} style={styles.backButton}>
-            <Text style={styles.backButtonText}>Voltar</Text>
-          </Pressable>
-        </View>
-        <View style={styles.failCard}>
-          <Text style={styles.failEmoji}>😅</Text>
-          <Text style={styles.failTitle}>Ops! Você errou!</Text>
-          <Text style={styles.failText}>
-            Você errou {errors} vezes. O limite é {MAX_ERRORS} erro.
-          </Text>
-          <TouchableOpacity style={styles.retryButton} onPress={resetExercise}>
-            <Text style={styles.retryButtonText}>🔄 Tentar novamente</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
 
   // ===== TELA DE CONCLUSÃO =====
   if (completed) {
     const totalQuestions = words.length;
     const percentage = Math.round((score / totalQuestions) * 100);
-    let stars = 3;
-    if (percentage < 70) stars = 1;
-    else if (percentage < 100) stars = 2;
+    const stars = starsFromPercentage(percentage);
 
     return (
       <View style={styles.container}>
@@ -315,7 +288,10 @@ export default function FormandoPalavraScreen() {
           <View style={styles.percentageContainer}>
             <Text style={styles.percentageText}>{percentage}%</Text>
             <Text style={styles.starsEarned}>
-              {Array(stars).fill('⭐').join('')}
+              {'⭐'.repeat(stars)}
+            </Text>
+            <Text style={{ color: '#F5B55A', fontSize: 15, fontWeight: '700', marginBottom: 6 }}>
+              {stars === 4 ? 'Excelente! 4 de 4 estrelas ⭐' : `${stars} de 4 estrelas conquistadas`}
             </Text>
             <View style={styles.percentageBar}>
               <View style={[styles.percentageFill, { width: `${percentage}%` }]} />
@@ -359,7 +335,7 @@ export default function FormandoPalavraScreen() {
         </View>
         <View style={styles.errorContainer}>
           <Text style={[styles.errorText, errors > 0 && styles.errorTextWarning]}>
-            ❌ Erros: {errors}/{MAX_ERRORS + 1}
+            {errors > 0 ? `❌ Erros: ${errors}` : `🎯 Acertos: ${score}/${words.length}`}
           </Text>
         </View>
         <View style={styles.progressBar}>
@@ -369,14 +345,16 @@ export default function FormandoPalavraScreen() {
 
       <Animated.View style={[styles.card, animatedStyle]}>
         {/* ===== BOTÃO PARA MOSTRAR IMAGEM ===== */}
-        <TouchableOpacity 
-          style={styles.imageButton}
-          onPress={() => setShowImage(!showImage)}
-        >
-          <Text style={styles.imageButtonText}>
-            {showImage ? 'Ocultar imagem' : ' Ver imagem'}
-          </Text>
-        </TouchableOpacity>
+        {!!currentWord.image && (
+          <TouchableOpacity 
+            style={styles.imageButton}
+            onPress={() => setShowImage(!showImage)}
+          >
+            <Text style={styles.imageButtonText}>
+              {showImage ? 'Ocultar imagem' : '🖼️ Ver imagem'}
+            </Text>
+          </TouchableOpacity>
+        )}
 
         {/* ===== IMAGEM ===== */}
         {showImage && currentWord.image && (
@@ -484,13 +462,32 @@ export default function FormandoPalavraScreen() {
         )}
 
         {isWrong && showFeedback && (
-          <View style={styles.feedbackWrong}>
-            <Text style={styles.feedbackEmoji}>❌</Text>
-            <Text style={styles.feedbackTitle}>Tente novamente!</Text>
-            <Text style={styles.feedbackText}>
-              A ordem das sílabas não está correta.
-            </Text>
-          </View>
+          <Animated.View style={[styles.feedbackContainer, feedbackStyle]}>
+            <View style={styles.feedbackWrong}>
+              <Text style={styles.feedbackEmoji}>❌</Text>
+              <Text style={styles.feedbackTitle}>Quase lá!</Text>
+              <Text style={styles.feedbackText}>
+                A palavra correta é: {currentWord.word}
+              </Text>
+              <Text style={{ color: '#E480BB', fontSize: 13, marginTop: 4, textAlign: 'center' }}>
+                Ordem das sílabas: {currentWord.syllables.join(' - ')}
+              </Text>
+              <View style={{ flexDirection: 'row', gap: 10, marginTop: 12 }}>
+                <TouchableOpacity
+                  style={[styles.nextButton, { flex: 1, backgroundColor: 'rgba(255, 255, 255, 0.15)', borderColor: 'rgba(255, 255, 255, 0.3)' }]}
+                  onPress={handleRetryCurrentWord}
+                >
+                  <Text style={[styles.nextButtonText, { color: '#FFFFFF' }]}>Tentar de novo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.nextButton, { flex: 1 }]}
+                  onPress={handleNext}
+                >
+                  <Text style={styles.nextButtonText}>{isLastWord ? 'Ver resultados' : 'Próxima →'}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Animated.View>
         )}
       </Animated.View>
     </ScrollView>

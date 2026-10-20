@@ -12,13 +12,12 @@ import { styles } from "../../../styles/intruso";
 import { saveExerciseResult, starsFromPercentage } from "../../../utils/progress";
 
 // ===== DADOS POR NIVEL =====
-const getIntrusoData = (level: number) => {
-  const levelData: Record<number, {
-    family: string;
-    words: string[];
-    intruder: string;
-    hint: string;
-  }[]> = {
+const INTRUSO_DATA: Record<number, {
+  family: string;
+  words: string[];
+  intruder: string;
+  hint: string;
+}[]> = {
     1: [
       { 
         family: 'FLOR', 
@@ -121,9 +120,6 @@ const getIntrusoData = (level: number) => {
     ],
   };
 
-  return levelData[level] || levelData[1];
-};
-
 export default function IntrusoScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ level: string }>();
@@ -137,7 +133,7 @@ export default function IntrusoScreen() {
   const [showHint, setShowHint] = useState(false);
   const [shuffledWords, setShuffledWords] = useState<string[]>([]);
 
-  const wordsData = getIntrusoData(level);
+  const wordsData = INTRUSO_DATA[level] || INTRUSO_DATA[1];
   const currentWord = wordsData[currentIndex];
   const isLastWord = currentIndex === wordsData.length - 1;
 
@@ -154,11 +150,11 @@ export default function IntrusoScreen() {
   const opacity = useSharedValue(0);
   const feedbackScale = useSharedValue(0);
 
+  // Embaralha as palavras uma unica vez por questao/nivel
   useEffect(() => {
     scale.value = withSpring(1, { damping: 12 });
     opacity.value = withTiming(1, { duration: 500 });
     
-    // Embaralha as palavras
     const allWords = [...currentWord.words, currentWord.intruder];
     for (let i = allWords.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -168,7 +164,8 @@ export default function IntrusoScreen() {
     setSelectedWord(null);
     setShowFeedback(false);
     setShowHint(false);
-  }, [currentIndex, currentWord.intruder, currentWord.words, opacity, scale]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, level]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -230,6 +227,7 @@ export default function IntrusoScreen() {
   if (completed) {
     const totalQuestions = wordsData.length;
     const percentage = Math.round((score / totalQuestions) * 100);
+    const stars = starsFromPercentage(percentage);
     
     return (
       <View style={styles.container}>
@@ -256,6 +254,12 @@ export default function IntrusoScreen() {
           
           <View style={styles.percentageContainer}>
             <Text style={styles.percentageText}>{percentage}%</Text>
+            <Text style={styles.starsEarned}>
+              {'⭐'.repeat(stars)}
+            </Text>
+            <Text style={{ color: '#F5B55A', fontSize: 15, fontWeight: '700', marginBottom: 6 }}>
+              {stars === 4 ? 'Excelente! 4 de 4 estrelas ⭐' : `${stars} de 4 estrelas conquistadas`}
+            </Text>
             <View style={styles.percentageBar}>
               <View style={[styles.percentageFill, { width: `${percentage}%` }]} />
             </View>
