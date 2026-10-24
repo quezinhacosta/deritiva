@@ -42,7 +42,7 @@ const WORDS_DATA: Record<number, {
     { 
       word: 'CACHORRO', 
       syllables: ['CA', 'CHOR', 'RO'], 
-      hint: 'Animal domestico que late',
+      hint: 'Animal doméstico que late',
       image: require('../../../assets/images/formando-a-palavra/nivel-2/cachorro.png')
     },
     { 
@@ -100,8 +100,8 @@ const WORDS_DATA: Record<number, {
   ],
   5: [
     { 
-      word: 'MACARRAO', 
-      syllables: ['MA', 'CAR', 'RAO'], 
+      word: 'MACARRÃO', 
+      syllables: ['MA', 'CAR', 'RÃO'], 
       hint: 'Comida italiana',
       image: null
     },
@@ -114,7 +114,7 @@ const WORDS_DATA: Record<number, {
     { 
       word: 'AEROPORTO', 
       syllables: ['A', 'E', 'RO', 'POR', 'TO'], 
-      hint: 'Area onde aviões pousam e decolam',
+      hint: 'Área onde aviões pousam e decolam',
       image: require('../../../assets/images/formando-a-palavra/nivel-5/aeroporto.png')
     },
   ],

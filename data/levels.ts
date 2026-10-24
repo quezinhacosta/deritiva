@@ -1,15 +1,15 @@
 import { EXERCISE_ROUTES, LevelDefinition } from '@/types/exercise';
 
 const LEVEL_TITLES = [
-  ['Iniciante', 'Nivel 1'],
-  ['Explorador', 'Nivel 2'],
-  ['Aventureiro', 'Nivel 3'],
-  ['Mestre', 'Nivel 4'],
-  ['Lenda', 'Nivel 5'],
+  ['Iniciante', 'Nível 1'],
+  ['Explorador', 'Nível 2'],
+  ['Aventureiro', 'Nível 3'],
+  ['Mestre', 'Nível 4'],
+  ['Lenda', 'Nível 5'],
 ] as const;
 
 const EXERCISE_TITLES: Record<(typeof EXERCISE_ROUTES)[number], string> = {
-  'silaba-faltante': 'Silaba faltante',
+  'silaba-faltante': 'Sílaba faltante',
   'formando-a-palavra': 'Formando a palavra',
   construtor: 'Construtor',
   intruso: 'Intruso',

@@ -43,7 +43,7 @@ const SILABA_DATA: Record<number, {
         missingIndex: 1, 
         correctSyllable: "SA", 
         alternatives: ["SA", "SE", "SI", "SO"], 
-        fullWord: "PASSARO", 
+        fullWord: "PÁSSARO", 
         hint: "Animal que voa" 
       },
     ],
@@ -95,7 +95,7 @@ const SILABA_DATA: Record<number, {
         missingIndex: 1, 
         correctSyllable: "CAR", 
         alternatives: ["CAR", "COR", "CUR", "CER"], 
-        fullWord: "MACARRAO", 
+        fullWord: "MACARRÃO", 
         hint: "Comida italiana" 
       },
       { 
@@ -122,7 +122,7 @@ const SILABA_DATA: Record<number, {
         correctSyllable: "TU", 
         alternatives: ["TI", "TA", "TE", "TU"], 
         fullWord: "PORTUGUÊS", 
-        hint: "Quem nasce em portugal é..." 
+        hint: "Quem nasce em Portugal é..." 
       },
       { 
         syllables: ["AS", "SUS", "TA", "DO"], 
@@ -140,7 +140,7 @@ const SILABA_DATA: Record<number, {
         correctSyllable: "NEN", 
         alternatives: ["NEN", "NAN", "NIN", "NON"], 
         fullWord: "CONTINENTE", 
-        hint: "Grande porcao de terra" 
+        hint: "Grande porção de terra" 
       },
       { 
         syllables: ["MO", "NU", "MEN", "TO"], 
@@ -148,7 +148,7 @@ const SILABA_DATA: Record<number, {
         correctSyllable: "MEN", 
         alternatives: ["MEN", "MAN", "MIN", "MON"], 
         fullWord: "MONUMENTO", 
-        hint: "Construcao historica" 
+        hint: "Construção histórica" 
       },
       { 
         syllables: ["BI", "CI","CLE", "TA"], 
@@ -164,7 +164,7 @@ const SILABA_DATA: Record<number, {
         correctSyllable: "SAU", 
         alternatives: ["SAU", "SEU", "SIU", "SOU"], 
         fullWord: "DINOSSAURO", 
-        hint: "Animal pre-historico" 
+        hint: "Animal pré-histórico" 
       },
     ],
   };
@@ -265,11 +265,11 @@ export default function SilabaFaltanteScreen() {
     const titles: Record<string, string> = {
       '1': 'Iniciante',
       '2': 'Aprendiz',
-      '3': 'Intermediario',
+      '3': 'Intermediário',
       '4': 'Avançado',
       '5': 'Mestre',
     };
-    return titles[String(level)] || 'Nivel';
+    return titles[String(level)] || 'Nível';
   };
 
   if (completed) {
@@ -284,15 +284,15 @@ export default function SilabaFaltanteScreen() {
             <Text style={styles.backButtonText}>Voltar</Text>
           </Pressable>
           <View style={styles.headerInfo}>
-            <Text style={styles.levelBadge}>Concluido!</Text>
-            <Text style={styles.levelTitle}>Silaba Faltante</Text>
+            <Text style={styles.levelBadge}>Concluído!</Text>
+            <Text style={styles.levelTitle}>Sílaba Faltante</Text>
           </View>
         </View>
         
         <View style={styles.completionCard}>
           <Text style={styles.completionEmoji}>✓</Text>
-          <Text style={styles.completionTitle}>Parabens!</Text>
-          <Text style={styles.completionText}>Voce completou o exercicio!</Text>
+          <Text style={styles.completionTitle}>Parabéns!</Text>
+          <Text style={styles.completionText}>Você completou o exercício!</Text>
           
           <View style={styles.scoreContainer}>
             <Text style={styles.scoreNumber}>{score}</Text>
@@ -322,7 +322,7 @@ export default function SilabaFaltanteScreen() {
               style={styles.continueButton} 
               onPress={() => router.push('/exercicio1')}
             >
-              <Text style={styles.continueButtonText}>Voltar aos niveis</Text>
+              <Text style={styles.continueButtonText}>Voltar aos níveis</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -342,7 +342,7 @@ export default function SilabaFaltanteScreen() {
           <Text style={styles.backButtonText}>Voltar</Text>
         </Pressable>
         <View style={styles.headerInfo}>
-          <Text style={styles.levelBadge}>Nivel {level}</Text>
+          <Text style={styles.levelBadge}>Nível {level}</Text>
           <Text style={styles.levelTitle}>{getLevelTitle()}</Text>
         </View>
       </View>
@@ -418,7 +418,7 @@ export default function SilabaFaltanteScreen() {
         </View>
 
         {/* Alternativas */}
-        <Text style={styles.alternativesLabel}>Escolha a silaba correta:</Text>
+        <Text style={styles.alternativesLabel}>Escolha a sílaba correta:</Text>
         <View style={styles.alternativesContainer}>
           {shuffledAlternatives.map((alt, index) => {
             const isCorrect = alt === currentWord.correctSyllable;
@@ -456,7 +456,7 @@ export default function SilabaFaltanteScreen() {
                 <Text style={styles.feedbackEmoji}>✓</Text>
                 <Text style={styles.feedbackTitle}>Resposta correta!</Text>
                 <Text style={styles.feedbackText}>
-                  A palavra completa e: {currentWord.fullWord}
+                  A palavra completa é: {currentWord.fullWord}
                 </Text>
               </View>
             ) : (
@@ -464,7 +464,7 @@ export default function SilabaFaltanteScreen() {
                 <Text style={styles.feedbackEmoji}>✗</Text>
                 <Text style={styles.feedbackTitle}>Resposta incorreta</Text>
                 <Text style={styles.feedbackText}>
-                  A silaba correta e: {currentWord.correctSyllable}
+                  A sílaba correta é: {currentWord.correctSyllable}
                 </Text>
                 <Text style={styles.feedbackFullWord}>
                   Palavra: {currentWord.fullWord}
@@ -478,7 +478,7 @@ export default function SilabaFaltanteScreen() {
         {showFeedback && (
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
             <Text style={styles.nextButtonText}>
-              {isLastWord ? 'Ver resultados' : 'Proximo >'}
+              {isLastWord ? 'Ver resultados' : 'Próxima →'}
             </Text>
           </TouchableOpacity>
         )}

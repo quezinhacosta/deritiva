@@ -10,55 +10,55 @@ const tutorialSteps: TutorialStep[] = [
   {
     id: 0,
     title: "Bem-vindo ao Deritiva!",
-    description: "Um aplicativo educativo para aprender brincando. Explore todos os niveis e exercicios no seu ritmo. Divirta-se enquanto aprende novas palavras!",
+    description: "Um aplicativo educativo para aprender brincando. Explore todos os níveis e exercícios no seu ritmo. Divirta-se enquanto aprende novas palavras!",
     type: 'welcome',
   },
   {
     id: 1,
     title: "Estrutura do Jogo",
-    description: "O jogo possui 5 niveis de dificuldade: Iniciante, Explorador, Aventureiro, Mestre e Lenda. Cada nivel contem 4 exercicios diferentes para você praticar e evoluir.",
+    description: "O jogo possui 5 níveis de dificuldade: Iniciante, Explorador, Aventureiro, Mestre e Lenda. Cada nível contém 4 exercícios diferentes para você praticar e evoluir.",
     type: 'levels',
   },
   {
     id: 2,
-    title: "Exercicio 1: Silaba Faltante",
-    description: "Neste exercicio, você verá uma palavra incompleta com um espaco para uma silaba. Sua missao e escolher a silaba correta entre as opcoes para completar a palavra. Use a dica se precisar de ajuda!",
+    title: "Exercício 1: Sílaba Faltante",
+    description: "Neste exercício, você verá uma palavra incompleta com um espaço para uma sílaba. Sua missão é escolher a sílaba correta entre as opções para completar a palavra. Use a dica se precisar de ajuda!",
     type: 'exercise1',
   },
   {
     id: 3,
-    title: "Exercicio 2: Formando a Palavra",
-    description: "As silabas da palavra estao embaralhadas. Voce precisa organiza-las na ordem correta para formar a palavra certa. Toque nas silabas para rearranja-las ate formar a palavra correta.",
+    title: "Exercício 2: Formando a Palavra",
+    description: "As sílabas da palavra estão embaralhadas. Você precisa organizá-las na ordem correta para formar a palavra certa. Toque nas sílabas para organizá-las até formar a palavra correta.",
     type: 'exercise2',
   },
   {
     id: 4,
-    title: "Exercicio 3: Construtor",
-    description: "Uma palavra esta incompleta e voce precisa escolher a silaba correta entre as opcoes para completa-la. Cada palavra tem uma unica silaba que a completa corretamente.",
+    title: "Exercício 3: Construtor",
+    description: "Uma palavra está incompleta e você precisa escolher a sílaba correta entre as opções para completá-la. Cada palavra tem uma única sílaba que a completa corretamente.",
     type: 'exercise3',
   },
   {
     id: 5,
-    title: "Exercicio 4: Intruso",
-    description: "Voce recebera uma familia de palavras e uma delas nao pertence a essa familia. Sua tarefa e identificar qual palavra e o intruso. Preste atencao no radical e no significado!",
+    title: "Exercício 4: Intruso",
+    description: "Você receberá uma família de palavras e uma delas não pertence a essa família. Sua tarefa é identificar qual palavra é a intrusa. Preste atenção no radical e no significado!",
     type: 'exercise4',
   },
   {
     id: 6,
-    title: "Sistema de Pontuacao",
-    description: "Cada exercicio concluido concede ate 4 estrelas de acordo com seu desempenho. Conquiste 100% de acertos para ganhar as 4 estrelas maximas, ou pelo menos 1 estrela ao concluir a atividade!",
+    title: "Sistema de Pontuação",
+    description: "Cada exercício concluído concede até 4 estrelas de acordo com seu desempenho. Conquiste 100% de acertos para ganhar as 4 estrelas máximas, ou pelo menos 1 estrela ao concluir a atividade!",
     type: 'stars',
   },
   {
     id: 7,
     title: "Liberdade para Explorar",
-    description: "O primeiro nivel começa desbloqueado. Ao completar os 4 exercicios de um nivel, o proximo nivel e liberado para voce continuar avancando no seu ritmo.",
+    description: "O primeiro nível começa desbloqueado. Ao completar os 4 exercícios de um nível, o próximo nível é liberado para você continuar avançando no seu ritmo.",
     type: 'freedom',
   },
   {
     id: 8,
-    title: "Dicas e Estrategias",
-    description: "Use as dicas disponiveis em cada exercicio para te ajudar. Nao tenha medo de errar, cada erro e uma oportunidade de aprender. Leia com atencao, pense e divirta-se aprendendo!",
+    title: "Dicas e Estratégias",
+    description: "Use as dicas disponíveis em cada exercício para ajudar. Não tenha medo de errar: cada erro é uma oportunidade de aprender. Leia com atenção, pense e divirta-se aprendendo!",
     type: 'tips',
   },
 ];
@@ -136,7 +136,7 @@ export default function TutorialScreen() {
             onPress={nextStep}
             disabled={currentStep === tutorialSteps.length - 1}
           >
-            <Text style={styles.navButtonText}>Proximo</Text>
+            <Text style={styles.navButtonText}>Próximo</Text>
           </TouchableOpacity>
         </View>
 

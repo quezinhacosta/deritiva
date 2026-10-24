@@ -214,7 +214,7 @@ export default function ExerciseLevelsScreen() {
           </Pressable>
         </View>
         <Text style={styles.title}>Minha Jornada</Text>
-        <Text style={styles.subtitle}>Complete todos os exercicios para avancar!</Text>
+        <Text style={styles.subtitle}>Complete todos os exercícios para avançar!</Text>
       </View>
 
       <Pressable style={styles.navButton} onPress={() => router.push('/tutorial')}>

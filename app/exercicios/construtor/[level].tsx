@@ -69,7 +69,7 @@ const CONSTRUTOR_DATA: Record<number, {
         word: 'CASA',
         missingPart: 'SA',
         options: ['SA', 'ZA', 'SSA'],
-        hint: 'Qual silaba completa CASA?'
+        hint: 'Qual sílaba completa CASA?'
       },
       { 
         word: 'GATINHO',
@@ -106,9 +106,9 @@ const CONSTRUTOR_DATA: Record<number, {
         hint: 'Qual sufixo completa AMOR?'
       },
       { 
-        word: 'PACIFICO',
-        missingPart: 'IFICO',
-        options: ['IFICO', 'EFICO', 'AFICO'],
+        word: 'PACÍFICO',
+        missingPart: 'ÍFICO',
+        options: ['ÍFICO', 'ÉFICO', 'ÁFICO'],
         hint: 'Qual sufixo completa PAZ?'
       },
       { 
@@ -217,11 +217,11 @@ export default function ConstrutorScreen() {
     const titles: Record<string, string> = {
       '1': 'Iniciante',
       '2': 'Aprendiz',
-      '3': 'Intermediario',
+      '3': 'Intermediário',
       '4': 'Avançado',
       '5': 'Mestre',
     };
-    return titles[String(level)] || 'Nivel';
+    return titles[String(level)] || 'Nível';
   };
 
   // Mostra a palavra com a parte faltante
@@ -262,15 +262,15 @@ export default function ConstrutorScreen() {
             <Text style={styles.backButtonText}>Voltar</Text>
           </Pressable>
           <View style={styles.headerInfo}>
-            <Text style={styles.levelBadge}>Concluido!</Text>
+            <Text style={styles.levelBadge}>Concluído!</Text>
             <Text style={styles.levelTitle}>Construtor</Text>
           </View>
         </View>
         
         <View style={styles.completionCard}>
           <Text style={styles.completionEmoji}>✓</Text>
-          <Text style={styles.completionTitle}>Parabens!</Text>
-          <Text style={styles.completionText}>Voce completou todas as palavras!</Text>
+          <Text style={styles.completionTitle}>Parabéns!</Text>
+          <Text style={styles.completionText}>Você completou todas as palavras!</Text>
           
           <View style={styles.scoreContainer}>
             <Text style={styles.scoreNumber}>{score}</Text>
@@ -300,7 +300,7 @@ export default function ConstrutorScreen() {
               style={styles.continueButton} 
               onPress={() => router.push('/exercicio1')}
             >
-              <Text style={styles.continueButtonText}>Voltar aos niveis</Text>
+              <Text style={styles.continueButtonText}>Voltar aos níveis</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -316,7 +316,7 @@ export default function ConstrutorScreen() {
           <Text style={styles.backButtonText}>Voltar</Text>
         </Pressable>
         <View style={styles.headerInfo}>
-          <Text style={styles.levelBadge}>Nivel {level}</Text>
+          <Text style={styles.levelBadge}>Nível {level}</Text>
           <Text style={styles.levelTitle}>{getLevelTitle()}</Text>
         </View>
       </View>
@@ -361,7 +361,7 @@ export default function ConstrutorScreen() {
 
         {/* Opcoes */}
         <View style={styles.optionsContainer}>
-          <Text style={styles.optionsLabel}>Escolha a silaba:</Text>
+          <Text style={styles.optionsLabel}>Escolha a sílaba:</Text>
           <View style={styles.optionsGrid}>
             {shuffledOptions.map((option, index) => {
               const isSelected = option === selectedOption;
@@ -400,10 +400,10 @@ export default function ConstrutorScreen() {
                 <Text style={styles.feedbackEmoji}>✓</Text>
                 <Text style={styles.feedbackTitle}>Acertou!</Text>
                 <Text style={styles.feedbackText}>
-                  A palavra completa e: {currentWord.word}
+                  A palavra completa é: {currentWord.word}
                 </Text>
                 <Text style={styles.feedbackFamily}>
-                  &quot;{currentWord.missingPart}&quot; e a silaba correta!
+                  &quot;{currentWord.missingPart}&quot; é a sílaba correta!
                 </Text>
               </View>
             ) : (
@@ -411,7 +411,7 @@ export default function ConstrutorScreen() {
                 <Text style={styles.feedbackEmoji}>✗</Text>
                 <Text style={styles.feedbackTitle}>Tente novamente!</Text>
                 <Text style={styles.feedbackText}>
-                  A silaba correta e &quot;{currentWord.missingPart}&quot;
+                  A sílaba correta é &quot;{currentWord.missingPart}&quot;
                 </Text>
                 <Text style={styles.feedbackFamily}>
                   Palavra completa: {currentWord.word}
@@ -425,7 +425,7 @@ export default function ConstrutorScreen() {
         {showFeedback && (
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
             <Text style={styles.nextButtonText}>
-              {isLastWord ? 'Ver resultados' : 'Proximo >'}
+              {isLastWord ? 'Ver resultados' : 'Próxima →'}
             </Text>
           </TouchableOpacity>
         )}

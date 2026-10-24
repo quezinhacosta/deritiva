@@ -77,17 +77,17 @@ export default function TutorialCard({ step }: TutorialCardProps) {
                 <Text style={styles.demoSyllableText}>SA</Text>
               </View>
               <View style={[styles.demoSyllable, styles.demoSyllableHighlight]}>
-                <Text style={[styles.demoSyllableText, styles.demoSyllableHighlightText]}>CHO</Text>
+                <Text style={[styles.demoSyllableText, styles.demoSyllableHighlightText]}>CO</Text>
               </View>
             </View>
 
             <Text style={{ color: '#E480BB', fontSize: 14, textAlign: 'center', marginTop: 8 }}>
-              Arraste as sílabas para formar a palavra
+              Toque nas sílabas para formar a palavra
             </Text>
 
             <View style={[styles.demoRow, { marginTop: 12 }]}>
               <Text style={{ color: '#F5B55A', fontSize: 16, fontWeight: '700' }}>
-                CA → SA → CHO = CASACHO
+                CA → SA → CO = CASACO
               </Text>
             </View>
           </View>
@@ -214,7 +214,7 @@ export default function TutorialCard({ step }: TutorialCardProps) {
                   <Text style={{ color: '#E480BB', fontSize: 12 }}>Níveis</Text>
                 </View>
                 <View style={{ backgroundColor: 'rgba(245, 181, 90, 0.15)', padding: 12, borderRadius: 8, alignItems: 'center', flex: 1 }}>
-                  <Text style={{ color: '#F5B55A', fontSize: 24, fontWeight: '900' }}>15</Text>
+                  <Text style={{ color: '#F5B55A', fontSize: 24, fontWeight: '900' }}>20</Text>
                   <Text style={{ color: '#E480BB', fontSize: 12 }}>Exercícios</Text>
                 </View>
                 <View style={{ backgroundColor: 'rgba(245, 181, 90, 0.15)', padding: 12, borderRadius: 8, alignItems: 'center', flex: 1 }}>

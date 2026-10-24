@@ -23,39 +23,39 @@ const INTRUSO_DATA: Record<number, {
         family: 'FLOR', 
         words: ['FLORAL', 'FLORIDO', 'FLOREIRA'], 
         intruder: 'FLORESTA',
-        hint: 'Qual palavra nao vem de FLOR?'
+        hint: 'Qual palavra não vem de FLOR?'
       },
       { 
         family: 'TERRA', 
         words: ['TERRENO', 'TERRESTRE', 'ENTERRAR'], 
         intruder: 'TERMINAR',
-        hint: 'Qual palavra nao vem de TERRA?'
+        hint: 'Qual palavra não vem de TERRA?'
       },
       { 
         family: 'SOL', 
         words: ['SOLAR', 'SOLEIRA', 'ENSOLAR'], 
         intruder: 'SOLTAR',
-        hint: 'Qual palavra nao vem de SOL?'
+        hint: 'Qual palavra não vem de SOL?'
       },
     ],
     2: [
       { 
         family: 'MAR', 
-        words: ['MARINHO', 'MARE', 'SUBMARINO'], 
+        words: ['MARINHO', 'MARÉ', 'SUBMARINO'], 
         intruder: 'MERGULHAR',
-        hint: 'Qual palavra nao vem de MAR?'
+        hint: 'Qual palavra não vem de MAR?'
       },
       { 
         family: 'LUZ', 
         words: ['LUMINOSO', 'ILUMINAR', 'LUZIR'], 
         intruder: 'LUXAR',
-        hint: 'Qual palavra nao vem de LUZ?'
+        hint: 'Qual palavra não vem de LUZ?'
       },
       { 
         family: 'FELIZ', 
         words: ['FELIZARDO', 'FELICIDADE'], 
         intruder: 'FESTA',
-        hint: 'Qual palavra nao vem de FELIZ?'
+        hint: 'Qual palavra não vem de FELIZ?'
       },
     ],
     3: [
@@ -63,39 +63,39 @@ const INTRUSO_DATA: Record<number, {
         family: 'MENINA', 
         words: ['MENINO', 'MENINICE', 'MENININHA'], 
         intruder: 'MULHER',
-        hint: 'Qual palavra nao vem de MENINA?'
+        hint: 'Qual palavra não vem de MENINA?'
       },
       { 
         family: 'CASA', 
         words: ['CASINHA', 'CASARÃO', 'CASAMENTO'], 
         intruder: 'CASTELO',
-        hint: 'Qual palavra nao vem de CASA?'
+        hint: 'Qual palavra não vem de CASA?'
       },
       { 
         family: 'GATO', 
         words: ['GATINHO', 'GATUNO', 'GATARRADA'], 
         intruder: 'GARRA',
-        hint: 'Qual palavra nao vem de GATO?'
+        hint: 'Qual palavra não vem de GATO?'
       },
     ],
     4: [
       { 
-        family: 'AGUA', 
-        words: ['AQUATICO', 'AGUACEIRO', 'AGUADO'], 
+        family: 'ÁGUA', 
+        words: ['AQUÁTICO', 'AGUACEIRO', 'AGUADO'], 
         intruder: 'CHUVA',
-        hint: 'Qual palavra nao vem de AGUA?'
+        hint: 'Qual palavra não vem de ÁGUA?'
       },
       { 
         family: 'PEDRA', 
         words: ['PEDREIRA', 'PEDRINHA', 'EMPEDRAR'], 
         intruder: 'MONTANHA',
-        hint: 'Qual palavra nao vem de PEDRA?'
+        hint: 'Qual palavra não vem de PEDRA?'
       },
       { 
         family: 'FOGO', 
-        words: ['FOGUEIRA', 'FOGAREU', 'FOGUETE'], 
-        intruder: 'INCENDIO',
-        hint: 'Qual palavra nao vem de FOGO?'
+        words: ['FOGUEIRA', 'FOGARÉU', 'FOGUETE'], 
+        intruder: 'INCÊNDIO',
+        hint: 'Qual palavra não vem de FOGO?'
       },
     ],
     5: [
@@ -103,19 +103,19 @@ const INTRUSO_DATA: Record<number, {
         family: 'AMOR', 
         words: ['AMOROSO', 'AMADO', 'AMANTE'], 
         intruder: 'CARINHO',
-        hint: 'Qual palavra nao vem de AMOR?'
+        hint: 'Qual palavra não vem de AMOR?'
       },
       { 
         family: 'PAZ', 
-        words: ['PACIFICO', 'APAZIGUAR'], 
+        words: ['PACÍFICO', 'APAZIGUAR'], 
         intruder: 'PASSEAR',
-        hint: 'Qual palavra nao vem de PAZ?'
+        hint: 'Qual palavra não vem de PAZ?'
       },
       { 
         family: 'BELEZA', 
-        words: ['BELO', 'EMBELEZAR', 'BELISSIMO'], 
+        words: ['BELO', 'EMBELEZAR', 'BELÍSSIMO'], 
         intruder: 'FORMOSURA',
-        hint: 'Qual palavra nao vem de BELEZA?'
+        hint: 'Qual palavra não vem de BELEZA?'
       },
     ],
   };
@@ -217,11 +217,11 @@ export default function IntrusoScreen() {
     const titles: Record<string, string> = {
       '1': 'Iniciante',
       '2': 'Aprendiz',
-      '3': 'Intermediario',
+      '3': 'Intermediário',
       '4': 'Avançado',
       '5': 'Mestre',
     };
-    return titles[String(level)] || 'Nivel';
+    return titles[String(level)] || 'Nível';
   };
 
   if (completed) {
@@ -236,15 +236,15 @@ export default function IntrusoScreen() {
             <Text style={styles.backButtonText}>Voltar</Text>
           </Pressable>
           <View style={styles.headerInfo}>
-            <Text style={styles.levelBadge}>Concluido!</Text>
+            <Text style={styles.levelBadge}>Concluído!</Text>
             <Text style={styles.levelTitle}>O Intruso</Text>
           </View>
         </View>
         
         <View style={styles.completionCard}>
           <Text style={styles.completionEmoji}>✓</Text>
-          <Text style={styles.completionTitle}>Parabens!</Text>
-          <Text style={styles.completionText}>Voce encontrou todos os intrusos!</Text>
+          <Text style={styles.completionTitle}>Parabéns!</Text>
+          <Text style={styles.completionText}>Você encontrou todos os intrusos!</Text>
           
           <View style={styles.scoreContainer}>
             <Text style={styles.scoreNumber}>{score}</Text>
@@ -274,7 +274,7 @@ export default function IntrusoScreen() {
               style={styles.continueButton} 
               onPress={() => router.push('/exercicio1')}
             >
-              <Text style={styles.continueButtonText}>Voltar aos niveis</Text>
+              <Text style={styles.continueButtonText}>Voltar aos níveis</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -290,7 +290,7 @@ export default function IntrusoScreen() {
           <Text style={styles.backButtonText}>Voltar</Text>
         </Pressable>
         <View style={styles.headerInfo}>
-          <Text style={styles.levelBadge}>Nivel {level}</Text>
+          <Text style={styles.levelBadge}>Nível {level}</Text>
           <Text style={styles.levelTitle}>{getLevelTitle()}</Text>
         </View>
       </View>
@@ -309,7 +309,7 @@ export default function IntrusoScreen() {
       <Animated.View style={[styles.card, animatedStyle]}>
         {/* Familia */}
         <View style={styles.familyContainer}>
-          <Text style={styles.familyLabel}>Familia das palavras:</Text>
+          <Text style={styles.familyLabel}>Família das palavras:</Text>
           <Text style={styles.familyWord}>{currentWord.family}</Text>
         </View>
 
@@ -331,7 +331,7 @@ export default function IntrusoScreen() {
 
         {/* Instrucao */}
         <Text style={styles.instruction}>
-          Encontre a palavra que NAO pertence a familia:
+          Encontre a palavra que NÃO pertence à família:
         </Text>
 
         {/* Palavras */}
@@ -371,10 +371,10 @@ export default function IntrusoScreen() {
                 <Text style={styles.feedbackEmoji}>✓</Text>
                 <Text style={styles.feedbackTitle}>Acertou!</Text>
                 <Text style={styles.feedbackText}>
-                  &quot;{currentWord.intruder}&quot; nao pertence a familia {currentWord.family}
+                  &quot;{currentWord.intruder}&quot; não pertence à família {currentWord.family}
                 </Text>
                 <Text style={styles.feedbackFamily}>
-                  Palavras da familia: {currentWord.words.join(', ')}
+                  Palavras da família: {currentWord.words.join(', ')}
                 </Text>
               </View>
             ) : (
@@ -382,10 +382,10 @@ export default function IntrusoScreen() {
                 <Text style={styles.feedbackEmoji}>✗</Text>
                 <Text style={styles.feedbackTitle}>Tente novamente!</Text>
                 <Text style={styles.feedbackText}>
-                  O intruso e &quot;{currentWord.intruder}&quot;
+                  O intruso é &quot;{currentWord.intruder}&quot;
                 </Text>
                 <Text style={styles.feedbackFamily}>
-                  Palavras da familia: {currentWord.words.join(', ')}
+                  Palavras da família: {currentWord.words.join(', ')}
                 </Text>
               </View>
             )}
@@ -396,7 +396,7 @@ export default function IntrusoScreen() {
         {showFeedback && (
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
             <Text style={styles.nextButtonText}>
-              {isLastWord ? 'Ver resultados' : 'Proximo >'}
+              {isLastWord ? 'Ver resultados' : 'Próxima →'}
             </Text>
           </TouchableOpacity>
         )}
