@@ -34,10 +34,6 @@ export default function TutorialCard({ step }: TutorialCardProps) {
               </View>
             </View>
 
-            <View style={[styles.demoRow, { marginTop: 12 }]}>
-              <Text style={{ color: '#E480BB', fontSize: 14 }}>Escolha a sílaba que falta:</Text>
-            </View>
-
             <View style={[styles.demoRow, { marginTop: 8 }]}>
               <View style={styles.demoSyllable}>
                 <Text style={styles.demoSyllableText}>TO</Text>
@@ -107,9 +103,7 @@ export default function TutorialCard({ step }: TutorialCardProps) {
                 </View>
               </View>
             </View>
-            <View style={[styles.demoRow, { marginTop: 12 }]}>
-              <Text style={{ color: '#E480BB', fontSize: 14 }}>Escolha o sufixo correto:</Text>
-            </View>
+       
             <View style={[styles.demoRow, { marginTop: 8 }]}>
               <View style={[styles.demoSyllable, styles.demoSyllableHighlight]}>
                 <Text style={[styles.demoSyllableText, styles.demoSyllableHighlightText]}>AL</Text>

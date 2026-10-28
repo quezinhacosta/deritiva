@@ -361,7 +361,6 @@ export default function ConstrutorScreen() {
 
         {/* Opcoes */}
         <View style={styles.optionsContainer}>
-          <Text style={styles.optionsLabel}>Escolha a sílaba:</Text>
           <View style={styles.optionsGrid}>
             {shuffledOptions.map((option, index) => {
               const isSelected = option === selectedOption;

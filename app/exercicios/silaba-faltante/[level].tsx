@@ -34,7 +34,7 @@ const SILABA_DATA: Record<number, {
         syllables: ["GA", "TO"], 
         missingIndex: 1, 
         correctSyllable: "TO", 
-        alternatives: ["TO", "TA", "TE", "TI"], 
+        alternatives: ["TO", "TU", "TE", "TI"], 
         fullWord: "GATO", 
         hint: "Animal que mia" 
       },
@@ -418,7 +418,7 @@ export default function SilabaFaltanteScreen() {
         </View>
 
         {/* Alternativas */}
-        <Text style={styles.alternativesLabel}>Escolha a sílaba correta:</Text>
+      
         <View style={styles.alternativesContainer}>
           {shuffledAlternatives.map((alt, index) => {
             const isCorrect = alt === currentWord.correctSyllable;
